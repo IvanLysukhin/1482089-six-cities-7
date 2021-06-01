@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card';
+import {nanoid} from '@reduxjs/toolkit';
 
 function Main(props) {
   const {cardCount} = props;
@@ -93,7 +94,8 @@ function Main(props) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {new Array(cardCount).fill(PlaceCard())}
+                {/*Убрать nanoid*/}
+                {new Array(cardCount).fill('').slice(0, cardCount).map((_, key) => <PlaceCard key={nanoid(2)}/>)}
               </div>
             </section>
             <div className="cities__right-section">
