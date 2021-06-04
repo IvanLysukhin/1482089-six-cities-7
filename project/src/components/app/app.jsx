@@ -22,7 +22,7 @@ function App(props) {
         <Route exact path={AppRoute.LOGIN}>
           <Login/>
         </Route>
-        <Route exact path={AppRoute.ROOM + '/:id'}>
+        <Route exact path={`${AppRoute.ROOM}/:id`}>
           <Room/>
         </Route>
         <Route>
