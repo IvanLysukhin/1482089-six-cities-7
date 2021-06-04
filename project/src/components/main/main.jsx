@@ -95,7 +95,7 @@ function Main(props) {
               </form>
               <div className="cities__places-list places__list tabs__content">
                 {/*Убрать nanoid*/}
-                {new Array(cardCount).fill('').slice(0, cardCount).map((_, key) => <PlaceCard key={nanoid(2)}/>)}
+                {new Array(cardCount).fill('').slice(0, cardCount).map(() => <PlaceCard key={nanoid(2)}/>)}
               </div>
             </section>
             <div className="cities__right-section">
