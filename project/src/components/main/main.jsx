@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card';
 import {nanoid} from '@reduxjs/toolkit';
+import LogoLink from '../logo-link/logo-link';
 
 function Main(props) {
   const {cardCount} = props;
@@ -11,9 +12,7 @@ function Main(props) {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link header__logo-link--active">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
+              <LogoLink/>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
@@ -95,7 +94,7 @@ function Main(props) {
               </form>
               <div className="cities__places-list places__list tabs__content">
                 {/*Убрать nanoid*/}
-                {new Array(cardCount).fill('').slice(0, cardCount).map((_, key) => <PlaceCard key={nanoid(2)}/>)}
+                {new Array(cardCount).fill('').slice(0, cardCount).map(() => <PlaceCard key={nanoid(2)}/>)}
               </div>
             </section>
             <div className="cities__right-section">
