@@ -1,15 +1,9 @@
+import {CITIES, TEXT, GOODS, DESCRIPTIONS, TYPES, NAMES, OFFER_PHOTOS} from '../constants';
+
 const generateRandomNumber = (min = 0, max = 1, point = 0) => {
   const num = Math.random() * (max - min) + min;
   return Number(num.toFixed(point));
 };
-
-const CITIES = ['Tokyo', 'Seul', 'Shanghai', 'Singapore', 'New-York', 'Pusan', 'Helsinki', 'Heppenheim'];
-const TEXT = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis at fermentum pharetra. Aliquam id orci ut lectus varius viverra. Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante. Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum. Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui. Sed sed nisi sed augue convallis suscipit in sed felis. Aliquam erat volutpat. Nunc fermentum tortor ac porta dapibus. In rutrum ac purus sit amet tempus.';
-const GOODS = ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'];
-const DESCRIPTIONS = ['Beautiful & luxurious apartment at great location', 'Wood and stone place', 'Canal View Prinsengracht', 'Nice, cozy, warm big bed apartment'];
-const TYPES = ['Private room', 'Apartment', 'House', 'Villa'];
-const NAMES = ['Angelina', 'Ivan', 'Michael', 'John', 'Lewis', 'Sebastian'];
-const OFFER_PHOTOS = ['img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/room.jpg', 'img/studio-01.jpg'];
 
 export const offers = new Array(4).fill('').map((_, i) => {
   const min = generateRandomNumber(0, GOODS.length - 1);
