@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card';
-import {nanoid} from '@reduxjs/toolkit';
 import LogoLink from '../logo-link/logo-link';
+import offerProp from '../place-card/place-card.prop';
 
 function Main(props) {
-  const {cardCount} = props;
+  const {cardCount, offers} = props;
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -93,8 +93,7 @@ function Main(props) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {/*Убрать nanoid*/}
-                {new Array(cardCount).fill('').slice(0, cardCount).map(() => <PlaceCard key={nanoid(2)}/>)}
+                {offers.slice(0, cardCount).map((offer) => <PlaceCard key={offer.id} offer={offer}/>)}
               </div>
             </section>
             <div className="cities__right-section">
@@ -108,6 +107,7 @@ function Main(props) {
 
 Main.propTypes = {
   cardCount: PropTypes.number.isRequired,
+  offers: PropTypes.arrayOf(offerProp).isRequired,
 };
 
 export default Main;
