@@ -17,19 +17,22 @@ function App(props) {
       <Switch>
         <Route exact path={AppRoute.MAIN}>
           <Main
-            cardCount = {cardCount}
-            offers = {offers}
+            cardCount={cardCount}
+            offers={offers}
           />
         </Route>
-        <Route  exact path={AppRoute.FAVORITES}>
+        <Route exact path={AppRoute.FAVORITES}>
           <Favorites/>
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <Login/>
         </Route>
-        <Route exact path={`${AppRoute.ROOM}/:id`}>
-          <Room reviews = {reviews}/>
-        </Route>
+        {offers.map((offer) =>
+          (
+            <Route exact key={offer.id} path={`${AppRoute.ROOM}/${offer.id}`}>
+              <Room key={offer.id} offer={offer} offers={offers} reviews={reviews[offer.id]}/>
+            </Route>
+          ))}
         <Route>
           <NoPage/>
         </Route>

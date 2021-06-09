@@ -2,8 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../constants';
 import offerProp from '../place-card/place-card.prop';
-
-const calcRatingInPercent = (rating) => `${rating / 5 * 100}%`;
+import {calcRatingInPercent} from '../../utils';
 
 function PlaceCard({offer}) {
   return (

@@ -12,10 +12,11 @@ const creatRandomReview = () => {
     rating:  generateRandomNumber(1, 5, 1),
     date: 'June 2021',
     text: TEXT.split('.').slice(generateRandomNumber(0, 5), generateRandomNumber(5, TEXT.length)).join(''),
+    id: generateRandomNumber(1, 10),
   };
 };
 
-export const reviews = new Array(4).fill('').map((_, i) => {
+export const reviews = new Array(5).fill('').map((_, i) => {
   return {
     id: 1 + i,
     reviewsArr: new Array(generateRandomNumber(1, 5)).fill('').map(creatRandomReview),
