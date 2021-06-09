@@ -22,7 +22,7 @@ function App(props) {
           />
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
-          <Favorites/>
+          <Favorites offers={offers}/>
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <Login/>

@@ -1,7 +1,7 @@
-import PlaceCard from '../components/place-card/place-card';
+import PlaceCard from '../place-card/place-card';
 import React from 'react';
 import PropTypes from 'prop-types';
-import offerProp from '../components/place-card/place-card.prop';
+import offerProp from '../place-card/place-card.prop';
 
 function OffersList({offers, cardCount}) {
   return (

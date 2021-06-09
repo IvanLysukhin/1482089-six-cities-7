@@ -160,7 +160,7 @@ export const STATIC_OFFERS = [
         longitude: 5.895163,
         zoom: 10,
       },
-      name: 'Pusan',
+      name: 'Tokyo',
     },
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis at fermentum pharetra. Sed sed nisi sed augue convallis suscipit in sed felis. Aliquam erat volutpat. Nunc fermentum tortor ac porta dapibus.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine'],

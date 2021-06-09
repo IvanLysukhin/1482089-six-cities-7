@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import LogoLink from '../logo-link/logo-link';
 import offerProp from '../place-card/place-card.prop';
-import OffersList from '../../offers-list/offers-list';
+import OffersList from '../offers-list/offers-list';
 
 function Main(props) {
   const {cardCount, offers} = props;

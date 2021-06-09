@@ -5,7 +5,7 @@ import ReviewsList from '../reviews-list/reviews-list';
 import GalleryImage from '../gallery-image/gallery-image';
 import {calcRatingInPercent} from '../../utils';
 import GoodsItem from '../goods-item/goods-item';
-import HostUser from '../../host-user/host-user';
+import HostUser from '../host-user/host-user';
 import PropTypes from 'prop-types';
 import reviewProp from '../review/review.prop';
 import offerProp from '../place-card/place-card.prop';
