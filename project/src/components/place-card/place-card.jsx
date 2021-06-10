@@ -1,12 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../constants';
 import offerProp from '../place-card/place-card.prop';
 import {calcRatingInPercent} from '../../utils';
 
 function PlaceCard({offer}) {
+
+  const [hoveredOffer, setHoveredOffer] = useState({});
   return (
-    <article className="cities__place-card place-card">
+    <article className="cities__place-card place-card"
+      onMouseEnter={() => {
+        setHoveredOffer(offer);
+      }}
+      onMouseLeave={() => {
+        setHoveredOffer({});
+      }}
+    >
       {offer.isPremium ?
         <div className="place-card__mark">
           <span>Premium</span>

@@ -1,6 +1,6 @@
 import React from 'react';
 import {calcRatingInPercent} from '../../utils';
-import reviewProp from './review.prop';
+import reviewProp from '../review/review.prop';
 
 function Review({review}) {
   const {avatarUrl, name, rating, date, text} = review;

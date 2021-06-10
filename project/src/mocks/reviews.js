@@ -1,4 +1,5 @@
 import {TEXT, NAMES}  from '../constants';
+import {nanoid} from '@reduxjs/toolkit';
 
 const generateRandomNumber=  (min = 0 , max = 1, point = 0) => {
   const num = Math.random() * (max - min) + min;
@@ -12,7 +13,7 @@ const creatRandomReview = () => {
     rating:  generateRandomNumber(1, 5, 1),
     date: 'June 2021',
     text: TEXT.split('.').slice(generateRandomNumber(0, 5), generateRandomNumber(5, TEXT.length)).join(''),
-    id: generateRandomNumber(1, 10),
+    id: nanoid(2),
   };
 };
 
