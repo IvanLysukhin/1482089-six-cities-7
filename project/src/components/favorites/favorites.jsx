@@ -1,11 +1,10 @@
 import React from 'react';
-import FavoriteCard from '../favorite-card/favorite-card';
-import {nanoid} from '@reduxjs/toolkit';
 import LogoLink from '../logo-link/logo-link';
+import FavoriteList from '../favorites-list/favorites-list';
+import PropTypes from 'prop-types';
+import offerProp from '../place-card/place-card.prop';
 
-const FAVORITE_CARDS_COUNT = 2;
-
-function Favorites() {
+function Favorites({offers}) {
   return (
     <div className="page">
       <header className="header">
@@ -38,33 +37,7 @@ function Favorites() {
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="#">
-                      <span>Amsterdam</span>
-                    </a>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  {new Array(FAVORITE_CARDS_COUNT).fill('').map(() => <FavoriteCard key={nanoid(2)}/>)}
-                </div>
-              </li>
-
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="#">
-                      <span>Cologne</span>
-                    </a>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  <FavoriteCard/>
-                </div>
-              </li>
-            </ul>
+            <FavoriteList offers={offers}/>
           </section>
         </div>
       </main>
@@ -75,5 +48,9 @@ function Favorites() {
       </footer>
     </div>);
 }
+
+Favorites.propTypes = {
+  offers: PropTypes.arrayOf(offerProp).isRequired,
+};
 
 export default Favorites;
