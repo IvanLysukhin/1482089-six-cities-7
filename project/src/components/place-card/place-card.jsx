@@ -10,7 +10,10 @@ function PlaceCard({offer}) {
   return (
     <article className="cities__place-card place-card"
       onMouseEnter={() => {
-        setHoveredOffer(offer);
+        setHoveredOffer({
+          ...hoveredOffer,
+          ...offer,
+        });
       }}
       onMouseLeave={() => {
         setHoveredOffer({});
