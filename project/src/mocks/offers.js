@@ -70,8 +70,8 @@ export const STATIC_OFFERS = [
     isFavorite: true,
     isPremium: false,
     location: {
-      latitude: 51.35514938496328,
-      longitude: 4.6738775374999232,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 8,
     },
     maxAdults: 2,
@@ -105,8 +105,8 @@ export const STATIC_OFFERS = [
     isFavorite: true,
     isPremium: true,
     location: {
-      latitude: 52.35414938496328,
-      longitude: 3.6746775374999232,
+      latitude: 52.369553943508,
+      longitude: 4.85309666406198,
       zoom: 8,
     },
     maxAdults: 3,
@@ -140,8 +140,8 @@ export const STATIC_OFFERS = [
     isFavorite: false,
     isPremium: false,
     location: {
-      latitude: 52.3554344938496328,
-      longitude: 4.6738435374999232,
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
       zoom: 8,
     },
     maxAdults: 2,
@@ -175,8 +175,8 @@ export const STATIC_OFFERS = [
     isFavorite: false,
     isPremium: true,
     location: {
-      latitude: 54.3567344938496328,
-      longitude: 5.6738435374999232,
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
       zoom: 8,
     },
     maxAdults: 3,
