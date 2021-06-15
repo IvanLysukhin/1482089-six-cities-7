@@ -51,9 +51,9 @@ export const STATIC_OFFERS = [
     bedRooms: 2,
     city: {
       location: {
-        latitude: 52.370213,
-        longitude: 4.895132,
-        zoom: 10,
+        latitude: 52.38333,
+        longitude: 4.9,
+        zoom: 12,
       },
       name: 'Tokyo',
     },
