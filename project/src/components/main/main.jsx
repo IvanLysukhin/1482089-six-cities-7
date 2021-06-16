@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import LogoLink from '../logo-link/logo-link';
 import offerProp from '../place-card/place-card.prop';
 import OffersList from '../offers-list/offers-list';
+import MapCities from '../map-cities/map-cities';
 
 function Main(props) {
   const {cardCount, offers} = props;
@@ -98,7 +99,7 @@ function Main(props) {
               />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <MapCities offers={offers}/>
             </div>
           </div>
         </div>
