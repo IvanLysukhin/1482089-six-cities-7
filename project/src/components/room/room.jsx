@@ -9,9 +9,9 @@ import PropTypes from 'prop-types';
 import reviewListProp from '../reviews-list/review-list.prop';
 import offerProp from '../place-card/place-card.prop';
 import ReviewForm from '../review-form/review-form';
-import NearPlaces from '../near-places/near-places';
 import NearPlacesMap from '../near-places-map/near-places-map';
 import {SIMILAR_CARDS_COUNT} from '../../constants';
+import CardsList from '../cards-list/cards-list';
 
 function Room(props) {
   const {offer, reviews, offers} = props;
@@ -118,7 +118,7 @@ function Room(props) {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <NearPlaces offers={nearOffers}/>
+            <CardsList offers={nearOffers} isNearOffers/>
           </section>
         </div>
       </main>

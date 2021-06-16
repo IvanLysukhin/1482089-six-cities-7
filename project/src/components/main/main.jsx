@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import LogoLink from '../logo-link/logo-link';
 import offerProp from '../place-card/place-card.prop';
-import OffersList from '../offers-list/offers-list';
 import MapCities from '../map-cities/map-cities';
+import CardsList from '../cards-list/cards-list';
 
 function Main(props) {
-  const {cardCount, offers} = props;
+  const {offers} = props;
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -93,8 +93,7 @@ function Main(props) {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <OffersList
-                cardCount = {cardCount}
+              <CardsList
                 offers = {offers}
               />
             </section>
@@ -108,7 +107,6 @@ function Main(props) {
 }
 
 Main.propTypes = {
-  cardCount: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(offerProp).isRequired,
 };
 

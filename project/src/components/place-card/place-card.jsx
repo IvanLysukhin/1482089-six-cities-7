@@ -3,12 +3,13 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../../constants';
 import offerProp from '../place-card/place-card.prop';
 import {calcRatingInPercent} from '../../utils';
+import PropTypes from 'prop-types';
 
-function PlaceCard({offer}) {
+function PlaceCard({offer, isNearOffers}) {
 
   const [hoveredOffer, setHoveredOffer] = useState({});
   return (
-    <article className="cities__place-card place-card"
+    <article className={`${isNearOffers ? 'near-places__card' : 'cities__place-card'} place-card`}
       onMouseEnter={() => {
         setHoveredOffer({
           ...hoveredOffer,
@@ -23,7 +24,7 @@ function PlaceCard({offer}) {
         <div className="place-card__mark">
           <span>Premium</span>
         </div> : ''}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${isNearOffers ? 'near-places__image-wrapper' : 'cities__image-wrapper'} place-card__image-wrapper`}>
         <Link to={`${AppRoute.ROOM}/${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
         </Link>
@@ -60,6 +61,7 @@ function PlaceCard({offer}) {
 
 PlaceCard.propTypes = {
   offer: offerProp,
+  isNearOffers: PropTypes.bool,
 };
 
 export default PlaceCard;
