@@ -11,13 +11,12 @@ import offerProp from '../place-card/place-card.prop';
 import reviewListProp from '../reviews-list/review-list.prop';
 
 function App(props) {
-  const {cardCount, offers, reviews} = props;
+  const {offers, reviews} = props;
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
           <Main
-            cardCount={cardCount}
             offers={offers}
           />
         </Route>
@@ -42,7 +41,6 @@ function App(props) {
 }
 
 App.propTypes = {
-  cardCount: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(offerProp).isRequired,
   reviews: PropTypes.arrayOf(reviewListProp),
 };

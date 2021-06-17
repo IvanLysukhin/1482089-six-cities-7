@@ -1,6 +1,5 @@
 import React from 'react';
 import LogoLink from '../logo-link/logo-link';
-import PlaceCard from '../place-card/place-card';
 import ReviewsList from '../reviews-list/reviews-list';
 import GalleryImage from '../gallery-image/gallery-image';
 import {calcRatingInPercent} from '../../utils';
@@ -10,11 +9,14 @@ import PropTypes from 'prop-types';
 import reviewListProp from '../reviews-list/review-list.prop';
 import offerProp from '../place-card/place-card.prop';
 import ReviewForm from '../review-form/review-form';
-
-const SIMILAR_CARDS_COUNT = 3;
+import NearPlacesMap from '../near-places-map/near-places-map';
+import {SIMILAR_CARDS_COUNT} from '../../constants';
+import CardsList from '../cards-list/cards-list';
 
 function Room(props) {
   const {offer, reviews, offers} = props;
+  const nearOffers = offers.slice(0, SIMILAR_CARDS_COUNT);
+
   return (
     <div className="page">
       <header className="header">
@@ -52,24 +54,26 @@ function Room(props) {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {offer.isPremium ?
+              {offer.isPremium &&
                 <div className="property__mark">
                   <span>Premium</span>
-                </div> : ''}
+                </div>}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {offer.title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
+                <button className={`property__bookmark-button ${offer.isFavorite && 'property__bookmark-button--active'} button`} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
+                    <use xlinkHref="#icon-bookmark">
+                    </use>
                   </svg>
                   <span className="visually-hidden">To bookmarks</span>
                 </button>
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: calcRatingInPercent(offer.rating)}}></span>
+                  <span style={{width: calcRatingInPercent(offer.rating)}}>
+                  </span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{offer.rating}</span>
@@ -111,14 +115,12 @@ function Room(props) {
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <NearPlacesMap city={offer.city} offers={nearOffers}/>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              {offers.slice(0, SIMILAR_CARDS_COUNT).map((offerItem) => <PlaceCard key={offerItem.id} offer={offerItem}/>)}
-            </div>
+            <CardsList offers={nearOffers} isNearOffers/>
           </section>
         </div>
       </main>

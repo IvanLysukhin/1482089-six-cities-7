@@ -9,7 +9,7 @@ function HostUser({hostUser}) {
         <img className="property__avatar user__avatar" src={avatarUrl} width="74" height="74" alt="Host avatar"/>
       </div>
       <span className="property__user-name">{name}</span>
-      {isPro ? <span className="property__user-status">Pro</span> : ''}
+      {isPro && <span className="property__user-status">Pro</span>}
     </div>
   );
 }
