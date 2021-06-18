@@ -3,7 +3,8 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 function useMapMarker(map, offers) {
-  const [markers, setMarkers] = useState([]);
+  const [markers, setMarkers] = useState({});
+  const mapMarkers = [];
 
   useEffect(() => {
     const icon = leaflet.icon({
@@ -12,7 +13,10 @@ function useMapMarker(map, offers) {
     });
 
     if (map) {
-      markers.forEach((marker) => map.removeLayer(marker));
+
+      if (markers.mapMarkers) {
+        markers.mapMarkers.forEach((marker) => map.removeLayer(marker));
+      }
 
       offers.forEach(({location}) => {
         const marker = leaflet
@@ -21,10 +25,12 @@ function useMapMarker(map, offers) {
             {icon},
           )
           .addTo(map);
-        markers.push(marker);
+        mapMarkers.push(marker);
       });
 
-      setMarkers(markers);
+      setMarkers({
+        mapMarkers,
+      });
     }
   }, [map, offers]);
 }

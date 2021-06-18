@@ -379,11 +379,11 @@ export const STATIC_OFFERS = [
     goods: ['Coffee machine', 'Dishwasher'],
     host: {
       avatarUrl: `https://i.pravatar.cc/128?rnd=${Math.random()}`,
-      id: 7,
+      id: 10,
       isPro: false,
       name: 'John',
     },
-    id: 7,
+    id: 10,
     images: ['img/apartment-01.jpg', 'img/studio-01.jpg'],
     isFavorite: false,
     isPremium: false,

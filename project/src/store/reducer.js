@@ -3,7 +3,7 @@ import {STATIC_OFFERS} from '../mocks/creatOffers';
 
 const initialState = {
   city: 'Paris',
-  offers: STATIC_OFFERS.filter((offer) => offer.city.name === 'Paris'),
+  offers: STATIC_OFFERS,
 };
 
 const reducer = (state = initialState, action) => {
@@ -12,7 +12,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         city: action.payload,
-        offers: STATIC_OFFERS.filter((offer) => offer.city.name === action.payload),
+        offers: STATIC_OFFERS,
       };
     default:
       return state;

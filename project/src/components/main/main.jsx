@@ -10,7 +10,7 @@ import {ActionCreator} from '../../store/action';
 
 function Main(props) {
   const {offers, city, changeCity} = props;
-
+  const filteredOffers = offers.filter((offer)=> offer.city.name === city);
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -48,7 +48,7 @@ function Main(props) {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in {city}</b>
+              <b className="places__found">{filteredOffers.length} places to stay in {city}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -65,11 +65,11 @@ function Main(props) {
                 </ul>
               </form>
               <CardsList
-                offers = {offers}
+                offers = {filteredOffers}
               />
             </section>
             <div className="cities__right-section">
-              <MapCities offers={offers}/>
+              <MapCities offers={filteredOffers}/>
             </div>
           </div>
         </div>
