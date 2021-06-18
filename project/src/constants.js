@@ -13,3 +13,11 @@ export const TYPES = ['Private room', 'Apartment', 'House', 'Villa'];
 export const NAMES = ['Angelina', 'Ivan', 'Michael', 'John', 'Lewis', 'Sebastian'];
 export const OFFER_PHOTOS = ['img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/room.jpg', 'img/studio-01.jpg'];
 export const SIMILAR_CARDS_COUNT = 3;
+export const City = {
+  PARIS: 'Paris',
+  COLOGNE: 'Cologne',
+  BRUSSELS: 'Brussels',
+  AMSTERDAM: 'Amsterdam',
+  HAMBURG:'Hamburg',
+  DUSSELDORF: 'Dusseldorf',
+}

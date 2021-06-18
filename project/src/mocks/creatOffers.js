@@ -5,45 +5,47 @@ const generateRandomNumber = (min = 0, max = 1, point = 0) => {
   return Number(num.toFixed(point));
 };
 
-export const offers = new Array(4).fill('').map((_, i) => {
-  const min = generateRandomNumber(0, GOODS.length - 1);
-  const max = min + generateRandomNumber(0, GOODS.length - 1 - min);
+export const creatOffers = () => {
+  return new Array(4).fill('').map((_, i) => {
+    const min = generateRandomNumber(0, GOODS.length - 1);
+    const max = min + generateRandomNumber(0, GOODS.length - 1 - min);
 
-  return {
-    bedRooms: generateRandomNumber(0, 4),
-    city: {
-      location: {
-        latitude: 52.370216 + generateRandomNumber(0, 1, 6),
-        longitude: 4.895168 + generateRandomNumber(0, 1, 6),
-        zoom: 10,
+    return {
+      bedRooms: generateRandomNumber(0, 4),
+      city: {
+        location: {
+          latitude: 52.370216 + generateRandomNumber(0, 1, 6),
+          longitude: 4.895168 + generateRandomNumber(0, 1, 6),
+          zoom: 10,
+        },
+        name: CITIES[generateRandomNumber(0, CITIES.length - 1)],
       },
-      name: CITIES[generateRandomNumber(0, CITIES.length - 1)],
-    },
-    description: TEXT.split('.').slice(generateRandomNumber(0, 5), generateRandomNumber(5, TEXT.length)).join(''),
-    goods: GOODS.slice().splice(min, max),
-    host: {
-      avatarUrl: `https://i.pravatar.cc/128?rnd=${Math.random()}`,
+      description: TEXT.split('.').slice(generateRandomNumber(0, 5), generateRandomNumber(5, TEXT.length)).join(''),
+      goods: GOODS.slice().splice(min, max),
+      host: {
+        avatarUrl: `https://i.pravatar.cc/128?rnd=${Math.random()}`,
+        id: i + 1,
+        isPro: !generateRandomNumber(),
+        name: NAMES[generateRandomNumber(0, NAMES.length - 1)],
+      },
       id: i + 1,
-      isPro: !generateRandomNumber(),
-      name: NAMES[generateRandomNumber(0, NAMES.length - 1)],
-    },
-    id: i + 1,
-    images: OFFER_PHOTOS.slice(0, generateRandomNumber(0, OFFER_PHOTOS.length - 1)),
-    isFavorite: !generateRandomNumber(),
-    isPremium: !generateRandomNumber(),
-    location: {
-      latitude: 52.35514938496378 + generateRandomNumber(0, 1, 10),
-      longitude: 4.673877537499948 + generateRandomNumber(0, 1, 10),
-      zoom: 8,
-    },
-    maxAdults: generateRandomNumber(1, 5),
-    previewImage: `img/apartment-0${generateRandomNumber(1, 3)}.jpg`,
-    price: generateRandomNumber(100, 500),
-    rating: generateRandomNumber(1, 5, 1),
-    title: DESCRIPTIONS[generateRandomNumber(0, DESCRIPTIONS.length - 1)],
-    type: TYPES[generateRandomNumber(1, TYPES.length - 1)],
-  };
-});
+      images: OFFER_PHOTOS.slice(0, generateRandomNumber(0, OFFER_PHOTOS.length - 1)),
+      isFavorite: !generateRandomNumber(),
+      isPremium: !generateRandomNumber(),
+      location: {
+        latitude: 52.35514938496378 + generateRandomNumber(0, 1, 10),
+        longitude: 4.673877537499948 + generateRandomNumber(0, 1, 10),
+        zoom: 8,
+      },
+      maxAdults: generateRandomNumber(1, 5),
+      previewImage: `img/apartment-0${generateRandomNumber(1, 3)}.jpg`,
+      price: generateRandomNumber(100, 500),
+      rating: generateRandomNumber(1, 5, 1),
+      title: DESCRIPTIONS[generateRandomNumber(0, DESCRIPTIONS.length - 1)],
+      type: TYPES[generateRandomNumber(1, TYPES.length - 1)],
+    };
+  });
+}
 
 
 export const STATIC_OFFERS = [
