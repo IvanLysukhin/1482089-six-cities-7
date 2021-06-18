@@ -1,9 +1,9 @@
 import {ActionType} from './action';
-import {STATIC_OFFERS, creatOffers} from '../mocks/creatOffers';
+import {STATIC_OFFERS} from '../mocks/creatOffers';
 
 const initialState = {
   city: 'Paris',
-  offers: STATIC_OFFERS,
+  offers: STATIC_OFFERS.filter((offer) => offer.city.name === 'Paris'),
 };
 
 const reducer = (state = initialState, action) => {
@@ -12,8 +12,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         city: action.payload,
-        offers: creatOffers(),
-      }
+        offers: STATIC_OFFERS.filter((offer) => offer.city.name === action.payload),
+      };
     default:
       return state;
   }

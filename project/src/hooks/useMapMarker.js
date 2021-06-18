@@ -1,8 +1,9 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 function useMapMarker(map, offers) {
+  const [markers, setMarkers] = useState([]);
 
   useEffect(() => {
     const icon = leaflet.icon({
@@ -11,14 +12,19 @@ function useMapMarker(map, offers) {
     });
 
     if (map) {
+      markers.forEach((marker) => map.removeLayer(marker));
+
       offers.forEach(({location}) => {
-        leaflet
+        const marker = leaflet
           .marker(
             [location.latitude, location.longitude],
             {icon},
           )
           .addTo(map);
+        markers.push(marker);
       });
+
+      setMarkers(markers);
     }
   }, [map, offers]);
 }

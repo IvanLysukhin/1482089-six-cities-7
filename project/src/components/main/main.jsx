@@ -79,6 +79,8 @@ function Main(props) {
 
 Main.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
+  city: PropTypes.string.isRequired,
+  changeCity: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -94,4 +96,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 
 export {Main};
-export default connect(mapStateToProps, mapDispatchToProps)(Main)
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

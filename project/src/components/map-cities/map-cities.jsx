@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useEffect} from 'react';
 import {PropTypes} from 'prop-types';
 import offerProp from '../place-card/place-card.prop';
 import useMap from '../../hooks/useMap';
@@ -8,7 +8,15 @@ function MapCities({offers}) {
   const mapRef = useRef(null);
   const mapCities = useMap(mapRef, offers[0].city);
 
+  const {location} = offers[0].city;
   useMapMarker(mapCities, offers);
+
+  useEffect(() => {
+    if (mapCities) {
+      mapCities.setView([location.latitude, location.longitude]);
+    }
+
+  }, [offers]);
 
   return (
     <section

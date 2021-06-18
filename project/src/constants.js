@@ -20,4 +20,4 @@ export const City = {
   AMSTERDAM: 'Amsterdam',
   HAMBURG:'Hamburg',
   DUSSELDORF: 'Dusseldorf',
-}
+};

@@ -15,7 +15,7 @@ const creatRandomReview = () => ({
   id: nanoid(2),
 });
 
-export const reviews = new Array(5).fill('').map((_, i) => ({
+export const reviews = new Array(10).fill('').map((_, i) => ({
   id: 1 + i,
   reviewsArr: new Array(generateRandomNumber(1, 5)).fill('').map(creatRandomReview),
 }));

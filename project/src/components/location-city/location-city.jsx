@@ -1,4 +1,5 @@
 import React from 'react';
+import {PropTypes} from 'prop-types';
 
 function LocationCity({cityName, currentCity}) {
   return (
@@ -9,5 +10,10 @@ function LocationCity({cityName, currentCity}) {
     </li>
   );
 }
+
+LocationCity.propTypes = {
+  cityName: PropTypes.string.isRequired,
+  currentCity: PropTypes.string.isRequired,
+};
 
 export default LocationCity;
