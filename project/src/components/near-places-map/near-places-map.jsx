@@ -1,4 +1,8 @@
-import React, {useRef} from 'react';
+import
+React,
+{
+  useRef
+} from 'react';
 import useMap from '../../hooks/useMap';
 import useMapMarker from '../../hooks/useMapMarker';
 import PropTypes from 'prop-types';
@@ -25,7 +29,7 @@ NearPlacesMap.propTypes = {
   city: PropTypes.shape({
     location: PropTypes.shape({
       latitude: PropTypes.number,
-      longitude:PropTypes.number,
+      longitude: PropTypes.number,
       zoom: PropTypes.number,
     }),
     name: PropTypes.string,

@@ -1,5 +1,10 @@
 import React from 'react';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {
+  Switch,
+  Route,
+  BrowserRouter
+} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Main from '../main/main';
 import Favorites from '../favorites/favorites';
@@ -16,9 +21,7 @@ function App(props) {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
-          <Main
-            offers={offers}
-          />
+          <Main/>
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
           <Favorites offers={offers}/>
@@ -45,4 +48,10 @@ App.propTypes = {
   reviews: PropTypes.arrayOf(reviewListProp),
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  city: state.city,
+  offers: state.offers,
+});
+
+export {App};
+export default connect(mapStateToProps, null)(App);
