@@ -1,4 +1,9 @@
-import React, {useRef, useEffect} from 'react';
+import
+React,
+{
+  useRef,
+  useEffect
+} from 'react';
 import {PropTypes} from 'prop-types';
 import offerProp from '../place-card/place-card.prop';
 import useMap from '../../hooks/useMap';

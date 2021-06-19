@@ -1,4 +1,12 @@
-import {CITIES, TEXT, GOODS, DESCRIPTIONS, TYPES, NAMES, OFFER_PHOTOS} from '../constants';
+import {
+  CITIES,
+  TEXT,
+  GOODS,
+  DESCRIPTIONS,
+  TYPES,
+  NAMES,
+  OFFER_PHOTOS
+} from '../constants';
 
 const generateRandomNumber = (min = 0, max = 1, point = 0) => {
   const num = Math.random() * (max - min) + min;

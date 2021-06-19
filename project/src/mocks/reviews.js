@@ -1,4 +1,7 @@
-import {TEXT, NAMES}  from '../constants';
+import {
+  TEXT,
+  NAMES
+}  from '../constants';
 import {nanoid} from '@reduxjs/toolkit';
 
 const generateRandomNumber=  (min = 0 , max = 1, point = 0) => {
