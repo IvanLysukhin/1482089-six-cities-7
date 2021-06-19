@@ -87,7 +87,7 @@ export const STATIC_OFFERS = [
     maxAdults: 2,
     previewImage: 'img/apartment-01.jpg',
     price: 100,
-    rating: 4.6,
+    rating: 1.6,
     title: 'Beautiful & luxurious apartment at great location',
     type: 'Private room',
   },
@@ -96,9 +96,9 @@ export const STATIC_OFFERS = [
     bedRooms: 1,
     city: {
       location: {
-        latitude: 52.120213,
-        longitude: 5.895132,
-        zoom: 10,
+        latitude: 52.38333,
+        longitude: 4.9,
+        zoom: 12,
       },
       name: 'Amsterdam',
     },
@@ -131,9 +131,9 @@ export const STATIC_OFFERS = [
     bedRooms: 3,
     city: {
       location: {
-        latitude: 53.372213,
-        longitude: 5.895132,
-        zoom: 10,
+        latitude: 52.38333,
+        longitude: 4.9,
+        zoom: 12,
       },
       name: 'Amsterdam',
     },
@@ -166,9 +166,9 @@ export const STATIC_OFFERS = [
     bedRooms: 1,
     city: {
       location: {
-        latitude: 53.372113,
-        longitude: 5.895163,
-        zoom: 10,
+        latitude: 52.38333,
+        longitude: 4.9,
+        zoom: 12,
       },
       name: 'Amsterdam',
     },
@@ -272,9 +272,9 @@ export const STATIC_OFFERS = [
     bedRooms: 3,
     city: {
       location: {
-        latitude: 52.374,
-        longitude: 4.88969,
-        zoom: 10,
+        latitude: 52.38333,
+        longitude: 4.9,
+        zoom: 12,
       },
       name: 'Amsterdam',
     },
@@ -297,8 +297,8 @@ export const STATIC_OFFERS = [
     },
     maxAdults: 2,
     previewImage: 'img/apartment-03.jpg',
-    price: 200,
-    rating: 4.6,
+    price: 800,
+    rating: 3.5,
     title: 'Canal View Prinsengracht',
     type: 'Apartment',
   },
