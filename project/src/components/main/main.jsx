@@ -7,9 +7,12 @@ import MapCities from '../map-cities/map-cities';
 import CardsList from '../cards-list/cards-list';
 import Locations from '../locations/locations';
 import {ActionCreator} from '../../store/action';
+import Sorting from '../sorting/sorting';
+import {sortOffers} from '../../utils';
+
 
 function Main(props) {
-  const {offers, city, changeCity} = props;
+  const {offers, city, changeCity, sortType} = props;
   const filteredOffers = offers.filter((offer)=> offer.city.name === city);
   return (
     <div className="page page--gray page--main">
@@ -49,23 +52,9 @@ function Main(props) {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{filteredOffers.length} places to stay in {city}</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex="0">
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--closed">
-                  <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                  <li className="places__option" tabIndex="0">Price: low to high</li>
-                  <li className="places__option" tabIndex="0">Price: high to low</li>
-                  <li className="places__option" tabIndex="0">Top rated first</li>
-                </ul>
-              </form>
+              <Sorting/>
               <CardsList
-                offers = {filteredOffers}
+                offers = {sortOffers(filteredOffers, sortType)}
               />
             </section>
             <div className="cities__right-section">
@@ -86,6 +75,7 @@ Main.propTypes = {
 const mapStateToProps = (state) => ({
   city: state.city,
   offers: state.offers,
+  sortType: state.sortType,
 });
 
 const mapDispatchToProps = (dispatch) => ({

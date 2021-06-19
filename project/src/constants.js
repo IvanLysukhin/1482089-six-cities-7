@@ -1,3 +1,5 @@
+import React from "react";
+
 export const AppRoute = {
   MAIN: '/',
   LOGIN: '/login',
@@ -20,4 +22,11 @@ export const City = {
   AMSTERDAM: 'Amsterdam',
   HAMBURG:'Hamburg',
   DUSSELDORF: 'Dusseldorf',
+};
+
+export const SortType = {
+  POPULAR: 'Popular',
+  PRICE_TO_HIGH: 'Price: low to high',
+  PRICE_TO_LOW: 'Price: high to low',
+  TOP_RATED: 'Top rated first',
 };
