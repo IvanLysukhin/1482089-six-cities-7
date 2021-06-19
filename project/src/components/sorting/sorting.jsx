@@ -3,12 +3,13 @@ import React, {
   useRef,
   useEffect
 } from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
 
 function Sorting({sortType, changeSortType, city}) {
   const [view, setView] = useState(false);
-  const activeSort = useRef(null)
+  const activeSort = useRef(null);
 
   const onSortingClickHandler = ({target}) => {
     if (target.tagName === 'SPAN') {
@@ -19,9 +20,11 @@ function Sorting({sortType, changeSortType, city}) {
   useEffect(() => {
     [...activeSort.current.children].forEach((child) => {
       if (sortType === child.textContent) {
-        child.classList.add('places__option--active')
-      } else {child.classList.remove('places__option--active')}
-    })
+        child.classList.add('places__option--active');
+      } else {
+        child.classList.remove('places__option--active');
+      }
+    });
     setView(false);
   }, [city, sortType]);
 
@@ -35,14 +38,16 @@ function Sorting({sortType, changeSortType, city}) {
       <span
         className="places__sorting-caption"
       >
-        Sort by</span>
+        Sort by
+      </span>
       <span className="places__sorting-type" tabIndex="0">
-                  {sortType}
+        {sortType}
         <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select">
-                    </use>
-                  </svg>
-                </span>
+          <use xlinkHref="#icon-arrow-select">
+
+          </use>
+        </svg>
+      </span>
       <ul
         className={`places__options places__options--custom ${view ? 'places__options--opened' : 'places__options--closed'}`}
         ref={activeSort}
@@ -62,6 +67,12 @@ function Sorting({sortType, changeSortType, city}) {
   );
 }
 
+Sorting.propTypes = {
+  sortType: PropTypes.string.isRequired,
+  city: PropTypes.string.isRequired,
+  changeSortType: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = (state) => ({
   sortType: state.sortType,
   city: state.city,
@@ -74,4 +85,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {Sorting};
-export default connect(mapStateToProps, mapDispatchToProps)(Sorting)
+export default connect(mapStateToProps, mapDispatchToProps)(Sorting);

@@ -70,6 +70,7 @@ Main.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
   city: PropTypes.string.isRequired,
   changeCity: PropTypes.func.isRequired,
+  sortType: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
