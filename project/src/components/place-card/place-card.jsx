@@ -1,26 +1,21 @@
-import React,
-{
-  useState
-} from 'react';
+import React from 'react';
+import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../constants';
 import offerProp from '../place-card/place-card.prop';
 import {calcRatingInPercent} from '../../utils';
 import PropTypes from 'prop-types';
+import {ActionCreator} from '../../store/action';
 
-function PlaceCard({offer, isNearOffers}) {
+function PlaceCard({offer, isNearOffers, showOffer}) {
 
-  const [hoveredOffer, setHoveredOffer] = useState({});
   return (
     <article className={`${isNearOffers ? 'near-places__card' : 'cities__place-card'} place-card`}
       onMouseEnter={() => {
-        setHoveredOffer({
-          ...hoveredOffer,
-          ...offer,
-        });
+        showOffer(offer.id);
       }}
       onMouseLeave={() => {
-        setHoveredOffer({});
+        showOffer(0);
       }}
     >
       {offer.isPremium &&
@@ -67,6 +62,14 @@ function PlaceCard({offer, isNearOffers}) {
 PlaceCard.propTypes = {
   offer: offerProp,
   isNearOffers: PropTypes.bool,
+  showOffer: PropTypes.func,
 };
 
-export default PlaceCard;
+const mapDispatchToProps = (dispatch) => ({
+  showOffer(offer) {
+    dispatch(ActionCreator.showOffer(offer));
+  },
+});
+
+export {PlaceCard};
+export default connect(null, mapDispatchToProps)(PlaceCard);
