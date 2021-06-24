@@ -20,7 +20,10 @@ function SignOut({signOut, accountEmail}) {
           <a
             className="header__nav-link"
             href="#"
-            onClick={() => signOut()}
+            onClick={(evt) => {
+              evt.preventDefault();
+              signOut();
+            }}
           >
             <span className="header__signout">Sign out</span>
           </a>
