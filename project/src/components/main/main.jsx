@@ -11,10 +11,13 @@ import Sorting from '../sorting/sorting';
 import {sortOffers} from '../../utils';
 import EmptyMain from '../empty-main/empty-main';
 import Loading from '../loading/loading';
+import {AuthorizationStatus} from "../../constants";
+import SignOut from '../sign-out/sign-out';
+import SignIn from '../sign-in/sign-in';
 
 
 function Main(props) {
-  const {offers, city, changeCity, sortType, isDataLoaded} = props;
+  const {offers, city, changeCity, sortType, isDataLoaded, authorizationStatus} = props;
   const filteredOffers = offers.filter((offer)=> offer.city.name === city);
 
   if (!isDataLoaded) {
@@ -29,22 +32,7 @@ function Main(props) {
             <div className="header__left">
               <LogoLink/>
             </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            {authorizationStatus === AuthorizationStatus.AUTH ? <SignOut/> : <SignIn/>}
           </div>
         </div>
       </header>
@@ -88,6 +76,7 @@ const mapStateToProps = (state) => ({
   offers: state.offers,
   sortType: state.sortType,
   isDataLoaded: state.isDataLoaded,
+  authorizationStatus: state.authorizationStatus,
 });
 
 const mapDispatchToProps = (dispatch) => ({
