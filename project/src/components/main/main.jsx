@@ -11,7 +11,7 @@ import Sorting from '../sorting/sorting';
 import {sortOffers} from '../../utils';
 import EmptyMain from '../empty-main/empty-main';
 import Loading from '../loading/loading';
-import {AuthorizationStatus} from "../../constants";
+import {AuthorizationStatus} from '../../constants';
 import SignOut from '../sign-out/sign-out';
 import SignIn from '../sign-in/sign-in';
 
@@ -69,6 +69,7 @@ Main.propTypes = {
   changeCity: PropTypes.func.isRequired,
   sortType: PropTypes.string.isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({

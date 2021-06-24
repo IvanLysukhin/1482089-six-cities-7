@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 function PrivateRoute({exact, path, render, authorizationStatus}) {
-  console.log(render)
   return (
     <Route
       exact={exact}
@@ -31,4 +30,4 @@ const mapStateToProps = (state) => ({
 });
 
 export {PrivateRoute};
-export default connect(mapStateToProps)(PrivateRoute);
+export default connect(mapStateToProps, null)(PrivateRoute);
