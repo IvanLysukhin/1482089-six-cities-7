@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import {TYPES} from '../../constants';
 
 export default PropTypes.shape({
   bedRooms: PropTypes.number.isRequired,
@@ -12,7 +11,7 @@ export default PropTypes.shape({
     name:PropTypes.string.isRequired,
   }),
   description: PropTypes.string.isRequired,
-  goods:PropTypes.arrayOf(PropTypes.string).isRequired,
+  goods:PropTypes.array.isRequired,
   host:PropTypes.shape({
     avatarUrl: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
@@ -33,5 +32,6 @@ export default PropTypes.shape({
   price: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(TYPES),
+  type: PropTypes.string.isRequired
+  ,
 }).isRequired;
