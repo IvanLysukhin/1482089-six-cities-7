@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {
   Switch,
   Route,
-  BrowserRouter
+  Router as BrowserRouter
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Main from '../main/main';
@@ -14,18 +14,25 @@ import NoPage from '../no-page/no-page';
 import {AppRoute} from '../../constants';
 import offerProp from '../place-card/place-card.prop';
 import reviewListProp from '../reviews-list/review-list.prop';
+import PrivateRoute from '../private-route/private-route';
+import browserHistory from '../../browser-history';
 
 function App(props) {
   const {offers, reviews} = props;
   return (
-    <BrowserRouter>
+    <BrowserRouter
+      history={browserHistory}
+    >
       <Switch>
         <Route exact path={AppRoute.MAIN}>
           <Main/>
         </Route>
-        <Route exact path={AppRoute.FAVORITES}>
-          <Favorites offers={offers}/>
-        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.FAVORITES}
+          render={() => <Favorites offers={offers}/>}
+        >
+        </PrivateRoute>
         <Route exact path={AppRoute.LOGIN}>
           <Login/>
         </Route>

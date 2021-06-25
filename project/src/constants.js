@@ -1,6 +1,7 @@
 export const AppRoute = {
   MAIN: '/',
   LOGIN: '/login',
+  LOGOUT: '/logout',
   FAVORITES: '/favorites',
   ROOM: '/offer',
 };

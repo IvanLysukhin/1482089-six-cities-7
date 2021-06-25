@@ -3,6 +3,7 @@ import LogoLink from '../logo-link/logo-link';
 import FavoriteList from '../favorites-list/favorites-list';
 import PropTypes from 'prop-types';
 import offerProp from '../place-card/place-card.prop';
+import SignOut from '../sign-out/sign-out';
 
 function Favorites({offers}) {
   return (
@@ -13,22 +14,7 @@ function Favorites({offers}) {
             <div className="header__left">
               <LogoLink/>
             </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            <SignOut/>
           </div>
         </div>
       </header>
