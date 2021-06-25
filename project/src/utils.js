@@ -46,3 +46,19 @@ export const adaptToClient = (offer) => {
 
   return adaptedOffer;
 };
+
+export const adaptReviewToClient = (review) => {
+  const adaptedReview = {
+    ...review,
+    user:{
+      ...review.user,
+      isPro: review.user.is_pro,
+      avatarUrl: review.user.avatar_url,
+    },
+  };
+
+  delete adaptedReview.user.is_pro;
+  delete adaptedReview.user.avatar_url;
+
+  return adaptedReview;
+};

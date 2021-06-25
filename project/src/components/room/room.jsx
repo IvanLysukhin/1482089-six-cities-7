@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import LogoLink from '../logo-link/logo-link';
 import ReviewsList from '../reviews-list/reviews-list';
 import GalleryImage from '../gallery-image/gallery-image';
@@ -6,17 +7,18 @@ import {calcRatingInPercent} from '../../utils';
 import GoodsItem from '../goods-item/goods-item';
 import HostUser from '../host-user/host-user';
 import PropTypes from 'prop-types';
-import reviewListProp from '../reviews-list/review-list.prop';
+import reviewProp from '../review/review.prop';
 import offerProp from '../place-card/place-card.prop';
 import ReviewForm from '../review-form/review-form';
 import NearPlacesMap from '../near-places-map/near-places-map';
-import {SIMILAR_CARDS_COUNT} from '../../constants';
+import {AuthorizationStatus, SIMILAR_CARDS_COUNT} from '../../constants';
 import CardsList from '../cards-list/cards-list';
+import SignIn from '../sign-in/sign-in';
+import SignOut from '../sign-out/sign-out';
 
 function Room(props) {
-  const {offer, reviews, offers} = props;
+  const {offer, reviews, offers, authorizationStatus} = props;
   const nearOffers = offers.slice(0, SIMILAR_CARDS_COUNT);
-
   return (
     <div className="page">
       <header className="header">
@@ -25,22 +27,7 @@ function Room(props) {
             <div className="header__left">
               <LogoLink/>
             </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            {authorizationStatus === AuthorizationStatus.AUTH ? <SignOut/> : <SignIn/>}
           </div>
         </div>
       </header>
@@ -109,9 +96,9 @@ function Room(props) {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.reviewsArr.length}</span></h2>
-                <ReviewsList reviews = {reviews.reviewsArr}/>
-                <ReviewForm/>
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
+                <ReviewsList reviews = {reviews}/>
+                {authorizationStatus === AuthorizationStatus.AUTH ? <ReviewForm/> : ''}
               </section>
             </div>
           </div>
@@ -129,8 +116,15 @@ function Room(props) {
 
 Room.propTypes = {
   offer: offerProp,
-  reviews: reviewListProp,
+  reviews: PropTypes.arrayOf(reviewProp),
   offers: PropTypes.arrayOf(offerProp),
+  authorizationStatus: PropTypes.string,
 };
 
-export default Room;
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+  reviews: state.offerReviews,
+});
+
+export {Room};
+export default connect(mapStateToProps)(Room);

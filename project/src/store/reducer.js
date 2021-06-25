@@ -10,6 +10,7 @@ const initialState = {
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   isDataLoaded: false,
   accountEmail: '',
+  offerReviews: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -52,6 +53,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         authorizationStatus: AuthorizationStatus.NO_AUTH,
         accountEmail: '',
+      };
+
+    case ActionType.LOAD_OFFER_REVIEWS:
+      return {
+        ...state,
+        offerReviews: action.payload,
       };
     default:
       return state;

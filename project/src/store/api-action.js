@@ -1,13 +1,21 @@
 import {APIRoute, AppRoute} from '../constants';
 import {ActionCreator} from './action';
 import {AuthorizationStatus} from '../constants';
-import {adaptToClient} from '../utils';
+import {adaptToClient, adaptReviewToClient} from '../utils';
 
 export const fetchOffers = () => (dispatch, _getState, api) => (
   api.get(APIRoute.OFFERS)
     .then(({data}) => {
       dispatch(ActionCreator.loadOffers(data.map(adaptToClient)));
     })
+);
+
+export const fetchOfferOptions = (offerId) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.REVIEWS}/${offerId}`)
+    .then(({data}) => {
+      dispatch(ActionCreator.loadOfferReviews(data.map(adaptReviewToClient)));
+    })
+    .then(() => dispatch(ActionCreator.redirectToRoute(`${AppRoute.ROOM}/${offerId}`)))
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (

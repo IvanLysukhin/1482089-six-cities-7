@@ -13,12 +13,11 @@ import Room from '../room/room';
 import NoPage from '../no-page/no-page';
 import {AppRoute} from '../../constants';
 import offerProp from '../place-card/place-card.prop';
-import reviewListProp from '../reviews-list/review-list.prop';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
 
 function App(props) {
-  const {offers, reviews} = props;
+  const {offers} = props;
   return (
     <BrowserRouter
       history={browserHistory}
@@ -39,7 +38,7 @@ function App(props) {
         {offers.map((offer) =>
           (
             <Route exact key={offer.id} path={`${AppRoute.ROOM}/${offer.id}`}>
-              <Room key={offer.id} offer={offer} offers={offers} reviews={reviews[offer.id]}/>
+              <Room key={offer.id} offer={offer} offers={offers}/>
             </Route>
           ))}
         <Route>
@@ -52,7 +51,6 @@ function App(props) {
 
 App.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
-  reviews: PropTypes.arrayOf(reviewListProp),
 };
 
 const mapStateToProps = (state) => ({
