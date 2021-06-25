@@ -15,6 +15,12 @@ export const fetchOfferOptions = (offerId) => (dispatch, _getState, api) => (
     .then(({data}) => {
       dispatch(ActionCreator.loadOfferReviews(data.map(adaptReviewToClient)));
     })
+    .then(() => {
+      api.get(`${APIRoute.OFFERS}/${offerId}/nearby`)
+        .then(({data}) => {
+          dispatch(ActionCreator.loadNearbyOffers(data.map(adaptToClient)));
+        });
+    })
     .then(() => dispatch(ActionCreator.redirectToRoute(`${AppRoute.ROOM}/${offerId}`)))
 );
 

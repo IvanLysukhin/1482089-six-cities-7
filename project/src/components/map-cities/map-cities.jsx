@@ -10,11 +10,11 @@ import useMap from '../../hooks/useMap';
 import useMapMarker from '../../hooks/useMapMarker';
 import {connect} from 'react-redux';
 
-function MapCities({offers, hoveredCardId}) {
+function MapCities({offers, hoveredCardId, city, isNearbyMap= false}) {
   const mapRef = useRef(null);
-  const mapCities = useMap(mapRef, offers[0].city);
+  const mapCities = useMap(mapRef, city);
 
-  const {location} = offers[0].city;
+  const {location} = city;
   useMapMarker(mapCities, offers, hoveredCardId);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ function MapCities({offers, hoveredCardId}) {
   return (
     <section
       id="map"
-      className="cities__map map"
+      className={`${isNearbyMap ? 'property__map' : 'cities__map'} map`}
       ref={mapRef}
     />
   );
@@ -35,7 +35,16 @@ function MapCities({offers, hoveredCardId}) {
 
 MapCities.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
-  hoveredCardId: PropTypes.number,
+  hoveredCardId: PropTypes.number.isRequired,
+  city:PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired,
+    }).isRequired,
+  }),
+  isNearbyMap: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({

@@ -11,6 +11,7 @@ const initialState = {
   isDataLoaded: false,
   accountEmail: '',
   offerReviews: [],
+  nearbyOffers: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -59,6 +60,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         offerReviews: action.payload,
+      };
+
+    case ActionType.LOAD_NEARBY_OFFERS:
+      return {
+        ...state,
+        nearbyOffers: action.payload,
       };
     default:
       return state;

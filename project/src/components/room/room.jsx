@@ -10,15 +10,15 @@ import PropTypes from 'prop-types';
 import reviewProp from '../review/review.prop';
 import offerProp from '../place-card/place-card.prop';
 import ReviewForm from '../review-form/review-form';
-import NearPlacesMap from '../near-places-map/near-places-map';
-import {AuthorizationStatus, SIMILAR_CARDS_COUNT} from '../../constants';
+import {AuthorizationStatus} from '../../constants';
 import CardsList from '../cards-list/cards-list';
 import SignIn from '../sign-in/sign-in';
 import SignOut from '../sign-out/sign-out';
+import MapCities from '../map-cities/map-cities';
 
 function Room(props) {
-  const {offer, reviews, offers, authorizationStatus} = props;
-  const nearOffers = offers.slice(0, SIMILAR_CARDS_COUNT);
+  const {offer, reviews, authorizationStatus, nearbyOffers} = props;
+
   return (
     <div className="page">
       <header className="header">
@@ -102,12 +102,12 @@ function Room(props) {
               </section>
             </div>
           </div>
-          <NearPlacesMap city={offer.city} offers={nearOffers}/>
+          <MapCities offers={nearbyOffers} city={offer.city} isNearbyMap/>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <CardsList offers={nearOffers} isNearOffers/>
+            <CardsList offers={nearbyOffers} isNearOffers/>
           </section>
         </div>
       </main>
@@ -117,13 +117,14 @@ function Room(props) {
 Room.propTypes = {
   offer: offerProp,
   reviews: PropTypes.arrayOf(reviewProp),
-  offers: PropTypes.arrayOf(offerProp),
   authorizationStatus: PropTypes.string,
+  nearbyOffers: PropTypes.arrayOf(offerProp),
 };
 
 const mapStateToProps = (state) => ({
   authorizationStatus: state.authorizationStatus,
   reviews: state.offerReviews,
+  nearbyOffers: state.nearbyOffers,
 });
 
 export {Room};

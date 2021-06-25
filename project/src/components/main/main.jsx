@@ -54,7 +54,7 @@ function Main(props) {
                 />
               </section>
               <div className="cities__right-section">
-                <MapCities offers={filteredOffers}/>
+                <MapCities offers={filteredOffers} city={filteredOffers[0].city}/>
               </div>
             </div>
           </div> :
