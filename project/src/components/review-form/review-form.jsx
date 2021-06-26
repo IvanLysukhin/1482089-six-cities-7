@@ -1,34 +1,30 @@
-import React,
-{
-  useState
-} from 'react';
+import React from 'react';
+import {connect} from 'react-redux';
+import {postReview} from '../../store/api-action';
+import PropTypes from 'prop-types';
 
-function ReviewForm() {
-  const [reviewData, setReviewData] = useState({
-    rate: 0,
-    reviewText: '',
-  });
+function ReviewForm({offerId, sendReviews}) {
 
   return (
-    <form className="reviews__form form" action="#" method="post"
-      onSubmit={(evt)=>{
+    <form
+      className="reviews__form form"
+      action="#"
+      method="post"
+      onSubmit={(evt) => {
         evt.preventDefault();
 
         const inputs = Array.from(evt.target);
         const checkedIndex = inputs.findIndex((input) => input.checked);
         const textInputIndex = inputs.findIndex((input) => input.tagName === 'TEXTAREA');
-        const textAreaValue =  inputs[textInputIndex].value;
+        const textAreaValue = inputs[textInputIndex].value;
 
         if (checkedIndex === -1 || textAreaValue.length < 50 || !textAreaValue.length) {
           return;
         }
-
-        setReviewData({
-          ...reviewData,
-          rate: Number(inputs[checkedIndex].value),
-          reviewText: inputs[textInputIndex].value,
+        sendReviews(offerId, {
+          comment: inputs[textInputIndex].value,
+          rating: Number(inputs[checkedIndex].value),
         });
-
         evt.target.reset();
       }}
     >
@@ -100,4 +96,16 @@ function ReviewForm() {
   );
 }
 
-export default ReviewForm;
+ReviewForm.propTypes = {
+  offerId: PropTypes.number.isRequired,
+  sendReviews: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  sendReviews(offerId, review) {
+    dispatch(postReview(offerId, review));
+  },
+});
+
+export {ReviewForm};
+export default connect(null, mapDispatchToProps)(ReviewForm);

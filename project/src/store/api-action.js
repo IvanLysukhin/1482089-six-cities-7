@@ -49,3 +49,17 @@ export const logOut = () => (dispatch, _getState, api) => (
     .then(() => localStorage.removeItem('token'))
     .then(() => dispatch(ActionCreator.logout()))
 );
+
+export const postReview = (offerId, {comment, rating}) => (dispatch, _getState, api) => (
+  api.post(
+    `${APIRoute.REVIEWS}/${offerId}`,
+    {comment, rating},
+    {
+      headers: {
+        'x-token': localStorage.getItem('token'),
+      },
+    })
+    .then(({data}) => {
+      dispatch(ActionCreator.loadOfferReviews(data.map(adaptReviewToClient)));
+    })
+);

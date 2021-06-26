@@ -44,7 +44,7 @@ MapCities.propTypes = {
       zoom: PropTypes.number.isRequired,
     }).isRequired,
   }),
-  isNearbyMap: PropTypes.bool.isRequired,
+  isNearbyMap: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
