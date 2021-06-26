@@ -15,12 +15,16 @@ import CardsList from '../cards-list/cards-list';
 import SignIn from '../sign-in/sign-in';
 import SignOut from '../sign-out/sign-out';
 import MapCities from '../map-cities/map-cities';
+import {fetchOfferOptions} from '../../store/api-action';
 
 function Room(props) {
-  const {offer, reviews, authorizationStatus, nearbyOffers} = props;
+  const {offer, reviews, authorizationStatus, nearbyOffers, loadOfferOptions} = props;
 
   return (
-    <div className="page">
+    <div className="page" onLoad={()=>{
+      loadOfferOptions(offer.id);
+    }}
+    >
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -119,6 +123,7 @@ Room.propTypes = {
   reviews: PropTypes.arrayOf(reviewProp),
   authorizationStatus: PropTypes.string,
   nearbyOffers: PropTypes.arrayOf(offerProp),
+  loadOfferOptions: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -127,5 +132,11 @@ const mapStateToProps = (state) => ({
   nearbyOffers: state.nearbyOffers,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  loadOfferOptions(offerId) {
+    dispatch(fetchOfferOptions(offerId));
+  },
+});
+
 export {Room};
-export default connect(mapStateToProps)(Room);
+export default connect(mapStateToProps, mapDispatchToProps)(Room);

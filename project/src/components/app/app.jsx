@@ -38,7 +38,7 @@ function App(props) {
         {offers.map((offer) =>
           (
             <Route exact key={offer.id} path={`${AppRoute.ROOM}/${offer.id}`}>
-              <Room key={offer.id} offer={offer} offers={offers}/>
+              <Room key={offer.id} offer={offer}/>
             </Route>
           ))}
         <Route>
