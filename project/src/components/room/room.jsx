@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import LogoLink from '../logo-link/logo-link';
 import ReviewsList from '../reviews-list/reviews-list';
@@ -18,7 +18,12 @@ import MapCities from '../map-cities/map-cities';
 import {fetchOfferOptions} from '../../store/api-action';
 
 function Room(props) {
-  const {offer, reviews, authorizationStatus, nearbyOffers} = props;
+  const {offer, reviews, authorizationStatus, nearbyOffers, loadOfferOptions} = props;
+
+  useEffect(() => {
+    loadOfferOptions(offer.id);
+  }, []);
+
 
   return (
     <div className="page">
@@ -43,14 +48,17 @@ function Room(props) {
           <div className="property__container container">
             <div className="property__wrapper">
               {offer.isPremium &&
-                <div className="property__mark">
-                  <span>Premium</span>
-                </div>}
+              <div className="property__mark">
+                <span>Premium</span>
+              </div>}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {offer.title}
                 </h1>
-                <button className={`property__bookmark-button ${offer.isFavorite && 'property__bookmark-button--active'} button`} type="button">
+                <button
+                  className={`property__bookmark-button ${offer.isFavorite && 'property__bookmark-button--active'} button`}
+                  type="button"
+                >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark">
                     </use>
@@ -84,12 +92,12 @@ function Room(props) {
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {offer.goods.map((goodsItem) => <GoodsItem goodsItem = {goodsItem} key={goodsItem}/>)}
+                  {offer.goods.map((goodsItem) => <GoodsItem goodsItem={goodsItem} key={goodsItem}/>)}
                 </ul>
               </div>
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
-                <HostUser hostUser = {offer.host}/>
+                <HostUser hostUser={offer.host}/>
                 <div className="property__description">
                   <p className="property__text">
                     {offer.description}
@@ -120,6 +128,7 @@ Room.propTypes = {
   reviews: PropTypes.arrayOf(reviewProp),
   authorizationStatus: PropTypes.string,
   nearbyOffers: PropTypes.arrayOf(offerProp),
+  loadOfferOptions: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
