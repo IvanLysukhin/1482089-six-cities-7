@@ -32,6 +32,14 @@ function Login({onSubmit}) {
               method="post"
               onSubmit={(evt) => {
                 evt.preventDefault();
+
+                if (!emailRef.current.value.length
+                  || passwordRef.current.value.length === 0
+                  || !!passwordRef.current.value.match(/\W/)
+                ) {
+                  return;
+                }
+
                 onSubmit({
                   email: emailRef.current.value,
                   password: passwordRef.current.value,
@@ -58,6 +66,15 @@ function Login({onSubmit}) {
                   placeholder="Password"
                   required=""
                   ref={passwordRef}
+                  onInput={({target}) => {
+                    if (target.value.match(/\W/)) {
+                      target.setCustomValidity('Incorrect password');
+                    } else {
+                      target.setCustomValidity('');
+                    }
+
+                    target.reportValidity();
+                  }}
                 />
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>

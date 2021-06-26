@@ -3,14 +3,23 @@ import {calcRatingInPercent} from '../../utils';
 import reviewProp from '../review/review.prop';
 
 function Review({review}) {
-  const {avatarUrl, name, rating, date, text} = review;
+
+  const {comment, user, rating, date} = review;
+
+  const dateOptions = {
+    month: 'long',
+    day: 'numeric',
+  };
+
+  const reviewDate = new Date(date);
+
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
-          <img className="reviews__avatar user__avatar" src={avatarUrl} width="54" height="54" alt="Reviews avatar"/>
+          <img className="reviews__avatar user__avatar" src={user.avatarUrl} width="54" height="54" alt="Reviews avatar"/>
         </div>
-        <span className="reviews__user-name">{name}</span>
+        <span className="reviews__user-name">{user.name}</span>
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
@@ -21,9 +30,9 @@ function Review({review}) {
           </div>
         </div>
         <p className="reviews__text">
-          {text}
+          {comment}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">{date}</time>
+        <time className="reviews__time" dateTime={`${reviewDate.toISOString()}`}>{reviewDate.toLocaleString('en-US', dateOptions)}</time>
       </div>
     </li>
   );

@@ -7,6 +7,8 @@ export const ActionType = {
   REQUIRED_AUTHORIZATION: 'REQUIRED_AUTHORIZATION',
   LOGOUT: 'LOGOUT',
   REDIRECT: 'REDIRECT',
+  LOAD_OFFER_REVIEWS: 'LOAD_OFFER_REVIEWS',
+  LOAD_NEARBY_OFFERS: 'LOAD_NEARBY_OFFERS',
 };
 
 export const ActionCreator = {
@@ -42,5 +44,15 @@ export const ActionCreator = {
   redirectToRoute: (url) => ({
     type: ActionType.REDIRECT,
     payload: url,
+  }),
+
+  loadOfferReviews: (reviews) => ({
+    type: ActionType.LOAD_OFFER_REVIEWS,
+    payload: reviews,
+  }),
+
+  loadNearbyOffers: (offers) => ({
+    type: ActionType.LOAD_NEARBY_OFFERS,
+    payload: offers,
   }),
 };
