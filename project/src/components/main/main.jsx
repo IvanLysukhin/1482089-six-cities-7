@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import LogoLink from '../logo-link/logo-link';
@@ -10,19 +10,15 @@ import {ActionCreator} from '../../store/action';
 import Sorting from '../sorting/sorting';
 import {sortOffers} from '../../utils';
 import EmptyMain from '../empty-main/empty-main';
-import Loading from '../loading/loading';
 import {AuthorizationStatus} from '../../constants';
 import SignOut from '../sign-out/sign-out';
 import SignIn from '../sign-in/sign-in';
 
 
 function Main(props) {
-  const {offers, city, changeCity, sortType, isDataLoaded, authorizationStatus} = props;
+  const {offers, city, changeCity, sortType, authorizationStatus} = props;
   const filteredOffers = offers.filter((offer)=> offer.city.name === city);
 
-  if (!isDataLoaded) {
-    return <Loading/>;
-  }
 
   return (
     <div className="page page--gray page--main">

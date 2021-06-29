@@ -11,13 +11,19 @@ import Favorites from '../favorites/favorites';
 import Login from '../login/login';
 import Room from '../room/room';
 import NoPage from '../no-page/no-page';
-import {AppRoute} from '../../constants';
+import {AppRoute, AuthorizationStatus} from '../../constants';
 import offerProp from '../place-card/place-card.prop';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
+import Loading from '../loading/loading';
 
 function App(props) {
-  const {offers} = props;
+  const {offers, isDataLoaded, authorizationStatus} = props;
+
+  if (!isDataLoaded || authorizationStatus === AuthorizationStatus.UNKNOWN) {
+    return <Loading/>;
+  }
+
   return (
     <BrowserRouter
       history={browserHistory}
@@ -56,6 +62,8 @@ App.propTypes = {
 const mapStateToProps = (state) => ({
   city: state.city,
   offers: state.offers,
+  isDataLoaded: state.isDataLoaded,
+  authorizationStatus: state.authorizationStatus,
 });
 
 export {App};
