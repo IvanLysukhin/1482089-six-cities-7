@@ -1,7 +1,8 @@
 import React, {
   useState,
   useRef,
-  useEffect
+  useEffect,
+  useCallback
 } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
@@ -11,11 +12,13 @@ function Sorting({sortType, changeSortType, city}) {
   const [view, setView] = useState(false);
   const activeSort = useRef(null);
 
-  const onSortingClickHandler = ({target}) => {
+
+  const onSortingClickHandler = useCallback(({target}) => {
     if (target.tagName === 'SPAN') {
       setView(true);
     }
-  };
+  }, []);
+
 
   useEffect(() => {
     [...activeSort.current.children].forEach((child) => {
@@ -51,7 +54,7 @@ function Sorting({sortType, changeSortType, city}) {
       <ul
         className={`places__options places__options--custom ${view ? 'places__options--opened' : 'places__options--closed'}`}
         ref={activeSort}
-        onClick={({target})=>{
+        onClick={({target}) => {
           if (target.tagName === 'LI') {
             changeSortType(target.textContent);
             setView(false);

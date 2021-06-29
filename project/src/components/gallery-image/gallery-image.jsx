@@ -13,4 +13,4 @@ GalleryImage.propTypes = {
   src: PropTypes.string.isRequired,
 };
 
-export default GalleryImage;
+export default React.memo(GalleryImage);

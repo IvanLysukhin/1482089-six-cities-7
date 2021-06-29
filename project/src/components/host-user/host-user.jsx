@@ -24,4 +24,4 @@ HostUser.propTypes = {
 };
 
 
-export default HostUser;
+export default React.memo(HostUser);

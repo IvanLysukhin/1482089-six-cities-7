@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import LogoLink from '../logo-link/logo-link';
@@ -19,7 +19,7 @@ function Main(props) {
   const {offers, city, changeCity, sortType, authorizationStatus} = props;
   const filteredOffers = offers.filter((offer)=> offer.city.name === city);
 
-
+  const handleCityChange = useCallback((city) => changeCity(city), []);
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -36,7 +36,7 @@ function Main(props) {
       <main className={`page__main page__main--index ${filteredOffers.length ? '' : 'page__main--index-empty'}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <Locations city={city} changeCity={changeCity}/>
+          <Locations city={city} handleCityChange={handleCityChange}/>
         </div>
         {filteredOffers.length ?
           <div className="cities">
