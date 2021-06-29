@@ -76,9 +76,9 @@ Sorting.propTypes = {
   changeSortType: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  sortType: state.sortType,
-  city: state.city,
+const mapStateToProps = ({CHANGE}) => ({
+  sortType: CHANGE.sortType,
+  city: CHANGE.city,
 });
 
 const mapDispatchToProps = (dispatch) => ({

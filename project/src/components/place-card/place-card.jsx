@@ -81,10 +81,6 @@ PlaceCard.propTypes = {
   loadOfferOptions: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  currentOffer: state.currentOffer,
-});
-
 const mapDispatchToProps = (dispatch) => ({
   showOffer(offer) {
     dispatch(ActionCreator.showOffer(offer));
@@ -96,4 +92,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {PlaceCard};
-export default connect(mapStateToProps, mapDispatchToProps)(PlaceCard);
+export default connect(null, mapDispatchToProps)(PlaceCard);

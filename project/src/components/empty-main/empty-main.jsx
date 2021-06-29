@@ -23,8 +23,8 @@ EmptyMain.propTypes = {
   currentCity: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  currentCity: state.city,
+const mapStateToProps = ({CHANGE}) => ({
+  currentCity: CHANGE.city,
 });
 
 export {EmptyMain};

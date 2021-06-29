@@ -8,17 +8,17 @@ import {fetchOffers, checkAuth} from './store/api-action';
 import {AuthorizationStatus} from './constants';
 import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
-import {reducer} from './store/reducer';
 import App from './components/app/app';
 import {reviews} from './mocks/reviews';
 import {redirect} from './store/redirect';
+import rootReducer from './store/root-reducer'
 
 const api = createAPI(
   () => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)),
 );
 
 const store = createStore(
-  reducer,
+  rootReducer,
   composeWithDevTools(
     applyMiddleware(thunk.withExtraArgument(api)),
     applyMiddleware(redirect),

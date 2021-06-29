@@ -59,10 +59,10 @@ App.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  offers: state.offers,
-  isDataLoaded: state.isDataLoaded,
-  authorizationStatus: state.authorizationStatus,
+const mapStateToProps = ({LOAD, AUTH}) => ({
+  offers: LOAD.offers,
+  isDataLoaded: LOAD.isDataLoaded,
+  authorizationStatus: AUTH.authorizationStatus,
 });
 
 export {App};

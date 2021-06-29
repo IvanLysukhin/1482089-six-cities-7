@@ -47,8 +47,8 @@ MapCities.propTypes = {
   isNearbyMap: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => ({
-  hoveredCardId: state.hoveredCardId,
+const mapStateToProps = ({CHANGE}) => ({
+  hoveredCardId: CHANGE.hoveredCardId,
 });
 
 export {MapCities};

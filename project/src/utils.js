@@ -9,7 +9,6 @@ export const groupCities = (citiesArr, citiesOffers) =>
   }));
 
 export const sortOffers = (offers, sortType) => {
-  console.log(sortType)
   switch(sortType) {
     case SortType.PRICE_TO_HIGH:
       return offers.sort((offerA, offerB)=> offerA.price - offerB.price);

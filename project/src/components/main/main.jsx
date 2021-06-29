@@ -68,12 +68,12 @@ Main.propTypes = {
   authorizationStatus: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
-  city: state.city,
-  offers: state.offers,
-  sortType: state.sortType,
-  isDataLoaded: state.isDataLoaded,
-  authorizationStatus: state.authorizationStatus,
+const mapStateToProps = ({CHANGE, LOAD, AUTH}) => ({
+  city: CHANGE.city,
+  offers: LOAD.offers,
+  sortType: CHANGE.sortType,
+  isDataLoaded: LOAD.isDataLoaded,
+  authorizationStatus: AUTH.authorizationStatus,
 });
 
 const mapDispatchToProps = (dispatch) => ({

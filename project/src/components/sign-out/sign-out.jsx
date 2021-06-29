@@ -38,8 +38,8 @@ SignOut.propTypes = {
   accountEmail: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  accountEmail: state.accountEmail,
+const mapStateToProps = ({AUTH}) => ({
+  accountEmail: AUTH.accountEmail,
 });
 
 const mapDispatchToProps = (dispatch) => ({

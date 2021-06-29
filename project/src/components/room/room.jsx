@@ -131,10 +131,10 @@ Room.propTypes = {
   loadOfferOptions: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  reviews: state.offerReviews,
-  nearbyOffers: state.nearbyOffers,
+const mapStateToProps = ({LOAD, AUTH}) => ({
+  authorizationStatus: AUTH.authorizationStatus,
+  reviews: LOAD.offerReviews,
+  nearbyOffers: LOAD.nearbyOffers,
 });
 
 const mapDispatchToProps = (dispatch) => ({
