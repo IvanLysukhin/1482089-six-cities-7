@@ -1,4 +1,4 @@
-import {ActionType, requireAuthorization, logout} from '../action';
+import {requireAuthorization, logout} from '../action';
 import {AuthorizationStatus} from '../../constants';
 import {createReducer} from '@reduxjs/toolkit';
 

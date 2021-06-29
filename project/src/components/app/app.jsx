@@ -5,7 +5,6 @@ import {
   Route,
   Router as BrowserRouter
 } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import Main from '../main/main';
 import Favorites from '../favorites/favorites';
 import Login from '../login/login';
@@ -15,12 +14,11 @@ import {
   AppRoute,
   AuthorizationStatus
 } from '../../constants';
-import offerProp from '../place-card/place-card.prop';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
 import Loading from '../loading/loading';
 import {getDataLoadStatus, getOffers} from '../../store/load-offers-data/selectors';
-import {getAuthorizationStatus} from "../../store/check-auth/selectors";
+import {getAuthorizationStatus} from '../../store/check-auth/selectors';
 
 function App() {
 
@@ -62,9 +60,5 @@ function App() {
     </BrowserRouter>
   );
 }
-
-App.propTypes = {
-  offers: PropTypes.arrayOf(offerProp).isRequired,
-};
 
 export default App;

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {getCurrentCity} from '../../store/change-offers/selectors';
 import {useSelector} from 'react-redux';
 
@@ -20,9 +19,5 @@ function EmptyMain() {
     </div>
   );
 }
-
-EmptyMain.propTypes = {
-  currentCity: PropTypes.string.isRequired,
-};
 
 export default EmptyMain;

@@ -3,9 +3,7 @@ import {
   useSelector,
   useDispatch
 } from 'react-redux';
-import PropTypes from 'prop-types';
 import LogoLink from '../logo-link/logo-link';
-import offerProp from '../place-card/place-card.prop';
 import MapCities from '../map-cities/map-cities';
 import CardsList from '../cards-list/cards-list';
 import Locations from '../locations/locations';
@@ -32,7 +30,7 @@ function Main() {
 
   const filteredOffers = offers.filter((offer) => offer.city.name === city);
 
-  const onCityChangeHandler = useCallback((city) => dispatch(changeCity(city)), []);
+  const onCityChangeHandler = useCallback((newCity) => dispatch(changeCity(newCity)), []);
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -71,13 +69,5 @@ function Main() {
       </main>
     </div>);
 }
-
-Main.propTypes = {
-  offers: PropTypes.arrayOf(offerProp).isRequired,
-  city: PropTypes.string.isRequired,
-  sortType: PropTypes.string.isRequired,
-  isDataLoaded: PropTypes.bool.isRequired,
-  authorizationStatus: PropTypes.string,
-};
 
 export default Main;

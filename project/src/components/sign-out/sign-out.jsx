@@ -5,7 +5,6 @@ import {
   useDispatch
 } from 'react-redux';
 import {logOut} from '../../store/api-action';
-import PropTypes from 'prop-types';
 import {AppRoute} from '../../constants';
 import {getAuthorizationEmail} from '../../store/check-auth/selectors';
 
@@ -41,10 +40,5 @@ function SignOut() {
     </nav>
   );
 }
-
-SignOut.propTypes = {
-  accountEmail: PropTypes.string.isRequired,
-};
-
 
 export default SignOut;

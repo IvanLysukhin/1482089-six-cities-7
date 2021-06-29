@@ -1,5 +1,5 @@
 import
-  React,
+React,
 {
   useRef,
   useEffect
@@ -8,10 +8,7 @@ import {PropTypes} from 'prop-types';
 import offerProp from '../place-card/place-card.prop';
 import useMap from '../../hooks/useMap';
 import useMapMarker from '../../hooks/useMapMarker';
-import {
-  connect,
-  useSelector
-} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {getHoveredCardId} from '../../store/change-offers/selectors';
 
 function MapCities({offers, city, isNearbyMap = false}) {
@@ -42,7 +39,6 @@ function MapCities({offers, city, isNearbyMap = false}) {
 
 MapCities.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
-  hoveredCardId: PropTypes.number.isRequired,
   city: PropTypes.shape({
     name: PropTypes.string.isRequired,
     location: PropTypes.shape({

@@ -10,8 +10,6 @@ import GalleryImage from '../gallery-image/gallery-image';
 import {calcRatingInPercent} from '../../utils';
 import GoodsItem from '../goods-item/goods-item';
 import HostUser from '../host-user/host-user';
-import PropTypes from 'prop-types';
-import reviewProp from '../review/review.prop';
 import offerProp from '../place-card/place-card.prop';
 import ReviewForm from '../review-form/review-form';
 import {AuthorizationStatus} from '../../constants';
@@ -120,8 +118,12 @@ function Room(props) {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span
-                  className="reviews__amount">{reviews.length}</span></h2>
+                <h2 className="reviews__title">Reviews &middot;
+                  <span
+                    className="reviews__amount"
+                  >{reviews.length}
+                  </span>
+                </h2>
                 <ReviewsList reviews={reviews}/>
                 {authorizationStatus === AuthorizationStatus.AUTH ? <ReviewForm offerId={offer.id}/> : ''}
               </section>
@@ -141,9 +143,6 @@ function Room(props) {
 
 Room.propTypes = {
   offer: offerProp,
-  reviews: PropTypes.arrayOf(reviewProp),
-  authorizationStatus: PropTypes.string,
-  nearbyOffers: PropTypes.arrayOf(offerProp),
 };
 
 export default Room;

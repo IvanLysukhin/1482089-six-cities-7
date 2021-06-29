@@ -4,7 +4,6 @@ import React, {
   useEffect,
   useCallback
 } from 'react';
-import PropTypes from 'prop-types';
 import {
   useDispatch,
   useSelector
@@ -69,7 +68,7 @@ function Sorting() {
         ref={activeSort}
         onClick={({target}) => {
           if (target.tagName === 'LI') {
-            dispatch(changeSortType(target.textContent))
+            dispatch(changeSortType(target.textContent));
             setView(false);
           }
         }}
@@ -82,10 +81,5 @@ function Sorting() {
     </form>
   );
 }
-
-Sorting.propTypes = {
-  sortType: PropTypes.string.isRequired,
-  city: PropTypes.string.isRequired,
-};
 
 export default Sorting;

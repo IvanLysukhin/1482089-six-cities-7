@@ -24,6 +24,6 @@ const changeOffers = createReducer(initialState, (builder) => {
     .addCase(changeSortType, (state, action) => {
       state.sortType = action.payload;
     });
-})
+});
 
 export {changeOffers};

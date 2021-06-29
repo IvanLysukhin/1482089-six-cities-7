@@ -1,5 +1,5 @@
-import {ActionType, loadNearbyOffers, loadOfferReviews, loadOffers} from '../action';
-import {createReducer} from "@reduxjs/toolkit";
+import {loadNearbyOffers, loadOfferReviews, loadOffers} from '../action';
+import {createReducer} from '@reduxjs/toolkit';
 
 const initialState = {
   offers: [],
@@ -20,7 +20,7 @@ const loadOffersData = createReducer(initialState, (builder) => {
     })
     .addCase(loadNearbyOffers, (state, action) => {
       state.nearbyOffers = action.payload;
-    } )
+    });
 });
 
 export {loadOffersData};

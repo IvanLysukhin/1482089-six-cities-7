@@ -8,7 +8,7 @@ import {Provider} from 'react-redux';
 import App from './components/app/app';
 import {reviews} from './mocks/reviews';
 import {redirect} from './store/redirect';
-import rootReducer from './store/root-reducer'
+import rootReducer from './store/root-reducer';
 import {configureStore} from '@reduxjs/toolkit';
 
 const api = createAPI(
