@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import {createAPI} from './services/api';
-import {ActionCreator} from './store/action';
+import {requireAuthorization} from './store/action';
 import {fetchOffers, checkAuth} from './store/api-action';
 import {AuthorizationStatus} from './constants';
 import {Provider} from 'react-redux';
@@ -14,7 +14,7 @@ import {redirect} from './store/redirect';
 import rootReducer from './store/root-reducer'
 
 const api = createAPI(
-  () => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)),
+  () => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)),
 );
 
 const store = createStore(

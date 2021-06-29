@@ -6,7 +6,7 @@ import offerProp from '../place-card/place-card.prop';
 import MapCities from '../map-cities/map-cities';
 import CardsList from '../cards-list/cards-list';
 import Locations from '../locations/locations';
-import {ActionCreator} from '../../store/action';
+import {changeCity} from '../../store/action';
 import Sorting from '../sorting/sorting';
 import {sortOffers} from '../../utils';
 import EmptyMain from '../empty-main/empty-main';
@@ -78,7 +78,7 @@ const mapStateToProps = ({CHANGE, LOAD, AUTH}) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   changeCity(city) {
-    dispatch(ActionCreator.changeCity(city));
+    dispatch(changeCity(city));
   },
 });
 

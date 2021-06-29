@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import {changeSortType} from '../../store/action';
 
 function Sorting({sortType, changeSortType, city}) {
   const [view, setView] = useState(false);
@@ -83,7 +83,7 @@ const mapStateToProps = ({CHANGE}) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   changeSortType(sortType) {
-    dispatch(ActionCreator.changeSortType(sortType));
+    dispatch(changeSortType(sortType));
   },
 });
 

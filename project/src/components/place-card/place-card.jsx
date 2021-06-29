@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import offerProp from '../place-card/place-card.prop';
 import {calcRatingInPercent} from '../../utils';
 import PropTypes from 'prop-types';
-import {ActionCreator} from '../../store/action';
+import {showOffer} from '../../store/action';
 import {fetchOfferOptions} from '../../store/api-action';
 
 function PlaceCard({offer, isNearOffers, showOffer, loadOfferOptions}) {
@@ -83,7 +83,7 @@ PlaceCard.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   showOffer(offer) {
-    dispatch(ActionCreator.showOffer(offer));
+    dispatch(showOffer(offer));
   },
 
   loadOfferOptions(offerId) {

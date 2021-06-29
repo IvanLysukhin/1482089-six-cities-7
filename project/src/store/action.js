@@ -11,48 +11,46 @@ export const ActionType = {
   LOAD_NEARBY_OFFERS: 'LOAD_NEARBY_OFFERS',
 };
 
-export const ActionCreator = {
-  changeCity: (city) => ({
-    type: ActionType.CHANGE_CITY,
-    payload: city,
-  }),
+export const changeCity = (city) => ({
+  type: ActionType.CHANGE_CITY,
+  payload: city,
+})
 
-  showOffer: (id) => ({
-    type: ActionType.SHOW_OFFER,
-    payload: id,
-  }),
+export const showOffer = (id) => ({
+  type: ActionType.SHOW_OFFER,
+  payload: id,
+})
 
-  changeSortType:(sortType) => ({
-    type: ActionType.CHANGE_SORT_TYPE,
-    payload: sortType,
-  }),
+export const changeSortType = (sortType) => ({
+  type: ActionType.CHANGE_SORT_TYPE,
+  payload: sortType,
+})
 
-  loadOffers:(offers) => ({
-    type: ActionType.LOAD_OFFERS,
-    payload: offers,
-  }),
+export const loadOffers = (offers) => ({
+  type: ActionType.LOAD_OFFERS,
+  payload: offers,
+})
 
-  requireAuthorization: (status) => ({
-    type: ActionType.REQUIRED_AUTHORIZATION,
-    payload: status,
-  }),
+export const requireAuthorization = (status) => ({
+  type: ActionType.REQUIRED_AUTHORIZATION,
+  payload: status,
+})
 
-  logout: () => ({
-    type: ActionType.LOGOUT,
-  }),
+export const logout = () => ({
+  type: ActionType.LOGOUT,
+})
 
-  redirectToRoute: (url) => ({
-    type: ActionType.REDIRECT,
-    payload: url,
-  }),
+export const redirectToRoute = (url) => ({
+  type: ActionType.REDIRECT,
+  payload: url,
+})
 
-  loadOfferReviews: (reviews) => ({
-    type: ActionType.LOAD_OFFER_REVIEWS,
-    payload: reviews,
-  }),
+export const loadOfferReviews = (reviews) => ({
+  type: ActionType.LOAD_OFFER_REVIEWS,
+  payload: reviews,
+})
 
-  loadNearbyOffers: (offers) => ({
-    type: ActionType.LOAD_NEARBY_OFFERS,
-    payload: offers,
-  }),
-};
+export const loadNearbyOffers = (offers) => ({
+  type: ActionType.LOAD_NEARBY_OFFERS,
+  payload: offers,
+})
