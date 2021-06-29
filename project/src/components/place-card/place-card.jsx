@@ -6,16 +6,16 @@ import PropTypes from 'prop-types';
 import {showOffer} from '../../store/action';
 import {fetchOfferOptions} from '../../store/api-action';
 
-function PlaceCard({offer, isNearOffers, showOffer, loadOfferOptions}) {
+function PlaceCard({offer, isNearOffers, onHoverCardHandler, onOfferCardClickHandler}) {
   return (
     <article
       className={`${isNearOffers ? 'near-places__card' : 'cities__place-card'} place-card`}
 
       onMouseEnter={() => {
-        showOffer(offer.id);
+        onHoverCardHandler(offer.id);
       }}
       onMouseLeave={() => {
-        showOffer(0);
+        onHoverCardHandler(0);
       }}
     >
       {offer.isPremium &&
@@ -28,7 +28,7 @@ function PlaceCard({offer, isNearOffers, showOffer, loadOfferOptions}) {
         <a
           onClick={(evt) => {
             evt.preventDefault();
-            loadOfferOptions(offer.id);
+            onOfferCardClickHandler(offer.id);
           }}
         >
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
@@ -77,16 +77,16 @@ function PlaceCard({offer, isNearOffers, showOffer, loadOfferOptions}) {
 PlaceCard.propTypes = {
   offer: offerProp,
   isNearOffers: PropTypes.bool.isRequired,
-  showOffer: PropTypes.func.isRequired,
-  loadOfferOptions: PropTypes.func.isRequired,
+  onHoverCardHandler: PropTypes.func.isRequired,
+  onOfferCardClickHandler: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  showOffer(offer) {
+  onHoverCardHandler(offer) {
     dispatch(showOffer(offer));
   },
 
-  loadOfferOptions(offerId) {
+  onOfferCardClickHandler(offerId) {
     dispatch(fetchOfferOptions(offerId));
   },
 });

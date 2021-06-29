@@ -16,10 +16,10 @@ import SignIn from '../sign-in/sign-in';
 
 
 function Main(props) {
-  const {offers, city, changeCity, sortType, authorizationStatus} = props;
+  const {offers, city, onChangeCity, sortType, authorizationStatus} = props;
   const filteredOffers = offers.filter((offer)=> offer.city.name === city);
 
-  const handleCityChange = useCallback((city) => changeCity(city), []);
+  const onCityChangeHandler = useCallback((city) => onChangeCity(city), []);
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -36,7 +36,7 @@ function Main(props) {
       <main className={`page__main page__main--index ${filteredOffers.length ? '' : 'page__main--index-empty'}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <Locations city={city} handleCityChange={handleCityChange}/>
+          <Locations city={city} onCityChangeHandler={onCityChangeHandler}/>
         </div>
         {filteredOffers.length ?
           <div className="cities">
@@ -62,7 +62,7 @@ function Main(props) {
 Main.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
   city: PropTypes.string.isRequired,
-  changeCity: PropTypes.func.isRequired,
+  onChangeCity: PropTypes.func.isRequired,
   sortType: PropTypes.string.isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
   authorizationStatus: PropTypes.string,
@@ -77,7 +77,7 @@ const mapStateToProps = ({CHANGE, LOAD, AUTH}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeCity(city) {
+  onChangeCity(city) {
     dispatch(changeCity(city));
   },
 });

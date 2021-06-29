@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {postReview} from '../../store/api-action';
 import PropTypes from 'prop-types';
 
-function ReviewForm({offerId, sendReviews}) {
+function ReviewForm({offerId, onSendReviews}) {
 
   return (
     <form
@@ -21,7 +21,7 @@ function ReviewForm({offerId, sendReviews}) {
         if (checkedIndex === -1 || textAreaValue.length < 50 || !textAreaValue.length) {
           return;
         }
-        sendReviews(offerId, {
+        onSendReviews(offerId, {
           comment: inputs[textInputIndex].value,
           rating: Number(inputs[checkedIndex].value),
         });
@@ -98,11 +98,11 @@ function ReviewForm({offerId, sendReviews}) {
 
 ReviewForm.propTypes = {
   offerId: PropTypes.number.isRequired,
-  sendReviews: PropTypes.func.isRequired,
+  onSendReviews: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  sendReviews(offerId, review) {
+  onSendReviews(offerId, review) {
     dispatch(postReview(offerId, review));
   },
 });

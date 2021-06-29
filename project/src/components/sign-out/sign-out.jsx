@@ -5,7 +5,7 @@ import {logOut} from '../../store/api-action';
 import PropTypes from 'prop-types';
 import {AppRoute} from '../../constants';
 
-function SignOut({signOut, accountEmail}) {
+function SignOut({onSignOut, accountEmail}) {
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
@@ -22,7 +22,7 @@ function SignOut({signOut, accountEmail}) {
             href="#"
             onClick={(evt) => {
               evt.preventDefault();
-              signOut();
+              onSignOut();
             }}
           >
             <span className="header__signout">Sign out</span>
@@ -34,7 +34,7 @@ function SignOut({signOut, accountEmail}) {
 }
 
 SignOut.propTypes = {
-  signOut: PropTypes.func.isRequired,
+  onSignOut: PropTypes.func.isRequired,
   accountEmail: PropTypes.string.isRequired,
 };
 
@@ -43,7 +43,7 @@ const mapStateToProps = ({AUTH}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  signOut() {
+  onSignOut() {
     dispatch(logOut());
   },
 });

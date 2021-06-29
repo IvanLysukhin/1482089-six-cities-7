@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {changeSortType} from '../../store/action';
 
-function Sorting({sortType, changeSortType, city}) {
+function Sorting({sortType, onChangeSortType, city}) {
   const [view, setView] = useState(false);
   const activeSort = useRef(null);
 
@@ -56,7 +56,7 @@ function Sorting({sortType, changeSortType, city}) {
         ref={activeSort}
         onClick={({target}) => {
           if (target.tagName === 'LI') {
-            changeSortType(target.textContent);
+            onChangeSortType(target.textContent);
             setView(false);
           }
         }}
@@ -73,7 +73,7 @@ function Sorting({sortType, changeSortType, city}) {
 Sorting.propTypes = {
   sortType: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
-  changeSortType: PropTypes.func.isRequired,
+  onChangeSortType: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({CHANGE}) => ({
@@ -82,7 +82,7 @@ const mapStateToProps = ({CHANGE}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeSortType(sortType) {
+  onChangeSortType(sortType) {
     dispatch(changeSortType(sortType));
   },
 });
