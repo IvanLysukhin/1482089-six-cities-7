@@ -82,8 +82,8 @@ PlaceCard.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onHoverCardHandler(offer) {
-    dispatch(showOffer(offer));
+  onHoverCardHandler(offerId) {
+    dispatch(showOffer(offerId));
   },
 
   onOfferCardClickHandler(offerId) {

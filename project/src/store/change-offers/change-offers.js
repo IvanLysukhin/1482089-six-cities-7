@@ -1,5 +1,10 @@
-import {ActionType} from '../action';
-import {SortType} from "../../constants";
+import {
+  changeCity,
+  showOffer,
+  changeSortType
+} from '../action';
+import {SortType} from '../../constants';
+import {createReducer} from '@reduxjs/toolkit';
 
 const initialState = {
   city: 'Paris',
@@ -7,29 +12,18 @@ const initialState = {
   sortType: SortType.POPULAR,
 };
 
-const changeOffers = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionType.CHANGE_CITY:
-      return {
-        ...state,
-        city: action.payload,
-        sortType: initialState.sortType,
-      };
-
-    case ActionType.SHOW_OFFER:
-      return {
-        ...state,
-        hoveredCardId: action.payload,
-      };
-
-    case ActionType.CHANGE_SORT_TYPE:
-      return {
-        ...state,
-        sortType: action.payload,
-      };
-    default:
-      return state;
-  }
-}
+const changeOffers = createReducer(initialState, (builder) => {
+  builder
+    .addCase(changeCity, (state, action) => {
+      state.city = action.payload;
+      state.sortType = initialState.sortType;
+    })
+    .addCase(showOffer, (state, action) => {
+      state.hoveredCardId = action.payload;
+    })
+    .addCase(changeSortType, (state, action) => {
+      state.sortType = action.payload;
+    });
+})
 
 export {changeOffers};
