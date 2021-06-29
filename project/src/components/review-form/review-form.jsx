@@ -1,10 +1,10 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {postReview} from '../../store/api-action';
 import PropTypes from 'prop-types';
 
-function ReviewForm({offerId, onSendReviews}) {
-
+function ReviewForm({offerId}) {
+  const dispatch = useDispatch();
   return (
     <form
       className="reviews__form form"
@@ -21,10 +21,12 @@ function ReviewForm({offerId, onSendReviews}) {
         if (checkedIndex === -1 || textAreaValue.length < 50 || !textAreaValue.length) {
           return;
         }
-        onSendReviews(offerId, {
+
+        dispatch(postReview(offerId, {
           comment: inputs[textInputIndex].value,
           rating: Number(inputs[checkedIndex].value),
-        });
+        }));
+
         evt.target.reset();
       }}
     >
@@ -98,14 +100,7 @@ function ReviewForm({offerId, onSendReviews}) {
 
 ReviewForm.propTypes = {
   offerId: PropTypes.number.isRequired,
-  onSendReviews: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onSendReviews(offerId, review) {
-    dispatch(postReview(offerId, review));
-  },
-});
 
-export {ReviewForm};
-export default connect(null, mapDispatchToProps)(ReviewForm);
+export default ReviewForm;

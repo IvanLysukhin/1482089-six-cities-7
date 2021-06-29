@@ -1,21 +1,23 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import offerProp from '../place-card/place-card.prop';
 import {calcRatingInPercent} from '../../utils';
 import PropTypes from 'prop-types';
 import {showOffer} from '../../store/action';
 import {fetchOfferOptions} from '../../store/api-action';
 
-function PlaceCard({offer, isNearOffers, onHoverCardHandler, onOfferCardClickHandler}) {
+function PlaceCard({offer, isNearOffers}) {
+  const dispatch = useDispatch();
+
   return (
     <article
       className={`${isNearOffers ? 'near-places__card' : 'cities__place-card'} place-card`}
 
       onMouseEnter={() => {
-        onHoverCardHandler(offer.id);
+        dispatch(showOffer(offer.id));
       }}
       onMouseLeave={() => {
-        onHoverCardHandler(0);
+        dispatch(showOffer(0));
       }}
     >
       {offer.isPremium &&
@@ -28,7 +30,7 @@ function PlaceCard({offer, isNearOffers, onHoverCardHandler, onOfferCardClickHan
         <a
           onClick={(evt) => {
             evt.preventDefault();
-            onOfferCardClickHandler(offer.id);
+            dispatch(fetchOfferOptions(offer.id));
           }}
         >
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
@@ -62,7 +64,7 @@ function PlaceCard({offer, isNearOffers, onHoverCardHandler, onOfferCardClickHan
           <a
             onClick={(evt) => {
               evt.preventDefault();
-              loadOfferOptions(offer.id);
+              dispatch(fetchOfferOptions(offer.id));
             }}
           >
             {offer.title}
@@ -77,19 +79,6 @@ function PlaceCard({offer, isNearOffers, onHoverCardHandler, onOfferCardClickHan
 PlaceCard.propTypes = {
   offer: offerProp,
   isNearOffers: PropTypes.bool.isRequired,
-  onHoverCardHandler: PropTypes.func.isRequired,
-  onOfferCardClickHandler: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onHoverCardHandler(offerId) {
-    dispatch(showOffer(offerId));
-  },
-
-  onOfferCardClickHandler(offerId) {
-    dispatch(fetchOfferOptions(offerId));
-  },
-});
-
-export {PlaceCard};
-export default connect(null, mapDispatchToProps)(PlaceCard);
+export default PlaceCard;

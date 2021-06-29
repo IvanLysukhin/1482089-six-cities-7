@@ -1,9 +1,10 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {getCurrentCity} from '../../store/change-offers/selectors';
+import {useSelector} from 'react-redux';
 
-function EmptyMain({currentCity}) {
+function EmptyMain() {
+  const currentCity = useSelector(getCurrentCity);
   return (
     <div className="cities">
       <div className="cities__places-container  cities__places-container--empty container">
@@ -24,9 +25,4 @@ EmptyMain.propTypes = {
   currentCity: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  currentCity: getCurrentCity(state),
-});
-
-export {EmptyMain};
-export default connect(mapStateToProps, null)(EmptyMain);
+export default EmptyMain;

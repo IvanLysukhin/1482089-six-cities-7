@@ -1,5 +1,9 @@
-import React, {useEffect} from 'react';
-import {connect} from 'react-redux';
+import React,
+{useEffect} from 'react';
+import {
+  useDispatch,
+  useSelector
+} from 'react-redux';
 import LogoLink from '../logo-link/logo-link';
 import ReviewsList from '../reviews-list/reviews-list';
 import GalleryImage from '../gallery-image/gallery-image';
@@ -17,13 +21,22 @@ import SignOut from '../sign-out/sign-out';
 import MapCities from '../map-cities/map-cities';
 import {fetchOfferOptions} from '../../store/api-action';
 import {getAuthorizationStatus} from '../../store/check-auth/selectors';
-import {getNearbyOffers, getReviews} from '../../store/load-offers-data/selectors';
+import {
+  getNearbyOffers,
+  getReviews
+} from '../../store/load-offers-data/selectors';
 
 function Room(props) {
-  const {offer, reviews, authorizationStatus, nearbyOffers, loadOfferOptions} = props;
+  const {offer} = props;
+
+  const dispatch = useDispatch();
+
+  const reviews = useSelector(getReviews);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const nearbyOffers = useSelector(getNearbyOffers);
 
   useEffect(() => {
-    loadOfferOptions(offer.id);
+    dispatch(fetchOfferOptions(offer.id));
   }, []);
 
 
@@ -107,8 +120,9 @@ function Room(props) {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                <ReviewsList reviews = {reviews}/>
+                <h2 className="reviews__title">Reviews &middot; <span
+                  className="reviews__amount">{reviews.length}</span></h2>
+                <ReviewsList reviews={reviews}/>
                 {authorizationStatus === AuthorizationStatus.AUTH ? <ReviewForm offerId={offer.id}/> : ''}
               </section>
             </div>
@@ -130,20 +144,6 @@ Room.propTypes = {
   reviews: PropTypes.arrayOf(reviewProp),
   authorizationStatus: PropTypes.string,
   nearbyOffers: PropTypes.arrayOf(offerProp),
-  loadOfferOptions: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthorizationStatus(state),
-  reviews: getReviews(state),
-  nearbyOffers: getNearbyOffers(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  loadOfferOptions(offerId) {
-    dispatch(fetchOfferOptions(offerId));
-  },
-});
-
-export {Room};
-export default connect(mapStateToProps, mapDispatchToProps)(Room);
+export default Room;

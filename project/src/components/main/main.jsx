@@ -1,5 +1,8 @@
-import React, {useCallback, useMemo} from 'react';
-import {connect} from 'react-redux';
+import React, {useCallback} from 'react';
+import {
+  useSelector,
+  useDispatch
+} from 'react-redux';
 import PropTypes from 'prop-types';
 import LogoLink from '../logo-link/logo-link';
 import offerProp from '../place-card/place-card.prop';
@@ -14,15 +17,22 @@ import {AuthorizationStatus} from '../../constants';
 import SignOut from '../sign-out/sign-out';
 import SignIn from '../sign-in/sign-in';
 import {getCurrentCity, getCurrentSortType} from '../../store/change-offers/selectors';
-import {getDataLoadStatus, getOffers} from '../../store/load-offers-data/selectors';
+import {getOffers} from '../../store/load-offers-data/selectors';
 import {getAuthorizationStatus} from '../../store/check-auth/selectors';
 
 
-function Main(props) {
-  const {offers, city, onChangeCity, sortType, authorizationStatus} = props;
-  const filteredOffers = offers.filter((offer)=> offer.city.name === city);
+function Main() {
 
-  const onCityChangeHandler = useCallback((city) => onChangeCity(city), []);
+  const offers = useSelector(getOffers);
+  const city = useSelector(getCurrentCity);
+  const sortType = useSelector(getCurrentSortType);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+
+  const dispatch = useDispatch();
+
+  const filteredOffers = offers.filter((offer) => offer.city.name === city);
+
+  const onCityChangeHandler = useCallback((city) => dispatch(changeCity(city)), []);
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -49,7 +59,7 @@ function Main(props) {
                 <b className="places__found">{filteredOffers.length} places to stay in {city}</b>
                 <Sorting/>
                 <CardsList
-                  offers = {sortOffers(filteredOffers, sortType)}
+                  offers={sortOffers(filteredOffers, sortType)}
                 />
               </section>
               <div className="cities__right-section">
@@ -65,26 +75,9 @@ function Main(props) {
 Main.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
   city: PropTypes.string.isRequired,
-  onChangeCity: PropTypes.func.isRequired,
   sortType: PropTypes.string.isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
   authorizationStatus: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
-  city: getCurrentCity(state),
-  offers: getOffers(state),
-  sortType: getCurrentSortType(state),
-  isDataLoaded: getDataLoadStatus(state),
-  authorizationStatus: getAuthorizationStatus(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onChangeCity(city) {
-    dispatch(changeCity(city));
-  },
-});
-
-
-export {Main};
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;

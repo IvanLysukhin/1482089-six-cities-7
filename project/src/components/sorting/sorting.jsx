@@ -5,11 +5,23 @@ import React, {
   useCallback
 } from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {
+  useDispatch,
+  useSelector
+} from 'react-redux';
 import {changeSortType} from '../../store/action';
-import {getCurrentCity, getCurrentSortType} from '../../store/change-offers/selectors';
+import {
+  getCurrentCity,
+  getCurrentSortType
+} from '../../store/change-offers/selectors';
 
-function Sorting({sortType, onChangeSortType, city}) {
+function Sorting() {
+
+  const dispatch = useDispatch();
+
+  const sortType = useSelector(getCurrentSortType);
+  const city = useSelector(getCurrentCity);
+
   const [view, setView] = useState(false);
   const activeSort = useRef(null);
 
@@ -57,7 +69,7 @@ function Sorting({sortType, onChangeSortType, city}) {
         ref={activeSort}
         onClick={({target}) => {
           if (target.tagName === 'LI') {
-            onChangeSortType(target.textContent);
+            dispatch(changeSortType(target.textContent))
             setView(false);
           }
         }}
@@ -74,19 +86,6 @@ function Sorting({sortType, onChangeSortType, city}) {
 Sorting.propTypes = {
   sortType: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
-  onChangeSortType: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  sortType: getCurrentSortType(state),
-  city: getCurrentCity(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onChangeSortType(sortType) {
-    dispatch(changeSortType(sortType));
-  },
-});
-
-export {Sorting};
-export default connect(mapStateToProps, mapDispatchToProps)(Sorting);
+export default Sorting;
