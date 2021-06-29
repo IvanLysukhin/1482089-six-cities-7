@@ -7,6 +7,7 @@ import React, {
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {changeSortType} from '../../store/action';
+import {getCurrentCity, getCurrentSortType} from '../../store/change-offers/selectors';
 
 function Sorting({sortType, onChangeSortType, city}) {
   const [view, setView] = useState(false);
@@ -76,9 +77,9 @@ Sorting.propTypes = {
   onChangeSortType: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({CHANGE}) => ({
-  sortType: CHANGE.sortType,
-  city: CHANGE.city,
+const mapStateToProps = (state) => ({
+  sortType: getCurrentSortType(state),
+  city: getCurrentCity(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -13,6 +13,9 @@ import EmptyMain from '../empty-main/empty-main';
 import {AuthorizationStatus} from '../../constants';
 import SignOut from '../sign-out/sign-out';
 import SignIn from '../sign-in/sign-in';
+import {getCurrentCity, getCurrentSortType} from '../../store/change-offers/selectors';
+import {getDataLoadStatus, getOffers} from '../../store/load-offers-data/selectors';
+import {getAuthorizationStatus} from '../../store/check-auth/selectors';
 
 
 function Main(props) {
@@ -68,12 +71,12 @@ Main.propTypes = {
   authorizationStatus: PropTypes.string,
 };
 
-const mapStateToProps = ({CHANGE, LOAD, AUTH}) => ({
-  city: CHANGE.city,
-  offers: LOAD.offers,
-  sortType: CHANGE.sortType,
-  isDataLoaded: LOAD.isDataLoaded,
-  authorizationStatus: AUTH.authorizationStatus,
+const mapStateToProps = (state) => ({
+  city: getCurrentCity(state),
+  offers: getOffers(state),
+  sortType: getCurrentSortType(state),
+  isDataLoaded: getDataLoadStatus(state),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

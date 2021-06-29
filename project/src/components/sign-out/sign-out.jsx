@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {logOut} from '../../store/api-action';
 import PropTypes from 'prop-types';
 import {AppRoute} from '../../constants';
+import {getAuthorizationEmail} from '../../store/check-auth/selectors';
 
 function SignOut({onSignOut, accountEmail}) {
   return (
@@ -38,8 +39,8 @@ SignOut.propTypes = {
   accountEmail: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({AUTH}) => ({
-  accountEmail: AUTH.accountEmail,
+const mapStateToProps = (state) => ({
+  accountEmail: getAuthorizationEmail(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

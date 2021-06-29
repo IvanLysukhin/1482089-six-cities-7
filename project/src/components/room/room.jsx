@@ -16,6 +16,8 @@ import SignIn from '../sign-in/sign-in';
 import SignOut from '../sign-out/sign-out';
 import MapCities from '../map-cities/map-cities';
 import {fetchOfferOptions} from '../../store/api-action';
+import {getAuthorizationStatus} from '../../store/check-auth/selectors';
+import {getNearbyOffers, getReviews} from '../../store/load-offers-data/selectors';
 
 function Room(props) {
   const {offer, reviews, authorizationStatus, nearbyOffers, loadOfferOptions} = props;
@@ -131,10 +133,10 @@ Room.propTypes = {
   loadOfferOptions: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({LOAD, AUTH}) => ({
-  authorizationStatus: AUTH.authorizationStatus,
-  reviews: LOAD.offerReviews,
-  nearbyOffers: LOAD.nearbyOffers,
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+  reviews: getReviews(state),
+  nearbyOffers: getNearbyOffers(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

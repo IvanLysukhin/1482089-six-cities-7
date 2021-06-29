@@ -16,6 +16,7 @@ import offerProp from '../place-card/place-card.prop';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
 import Loading from '../loading/loading';
+import {getDataLoadStatus, getOffers} from '../../store/load-offers-data/selectors';
 
 function App(props) {
   const {offers, isDataLoaded, authorizationStatus} = props;
@@ -59,10 +60,10 @@ App.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
 };
 
-const mapStateToProps = ({LOAD, AUTH}) => ({
-  offers: LOAD.offers,
-  isDataLoaded: LOAD.isDataLoaded,
-  authorizationStatus: AUTH.authorizationStatus,
+const mapStateToProps = (state) => ({
+  offers: getOffers(state),
+  isDataLoaded: getDataLoadStatus(state),
+  authorizationStatus: getDataLoadStatus(state),
 });
 
 export {App};
