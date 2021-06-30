@@ -8,7 +8,6 @@ const initialState = {
   nearbyOffers: [],
 };
 
-
 const loadOffersData = createReducer(initialState, (builder) => {
   builder
     .addCase(loadOffers, (state, action) => {

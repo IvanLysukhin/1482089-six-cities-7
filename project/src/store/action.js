@@ -21,7 +21,6 @@ export const showOffer = createAction(ActionType.SHOW_OFFER,(id) => ({
   payload: id,
 }));
 
-
 export const changeSortType =  createAction(ActionType.CHANGE_SORT_TYPE,(sortType) => ({
   payload: sortType,
 }));
