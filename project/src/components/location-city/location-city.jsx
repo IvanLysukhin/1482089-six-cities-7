@@ -16,4 +16,4 @@ LocationCity.propTypes = {
   currentCity: PropTypes.string.isRequired,
 };
 
-export default LocationCity;
+export default React.memo(LocationCity);

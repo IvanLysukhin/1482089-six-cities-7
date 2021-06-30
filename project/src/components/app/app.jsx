@@ -1,23 +1,35 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {
   Switch,
   Route,
   Router as BrowserRouter
 } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import Main from '../main/main';
 import Favorites from '../favorites/favorites';
 import Login from '../login/login';
 import Room from '../room/room';
 import NoPage from '../no-page/no-page';
-import {AppRoute} from '../../constants';
-import offerProp from '../place-card/place-card.prop';
+import {
+  AppRoute,
+  AuthorizationStatus
+} from '../../constants';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
+import Loading from '../loading/loading';
+import {getDataLoadStatus, getOffers} from '../../store/load-offers-data/selectors';
+import {getAuthorizationStatus} from '../../store/check-auth/selectors';
 
-function App(props) {
-  const {offers} = props;
+function App() {
+
+  const offers = useSelector(getOffers);
+  const isDataLoaded = useSelector(getDataLoadStatus);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+
+  if (!isDataLoaded || authorizationStatus === AuthorizationStatus.UNKNOWN) {
+    return <Loading/>;
+  }
+
   return (
     <BrowserRouter
       history={browserHistory}
@@ -49,14 +61,4 @@ function App(props) {
   );
 }
 
-App.propTypes = {
-  offers: PropTypes.arrayOf(offerProp).isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  city: state.city,
-  offers: state.offers,
-});
-
-export {App};
-export default connect(mapStateToProps, null)(App);
+export default App;

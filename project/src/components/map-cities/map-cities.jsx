@@ -8,9 +8,13 @@ import {PropTypes} from 'prop-types';
 import offerProp from '../place-card/place-card.prop';
 import useMap from '../../hooks/useMap';
 import useMapMarker from '../../hooks/useMapMarker';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
+import {getHoveredCardId} from '../../store/change-offers/selectors';
 
-function MapCities({offers, hoveredCardId, city, isNearbyMap= false}) {
+function MapCities({offers, city, isNearbyMap = false}) {
+
+  const hoveredCardId = useSelector(getHoveredCardId);
+
   const mapRef = useRef(null);
   const mapCities = useMap(mapRef, city);
 
@@ -35,8 +39,7 @@ function MapCities({offers, hoveredCardId, city, isNearbyMap= false}) {
 
 MapCities.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
-  hoveredCardId: PropTypes.number.isRequired,
-  city:PropTypes.shape({
+  city: PropTypes.shape({
     name: PropTypes.string.isRequired,
     location: PropTypes.shape({
       latitude: PropTypes.number.isRequired,
@@ -47,9 +50,4 @@ MapCities.propTypes = {
   isNearbyMap: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => ({
-  hoveredCardId: state.hoveredCardId,
-});
-
-export {MapCities};
-export default connect(mapStateToProps, null)(MapCities);
+export default MapCities;

@@ -1,14 +1,13 @@
 import React, {useRef} from 'react';
-import {connect} from 'react-redux';
 import LogoLink from '../logo-link/logo-link';
 import SignIn from '../sign-in/sign-in';
 import {logIn} from '../../store/api-action';
-import PropTypes from 'prop-types';
+import {useDispatch} from 'react-redux';
 
-function Login({onSubmit}) {
+function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
-
+  const dispatch = useDispatch();
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -40,10 +39,10 @@ function Login({onSubmit}) {
                   return;
                 }
 
-                onSubmit({
+                dispatch(logIn({
                   email: emailRef.current.value,
                   password: passwordRef.current.value,
-                });
+                }));
               }}
             >
               <div className="login__input-wrapper form__input-wrapper">
@@ -92,15 +91,4 @@ function Login({onSubmit}) {
     </div>);
 }
 
-Login.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(data) {
-    dispatch(logIn(data));
-  },
-});
-
-export {Login};
-export default connect(null, mapDispatchToProps)(Login);
+export default Login;

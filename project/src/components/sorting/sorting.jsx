@@ -1,21 +1,36 @@
 import React, {
   useState,
   useRef,
-  useEffect
+  useEffect,
+  useCallback
 } from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import {
+  useDispatch,
+  useSelector
+} from 'react-redux';
+import {changeSortType} from '../../store/action';
+import {
+  getCurrentCity,
+  getCurrentSortType
+} from '../../store/change-offers/selectors';
 
-function Sorting({sortType, changeSortType, city}) {
+function Sorting() {
+
+  const dispatch = useDispatch();
+
+  const sortType = useSelector(getCurrentSortType);
+  const city = useSelector(getCurrentCity);
+
   const [view, setView] = useState(false);
   const activeSort = useRef(null);
 
-  const onSortingClickHandler = ({target}) => {
+
+  const onSortingClickHandler = useCallback(({target}) => {
     if (target.tagName === 'SPAN') {
       setView(true);
     }
-  };
+  }, []);
+
 
   useEffect(() => {
     [...activeSort.current.children].forEach((child) => {
@@ -51,9 +66,9 @@ function Sorting({sortType, changeSortType, city}) {
       <ul
         className={`places__options places__options--custom ${view ? 'places__options--opened' : 'places__options--closed'}`}
         ref={activeSort}
-        onClick={({target})=>{
+        onClick={({target}) => {
           if (target.tagName === 'LI') {
-            changeSortType(target.textContent);
+            dispatch(changeSortType(target.textContent));
             setView(false);
           }
         }}
@@ -67,22 +82,4 @@ function Sorting({sortType, changeSortType, city}) {
   );
 }
 
-Sorting.propTypes = {
-  sortType: PropTypes.string.isRequired,
-  city: PropTypes.string.isRequired,
-  changeSortType: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  sortType: state.sortType,
-  city: state.city,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  changeSortType(sortType) {
-    dispatch(ActionCreator.changeSortType(sortType));
-  },
-});
-
-export {Sorting};
-export default connect(mapStateToProps, mapDispatchToProps)(Sorting);
+export default Sorting;

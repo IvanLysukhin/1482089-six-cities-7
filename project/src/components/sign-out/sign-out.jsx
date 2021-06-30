@@ -1,11 +1,19 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
+import {
+  useSelector,
+  useDispatch
+} from 'react-redux';
 import {logOut} from '../../store/api-action';
-import PropTypes from 'prop-types';
 import {AppRoute} from '../../constants';
+import {getAuthorizationEmail} from '../../store/check-auth/selectors';
 
-function SignOut({signOut, accountEmail}) {
+function SignOut() {
+
+  const dispatch = useDispatch();
+
+  const accountEmail = useSelector(getAuthorizationEmail);
+
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
@@ -22,7 +30,7 @@ function SignOut({signOut, accountEmail}) {
             href="#"
             onClick={(evt) => {
               evt.preventDefault();
-              signOut();
+              dispatch(logOut());
             }}
           >
             <span className="header__signout">Sign out</span>
@@ -33,20 +41,4 @@ function SignOut({signOut, accountEmail}) {
   );
 }
 
-SignOut.propTypes = {
-  signOut: PropTypes.func.isRequired,
-  accountEmail: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  accountEmail: state.accountEmail,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  signOut() {
-    dispatch(logOut());
-  },
-});
-
-export {SignOut};
-export default connect(mapStateToProps, mapDispatchToProps)(SignOut);
+export default SignOut;

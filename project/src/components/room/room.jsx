@@ -1,13 +1,15 @@
-import React, {useEffect} from 'react';
-import {connect} from 'react-redux';
+import React,
+{useEffect} from 'react';
+import {
+  useDispatch,
+  useSelector
+} from 'react-redux';
 import LogoLink from '../logo-link/logo-link';
 import ReviewsList from '../reviews-list/reviews-list';
 import GalleryImage from '../gallery-image/gallery-image';
 import {calcRatingInPercent} from '../../utils';
 import GoodsItem from '../goods-item/goods-item';
 import HostUser from '../host-user/host-user';
-import PropTypes from 'prop-types';
-import reviewProp from '../review/review.prop';
 import offerProp from '../place-card/place-card.prop';
 import ReviewForm from '../review-form/review-form';
 import {AuthorizationStatus} from '../../constants';
@@ -16,12 +18,23 @@ import SignIn from '../sign-in/sign-in';
 import SignOut from '../sign-out/sign-out';
 import MapCities from '../map-cities/map-cities';
 import {fetchOfferOptions} from '../../store/api-action';
+import {getAuthorizationStatus} from '../../store/check-auth/selectors';
+import {
+  getNearbyOffers,
+  getReviews
+} from '../../store/load-offers-data/selectors';
 
 function Room(props) {
-  const {offer, reviews, authorizationStatus, nearbyOffers, loadOfferOptions} = props;
+  const {offer} = props;
+
+  const dispatch = useDispatch();
+
+  const reviews = useSelector(getReviews);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const nearbyOffers = useSelector(getNearbyOffers);
 
   useEffect(() => {
-    loadOfferOptions(offer.id);
+    dispatch(fetchOfferOptions(offer.id));
   }, []);
 
 
@@ -105,8 +118,13 @@ function Room(props) {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                <ReviewsList reviews = {reviews}/>
+                <h2 className="reviews__title">Reviews &middot;
+                  <span
+                    className="reviews__amount"
+                  >{reviews.length}
+                  </span>
+                </h2>
+                <ReviewsList reviews={reviews}/>
                 {authorizationStatus === AuthorizationStatus.AUTH ? <ReviewForm offerId={offer.id}/> : ''}
               </section>
             </div>
@@ -125,23 +143,6 @@ function Room(props) {
 
 Room.propTypes = {
   offer: offerProp,
-  reviews: PropTypes.arrayOf(reviewProp),
-  authorizationStatus: PropTypes.string,
-  nearbyOffers: PropTypes.arrayOf(offerProp),
-  loadOfferOptions: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  reviews: state.offerReviews,
-  nearbyOffers: state.nearbyOffers,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  loadOfferOptions(offerId) {
-    dispatch(fetchOfferOptions(offerId));
-  },
-});
-
-export {Room};
-export default connect(mapStateToProps, mapDispatchToProps)(Room);
+export default Room;

@@ -1,3 +1,5 @@
+import {createAction} from '@reduxjs/toolkit';
+
 export const ActionType = {
   CHANGE_CITY: 'CITY_CHANGE',
   RENDER_OFFERS: 'RENDER_OFFERS',
@@ -11,48 +13,36 @@ export const ActionType = {
   LOAD_NEARBY_OFFERS: 'LOAD_NEARBY_OFFERS',
 };
 
-export const ActionCreator = {
-  changeCity: (city) => ({
-    type: ActionType.CHANGE_CITY,
-    payload: city,
-  }),
+export const changeCity = createAction(ActionType.CHANGE_CITY,(city) => ({
+  payload: city,
+}));
 
-  showOffer: (id) => ({
-    type: ActionType.SHOW_OFFER,
-    payload: id,
-  }),
+export const showOffer = createAction(ActionType.SHOW_OFFER,(id) => ({
+  payload: id,
+}));
 
-  changeSortType:(sortType) => ({
-    type: ActionType.CHANGE_SORT_TYPE,
-    payload: sortType,
-  }),
+export const changeSortType =  createAction(ActionType.CHANGE_SORT_TYPE,(sortType) => ({
+  payload: sortType,
+}));
 
-  loadOffers:(offers) => ({
-    type: ActionType.LOAD_OFFERS,
-    payload: offers,
-  }),
+export const loadOffers = createAction(ActionType.LOAD_OFFERS, (offers) => ({
+  payload: offers,
+}));
 
-  requireAuthorization: (status) => ({
-    type: ActionType.REQUIRED_AUTHORIZATION,
-    payload: status,
-  }),
+export const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION,(status) => ({
+  payload: status,
+}));
 
-  logout: () => ({
-    type: ActionType.LOGOUT,
-  }),
+export const logout = createAction(ActionType.LOGOUT);
 
-  redirectToRoute: (url) => ({
-    type: ActionType.REDIRECT,
-    payload: url,
-  }),
+export const redirectToRoute = createAction(ActionType.REDIRECT,(url) => ({
+  payload: url,
+}));
 
-  loadOfferReviews: (reviews) => ({
-    type: ActionType.LOAD_OFFER_REVIEWS,
-    payload: reviews,
-  }),
+export const loadOfferReviews = createAction(ActionType.LOAD_OFFER_REVIEWS, (reviews) => ({
+  payload: reviews,
+}));
 
-  loadNearbyOffers: (offers) => ({
-    type: ActionType.LOAD_NEARBY_OFFERS,
-    payload: offers,
-  }),
-};
+export const loadNearbyOffers = createAction(ActionType.LOAD_NEARBY_OFFERS, (offers) => ({
+  payload: offers,
+}));

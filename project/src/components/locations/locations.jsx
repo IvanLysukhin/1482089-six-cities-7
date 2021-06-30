@@ -4,7 +4,7 @@ import LocationCity from '../location-city/location-city';
 import {PropTypes} from 'prop-types';
 
 function Locations(props) {
-  const {city, changeCity} = props;
+  const {city, onCityChangeHandler} = props;
   const cities = Object.values(City);
 
   return (
@@ -12,7 +12,7 @@ function Locations(props) {
       <ul className="locations__list tabs__list" onClick={(evt) => {
         if (evt.target.tagName === 'SPAN' || evt.target.tagName === 'A') {
           evt.preventDefault();
-          changeCity(evt.target.textContent);
+          onCityChangeHandler(evt.target.textContent);
         }
       }}
       >
@@ -24,7 +24,7 @@ function Locations(props) {
 
 Locations.propTypes = {
   city: PropTypes.string.isRequired,
-  changeCity: PropTypes.func.isRequired,
+  onCityChangeHandler: PropTypes.func.isRequired,
 };
 
-export default Locations;
+export default React.memo(Locations);

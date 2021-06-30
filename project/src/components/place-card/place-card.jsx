@@ -1,21 +1,23 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import offerProp from '../place-card/place-card.prop';
 import {calcRatingInPercent} from '../../utils';
 import PropTypes from 'prop-types';
-import {ActionCreator} from '../../store/action';
+import {showOffer} from '../../store/action';
 import {fetchOfferOptions} from '../../store/api-action';
 
-function PlaceCard({offer, isNearOffers, showOffer, loadOfferOptions}) {
+function PlaceCard({offer, isNearOffers}) {
+  const dispatch = useDispatch();
+
   return (
     <article
       className={`${isNearOffers ? 'near-places__card' : 'cities__place-card'} place-card`}
 
       onMouseEnter={() => {
-        showOffer(offer.id);
+        dispatch(showOffer(offer.id));
       }}
       onMouseLeave={() => {
-        showOffer(0);
+        dispatch(showOffer(0));
       }}
     >
       {offer.isPremium &&
@@ -28,7 +30,7 @@ function PlaceCard({offer, isNearOffers, showOffer, loadOfferOptions}) {
         <a
           onClick={(evt) => {
             evt.preventDefault();
-            loadOfferOptions(offer.id);
+            dispatch(fetchOfferOptions(offer.id));
           }}
         >
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
@@ -62,7 +64,7 @@ function PlaceCard({offer, isNearOffers, showOffer, loadOfferOptions}) {
           <a
             onClick={(evt) => {
               evt.preventDefault();
-              loadOfferOptions(offer.id);
+              dispatch(fetchOfferOptions(offer.id));
             }}
           >
             {offer.title}
@@ -77,23 +79,6 @@ function PlaceCard({offer, isNearOffers, showOffer, loadOfferOptions}) {
 PlaceCard.propTypes = {
   offer: offerProp,
   isNearOffers: PropTypes.bool.isRequired,
-  showOffer: PropTypes.func.isRequired,
-  loadOfferOptions: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  currentOffer: state.currentOffer,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  showOffer(offer) {
-    dispatch(ActionCreator.showOffer(offer));
-  },
-
-  loadOfferOptions(offerId) {
-    dispatch(fetchOfferOptions(offerId));
-  },
-});
-
-export {PlaceCard};
-export default connect(mapStateToProps, mapDispatchToProps)(PlaceCard);
+export default PlaceCard;
