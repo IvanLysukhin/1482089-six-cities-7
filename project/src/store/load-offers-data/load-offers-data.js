@@ -28,7 +28,7 @@ const loadOffersData = createReducer(initialState, (builder) => {
         }
         return offer;
       });
-    })
+    });
 });
 
 export {loadOffersData};

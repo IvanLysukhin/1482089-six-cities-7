@@ -15,7 +15,7 @@ function useFavorites(authorizationStatus, offer, dispatch) {
     }
 
     dispatch(addToFavorites(offer.id, 1));
-  }
+  };
 }
 
 export default useFavorites;

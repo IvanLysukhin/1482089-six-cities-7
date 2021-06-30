@@ -8,7 +8,7 @@ import FavoritesEmpty from '../favorites-empty/favorites-empty';
 
 function Favorites({offers}) {
   if (!offers.some((offer) => offer.isFavorite)) {
-    return <FavoritesEmpty/>
+    return <FavoritesEmpty/>;
   }
 
   return (
