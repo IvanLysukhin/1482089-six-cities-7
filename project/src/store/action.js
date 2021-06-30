@@ -11,6 +11,7 @@ export const ActionType = {
   REDIRECT: 'REDIRECT',
   LOAD_OFFER_REVIEWS: 'LOAD_OFFER_REVIEWS',
   LOAD_NEARBY_OFFERS: 'LOAD_NEARBY_OFFERS',
+  UPDATE_OFFERS: 'UPDATE_OFFERS',
 };
 
 export const changeCity = createAction(ActionType.CHANGE_CITY,(city) => ({
@@ -46,4 +47,8 @@ export const loadOfferReviews = createAction(ActionType.LOAD_OFFER_REVIEWS, (rev
 
 export const loadNearbyOffers = createAction(ActionType.LOAD_NEARBY_OFFERS, (offers) => ({
   payload: offers,
+}));
+
+export const updateOffers = createAction(ActionType.UPDATE_OFFERS, (updatedOffer) => ({
+  payload: updatedOffer,
 }));

@@ -5,7 +5,8 @@ import {
   loadNearbyOffers,
   redirectToRoute,
   requireAuthorization,
-  logout
+  logout,
+  updateOffers,
 } from './action';
 import {AuthorizationStatus} from '../constants';
 import {adaptToClient, adaptReviewToClient} from '../utils';
@@ -68,5 +69,19 @@ export const postReview = (offerId, {comment, rating}) => (dispatch, _getState, 
     })
     .then(({data}) => {
       dispatch(loadOfferReviews(data.map(adaptReviewToClient)));
+    })
+);
+
+export const addToFavorites = (offerId, status) => (dispatch, _getState, api) => (
+  api.post(
+    `${APIRoute.FAVORITE}/${offerId}/${status}`,
+    {
+      headers: {
+        'x-token': localStorage.getItem('token'),
+      },
+    }
+  )
+    .then(({data}) => {
+      dispatch(updateOffers(adaptToClient(data)));
     })
 );

@@ -1,14 +1,18 @@
 import React from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import offerProp from '../place-card/place-card.prop';
 import {calcRatingInPercent} from '../../utils';
 import PropTypes from 'prop-types';
 import {showOffer} from '../../store/action';
 import {fetchOfferOptions} from '../../store/api-action';
+import {getAuthorizationStatus} from '../../store/check-auth/selectors';
+import useFavorites from '../../hooks/useFavorites';
+
 
 function PlaceCard({offer, isNearOffers}) {
   const dispatch = useDispatch();
-
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const clickFavoriteButtonHandler = useFavorites(authorizationStatus, offer, dispatch);
   return (
     <article
       className={`${isNearOffers ? 'near-places__card' : 'cities__place-card'} place-card`}
@@ -45,6 +49,7 @@ function PlaceCard({offer, isNearOffers}) {
           <button
             className={`place-card__bookmark-button ${offer.isFavorite && 'place-card__bookmark-button--active'} button`}
             type="button"
+            onClick={clickFavoriteButtonHandler}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark">
