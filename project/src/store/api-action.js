@@ -6,7 +6,8 @@ import {
   redirectToRoute,
   requireAuthorization,
   logout,
-  updateOffers
+  updateOffers,
+  loadFavorites
 } from './action';
 import {AuthorizationStatus} from '../constants';
 import {adaptToClient, adaptReviewToClient} from '../utils';
@@ -83,5 +84,18 @@ export const addToFavorites = (offerId, status) => (dispatch, _getState, api) =>
   )
     .then(({data}) => {
       dispatch(updateOffers(adaptToClient(data)));
+    })
+);
+
+export const loadFavoritesOffers = () => (dispatch, _getState, api) => (
+  api.get(APIRoute.FAVORITE,
+    {
+      headers: {
+        'x-token': localStorage.getItem('token'),
+      },
+    },
+  )
+    .then(({data}) => {
+      dispatch(loadFavorites(data.map(adaptToClient)));
     })
 );
