@@ -74,7 +74,7 @@ export const postReview = (offerId, {comment, rating}) => (dispatch, _getState, 
 
 export const addToFavorites = (offerId, status) => (dispatch, _getState, api) => (
   api.post(
-    `${APIRoute.FAVORITE}/${offerId}/${status}`,
+    `${APIRoute.FAVORITE}/${offerId}/${status}`, {},
     {
       headers: {
         'x-token': localStorage.getItem('token'),

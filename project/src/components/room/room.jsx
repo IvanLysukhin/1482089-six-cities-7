@@ -23,6 +23,7 @@ import {
   getNearbyOffers,
   getReviews
 } from '../../store/load-offers-data/selectors';
+import useFavorites from '../../hooks/useFavorites';
 
 function Room(props) {
   const {offer} = props;
@@ -32,6 +33,8 @@ function Room(props) {
   const reviews = useSelector(getReviews);
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const nearbyOffers = useSelector(getNearbyOffers);
+
+  const clickFavoriteButtonHandler = useFavorites(authorizationStatus, offer, dispatch);
 
   useEffect(() => {
     dispatch(fetchOfferOptions(offer.id));
@@ -71,6 +74,7 @@ function Room(props) {
                 <button
                   className={`property__bookmark-button ${offer.isFavorite && 'property__bookmark-button--active'} button`}
                   type="button"
+                  onClick={clickFavoriteButtonHandler}
                 >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark">

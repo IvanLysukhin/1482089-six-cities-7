@@ -4,8 +4,13 @@ import FavoriteList from '../favorites-list/favorites-list';
 import PropTypes from 'prop-types';
 import offerProp from '../place-card/place-card.prop';
 import SignOut from '../sign-out/sign-out';
+import FavoritesEmpty from '../favorites-empty/favorites-empty';
 
 function Favorites({offers}) {
+  if (!offers.some((offer) => offer.isFavorite)) {
+    return <FavoritesEmpty/>
+  }
+
   return (
     <div className="page">
       <header className="header">
