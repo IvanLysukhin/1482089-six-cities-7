@@ -1,11 +1,10 @@
 import React from 'react';
 import {calcRatingInPercent} from '../../utils';
-import {Link} from 'react-router-dom';
-import {AppRoute} from '../../constants';
 import offerProp from '../place-card/place-card.prop';
 import useFavorites from '../../hooks/useFavorites';
 import {useDispatch, useSelector} from 'react-redux';
 import {getAuthorizationStatus} from '../../store/check-auth/selectors';
+import {fetchOfferOptions} from '../../store/api-action';
 
 function FavoriteCard({offer}) {
 
@@ -18,9 +17,14 @@ function FavoriteCard({offer}) {
   return (
     <article className="favorites__card place-card">
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <Link to={`${AppRoute.ROOM}/${offer.id}`}>
+        <a
+          onClick={(evt) => {
+            evt.preventDefault();
+            dispatch(fetchOfferOptions(offer.id));
+          }}
+        >
           <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place image"/>
-        </Link>
+        </a>
       </div>
       <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">
@@ -46,7 +50,14 @@ function FavoriteCard({offer}) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.ROOM}/${offer.id}`}>{title}</Link>
+          <a
+            onClick={(evt) => {
+              evt.preventDefault();
+              dispatch(fetchOfferOptions(offer.id));
+            }}
+          >
+            {title}
+          </a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
