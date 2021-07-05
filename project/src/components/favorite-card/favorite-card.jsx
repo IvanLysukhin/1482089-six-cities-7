@@ -4,7 +4,6 @@ import offerProp from '../place-card/place-card.prop';
 import useFavorites from '../../hooks/useFavorites';
 import {useDispatch, useSelector} from 'react-redux';
 import {getAuthorizationStatus} from '../../store/check-auth/selectors';
-import {fetchOfferOptions} from '../../store/api-action';
 import browserHistory from '../../browser-history';
 import {AppRoute} from '../../constants';
 
@@ -17,7 +16,6 @@ function FavoriteCard({offer}) {
 
   const clickLinkHandler = (evt) => {
     evt.preventDefault();
-    dispatch(fetchOfferOptions(offer.id));
     browserHistory.push(`${AppRoute.ROOM}/${offer.id}`);
   };
 

@@ -18,16 +18,17 @@ export const fetchOffers = () => (dispatch, _getState, api) => (
     })
 );
 
-export const fetchOfferOptions = (offerId) => (dispatch, _getState, api) => (
+export const fetchOfferReviews = (offerId) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.REVIEWS}/${offerId}`)
     .then(({data}) => {
       dispatch(loadOfferReviews(data.map(adaptReviewToClient)));
     })
-    .then(() => {
-      api.get(`${APIRoute.OFFERS}/${offerId}/nearby`)
-        .then(({data}) => {
-          dispatch(loadNearbyOffers(data.map(adaptToClient)));
-        });
+);
+
+export const fetchNearbyOffers = (offerId) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.OFFERS}/${offerId}/nearby`)
+    .then(({data}) => {
+      dispatch(loadNearbyOffers(data.map(adaptToClient)));
     })
 );
 

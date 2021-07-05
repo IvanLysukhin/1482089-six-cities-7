@@ -4,7 +4,6 @@ import offerProp from '../place-card/place-card.prop';
 import {calcRatingInPercent} from '../../utils';
 import PropTypes from 'prop-types';
 import {showOffer} from '../../store/action';
-import {fetchOfferOptions} from '../../store/api-action';
 import {getAuthorizationStatus} from '../../store/check-auth/selectors';
 import useFavorites from '../../hooks/useFavorites';
 import browserHistory from '../../browser-history';
@@ -18,7 +17,6 @@ function PlaceCard({offer, isNearOffers}) {
 
   const clickLinkHandler = (evt) => {
     evt.preventDefault();
-    dispatch(fetchOfferOptions(offer.id));
     browserHistory.push(`${AppRoute.ROOM}/${offer.id}`);
   };
 
