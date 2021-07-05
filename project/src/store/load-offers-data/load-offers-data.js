@@ -31,4 +31,4 @@ const loadOffersData = createReducer(initialState, (builder) => {
     });
 });
 
-export {loadOffersData};
+export {loadOffersData, initialState};
