@@ -12,7 +12,6 @@ export const ActionType = {
   LOAD_OFFER_REVIEWS: 'LOAD_OFFER_REVIEWS',
   LOAD_NEARBY_OFFERS: 'LOAD_NEARBY_OFFERS',
   UPDATE_OFFERS: 'UPDATE_OFFERS',
-  LOAD_FAVORITES: 'LOAD_FAVORITES',
 };
 
 export const changeCity = createAction(ActionType.CHANGE_CITY,(city) => ({
@@ -51,8 +50,4 @@ export const loadNearbyOffers = createAction(ActionType.LOAD_NEARBY_OFFERS, (off
 
 export const updateOffers = createAction(ActionType.UPDATE_OFFERS, (updatedOffer) => ({
   payload: updatedOffer,
-}));
-
-export const loadFavorites = createAction(ActionType.LOAD_FAVORITES, (favorites) => ({
-  payload: favorites,
 }));

@@ -5,6 +5,8 @@ import useFavorites from '../../hooks/useFavorites';
 import {useDispatch, useSelector} from 'react-redux';
 import {getAuthorizationStatus} from '../../store/check-auth/selectors';
 import {fetchOfferOptions} from '../../store/api-action';
+import browserHistory from '../../browser-history';
+import {AppRoute} from '../../constants';
 
 function FavoriteCard({offer}) {
 
@@ -13,15 +15,18 @@ function FavoriteCard({offer}) {
 
   const clickFavoriteButtonHandler = useFavorites(authorizationStatus, offer, dispatch);
 
+  const clickLinkHandler = (evt) => {
+    evt.preventDefault();
+    dispatch(fetchOfferOptions(offer.id));
+    browserHistory.push(`${AppRoute.ROOM}/${offer.id}`);
+  };
+
   const {price, title, type, previewImage, rating} = offer;
   return (
     <article className="favorites__card place-card">
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <a
-          onClick={(evt) => {
-            evt.preventDefault();
-            dispatch(fetchOfferOptions(offer.id));
-          }}
+          onClick={clickLinkHandler}
         >
           <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place image"/>
         </a>
@@ -51,10 +56,7 @@ function FavoriteCard({offer}) {
         </div>
         <h2 className="place-card__name">
           <a
-            onClick={(evt) => {
-              evt.preventDefault();
-              dispatch(fetchOfferOptions(offer.id));
-            }}
+            onClick={clickLinkHandler}
           >
             {title}
           </a>
