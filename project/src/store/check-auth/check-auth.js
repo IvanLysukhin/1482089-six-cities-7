@@ -10,8 +10,15 @@ const initialState = {
 const checkAuth = createReducer(initialState, (builder) => {
   builder
     .addCase(requireAuthorization, (state, action) => {
+      if (action.payload.status === AuthorizationStatus.AUTH) {
+        state.authorizationStatus = action.payload.status;
+        state.accountEmail = action.payload.email;
+        return;
+      }
+
       state.authorizationStatus = action.payload.status;
-      state.accountEmail = action.payload.email;
+      state.accountEmail = '';
+
     })
     .addCase(logout, (state, action) => {
       state.authorizationStatus = AuthorizationStatus.NO_AUTH;
@@ -19,4 +26,4 @@ const checkAuth = createReducer(initialState, (builder) => {
     });
 });
 
-export {checkAuth};
+export {checkAuth, initialState};
