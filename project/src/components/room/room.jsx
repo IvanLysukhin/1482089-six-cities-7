@@ -17,7 +17,7 @@ import CardsList from '../cards-list/cards-list';
 import SignIn from '../sign-in/sign-in';
 import SignOut from '../sign-out/sign-out';
 import MapCities from '../map-cities/map-cities';
-import {fetchOfferOptions} from '../../store/api-action';
+import {fetchNearbyOffers, fetchOfferReviews} from '../../store/api-action';
 import {getAuthorizationStatus} from '../../store/check-auth/selectors';
 import {
   getNearbyOffers,
@@ -37,7 +37,8 @@ function Room(props) {
   const clickFavoriteButtonHandler = useFavorites(authorizationStatus, offer, dispatch);
 
   useEffect(() => {
-    dispatch(fetchOfferOptions(offer.id));
+    dispatch(fetchOfferReviews(offer.id));
+    dispatch(fetchNearbyOffers(offer.id));
   }, []);
 
 

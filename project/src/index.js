@@ -6,10 +6,11 @@ import {fetchOffers, checkAuth} from './store/api-action';
 import {AuthorizationStatus} from './constants';
 import {Provider} from 'react-redux';
 import App from './components/app/app';
-import {reviews} from './mocks/reviews';
-import {redirect} from './store/redirect';
+import {redirect} from './store/middlewares/redirect';
 import rootReducer from './store/root-reducer';
 import {configureStore} from '@reduxjs/toolkit';
+import {Router as BrowserRouter} from 'react-router-dom';
+import browserHistory from './browser-history';
 
 const api = createAPI(
   () => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)),
@@ -31,9 +32,9 @@ store.dispatch(fetchOffers());
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App
-        reviews = {reviews}
-      />
+      <BrowserRouter history={browserHistory}>
+        <App/>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));

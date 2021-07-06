@@ -1,4 +1,4 @@
-import {loadFavorites, loadNearbyOffers, loadOfferReviews, loadOffers, updateOffers} from '../action';
+import {loadNearbyOffers, loadOfferReviews, loadOffers, updateOffers} from '../action';
 import {createReducer} from '@reduxjs/toolkit';
 
 const initialState = {
@@ -28,10 +28,7 @@ const loadOffersData = createReducer(initialState, (builder) => {
         }
         return offer;
       });
-    })
-    .addCase(loadFavorites, (state, action) => {
-      state.favoritesOffers = action.payload;
     });
 });
 
-export {loadOffersData};
+export {loadOffersData, initialState};

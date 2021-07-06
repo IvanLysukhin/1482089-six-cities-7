@@ -4,15 +4,23 @@ import offerProp from '../place-card/place-card.prop';
 import {calcRatingInPercent} from '../../utils';
 import PropTypes from 'prop-types';
 import {showOffer} from '../../store/action';
-import {fetchOfferOptions} from '../../store/api-action';
 import {getAuthorizationStatus} from '../../store/check-auth/selectors';
 import useFavorites from '../../hooks/useFavorites';
+import {AppRoute} from '../../constants';
+import {useHistory} from 'react-router-dom';
 
 
 function PlaceCard({offer, isNearOffers}) {
   const dispatch = useDispatch();
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const clickFavoriteButtonHandler = useFavorites(authorizationStatus, offer, dispatch);
+  const history = useHistory();
+
+  const clickLinkHandler = (evt) => {
+    evt.preventDefault();
+    history.push(`${AppRoute.ROOM}/${offer.id}`);
+  };
+
   return (
     <article
       className={`${isNearOffers ? 'near-places__card' : 'cities__place-card'} place-card`}
@@ -32,10 +40,7 @@ function PlaceCard({offer, isNearOffers}) {
         className={`${isNearOffers ? 'near-places__image-wrapper' : 'cities__image-wrapper'} place-card__image-wrapper`}
       >
         <a
-          onClick={(evt) => {
-            evt.preventDefault();
-            dispatch(fetchOfferOptions(offer.id));
-          }}
+          onClick={clickLinkHandler}
         >
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
         </a>
@@ -67,10 +72,7 @@ function PlaceCard({offer, isNearOffers}) {
         </div>
         <h2 className="place-card__name">
           <a
-            onClick={(evt) => {
-              evt.preventDefault();
-              dispatch(fetchOfferOptions(offer.id));
-            }}
+            onClick={clickLinkHandler}
           >
             {offer.title}
           </a>

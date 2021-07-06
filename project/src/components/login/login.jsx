@@ -8,6 +8,33 @@ function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const dispatch = useDispatch();
+
+  const onSubmitHandler = (evt) => {
+    evt.preventDefault();
+
+    if (!emailRef.current.value.length
+      || passwordRef.current.value.length === 0
+      || !!passwordRef.current.value.match(/\W/)
+    ) {
+      return;
+    }
+
+    dispatch(logIn({
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    }));
+  };
+
+  const onInputPasswordHandler = ({target}) => {
+    if (target.value.match(/\W/)) {
+      target.setCustomValidity('Incorrect password');
+    } else {
+      target.setCustomValidity('');
+    }
+
+    target.reportValidity();
+  };
+
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -29,21 +56,7 @@ function Login() {
               className="login__form form"
               action="#"
               method="post"
-              onSubmit={(evt) => {
-                evt.preventDefault();
-
-                if (!emailRef.current.value.length
-                  || passwordRef.current.value.length === 0
-                  || !!passwordRef.current.value.match(/\W/)
-                ) {
-                  return;
-                }
-
-                dispatch(logIn({
-                  email: emailRef.current.value,
-                  password: passwordRef.current.value,
-                }));
-              }}
+              onSubmit={onSubmitHandler}
             >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
@@ -54,6 +67,7 @@ function Login() {
                   placeholder="Email"
                   required=""
                   ref={emailRef}
+                  data-testid="email"
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
@@ -65,15 +79,8 @@ function Login() {
                   placeholder="Password"
                   required=""
                   ref={passwordRef}
-                  onInput={({target}) => {
-                    if (target.value.match(/\W/)) {
-                      target.setCustomValidity('Incorrect password');
-                    } else {
-                      target.setCustomValidity('');
-                    }
-
-                    target.reportValidity();
-                  }}
+                  onInput={onInputPasswordHandler}
+                  data-testid="password"
                 />
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>

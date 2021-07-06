@@ -26,4 +26,4 @@ const changeOffers = createReducer(initialState, (builder) => {
     });
 });
 
-export {changeOffers};
+export {changeOffers, initialState};

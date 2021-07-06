@@ -6,8 +6,7 @@ import {
   redirectToRoute,
   requireAuthorization,
   logout,
-  updateOffers,
-  loadFavorites
+  updateOffers
 } from './action';
 import {AuthorizationStatus} from '../constants';
 import {adaptToClient, adaptReviewToClient} from '../utils';
@@ -19,18 +18,18 @@ export const fetchOffers = () => (dispatch, _getState, api) => (
     })
 );
 
-export const fetchOfferOptions = (offerId) => (dispatch, _getState, api) => (
+export const fetchOfferReviews = (offerId) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.REVIEWS}/${offerId}`)
     .then(({data}) => {
       dispatch(loadOfferReviews(data.map(adaptReviewToClient)));
     })
-    .then(() => {
-      api.get(`${APIRoute.OFFERS}/${offerId}/nearby`)
-        .then(({data}) => {
-          dispatch(loadNearbyOffers(data.map(adaptToClient)));
-        });
+);
+
+export const fetchNearbyOffers = (offerId) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.OFFERS}/${offerId}/nearby`)
+    .then(({data}) => {
+      dispatch(loadNearbyOffers(data.map(adaptToClient)));
     })
-    .then(() => dispatch(redirectToRoute(`${AppRoute.ROOM}/${offerId}`)))
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (
@@ -84,18 +83,5 @@ export const addToFavorites = (offerId, status) => (dispatch, _getState, api) =>
   )
     .then(({data}) => {
       dispatch(updateOffers(adaptToClient(data)));
-    })
-);
-
-export const loadFavoritesOffers = () => (dispatch, _getState, api) => (
-  api.get(APIRoute.FAVORITE,
-    {
-      headers: {
-        'x-token': localStorage.getItem('token'),
-      },
-    },
-  )
-    .then(({data}) => {
-      dispatch(loadFavorites(data.map(adaptToClient)));
     })
 );
