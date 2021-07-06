@@ -23,6 +23,7 @@ describe('Component: Login', () => {
     );
     screen.getAllByText(/Sign in/i).forEach((elem) => expect(elem).toBeInTheDocument());
     expect(screen.getByText(/E-mail/i)).toBeInTheDocument();
+    expect(screen.getByText(/Password/i)).toBeInTheDocument();
 
     userEvent.type(screen.getByTestId('email'), 'example@example.com');
     userEvent.type(screen.getByTestId('password'), '123456');

@@ -20,9 +20,9 @@ describe('Component: Review', () => {
       date: '2021-07-01T13:04:25.833Z',
     };
     render(
-        <Router history={history}>
-          <Review review={fakeReview}/>
-        </Router>
+      <Router history={history}>
+        <Review review={fakeReview}/>
+      </Router>,
     );
 
 

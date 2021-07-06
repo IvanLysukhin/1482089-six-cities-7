@@ -16,7 +16,7 @@ const checkAuth = createReducer(initialState, (builder) => {
         return;
       }
 
-      state.authorizationStatus = action.payload.status;
+      state.authorizationStatus = AuthorizationStatus.NO_AUTH;
       state.accountEmail = '';
 
     })

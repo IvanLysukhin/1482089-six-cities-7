@@ -20,19 +20,17 @@ describe('Component: ReviewList', () => {
       date: '2021-07-01T13:04:25.833Z',
     };
     const reviewCount = 5;
-    const fakeReviews = new Array(reviewCount).fill('').map((review, i) => {
-      return {
-        ...fakeReview,
-        id: i,
-      };
-    })
+    const fakeReviews = new Array(reviewCount).fill('').map((review, i) => ({
+      ...fakeReview,
+      id: i,
+    }));
 
     render(
       <Router history={history}>
         <ReviewList reviews={fakeReviews}/>
-      </Router>
+      </Router>,
     );
-    
+
     screen.getAllByText('Corey').forEach((name) => expect(name).toBeInTheDocument());
     screen.getAllByText('I stayed here for one night and it was an unpleasant experience.').forEach((comment) => expect(comment).toBeInTheDocument());
     screen.getAllByText('July 1').forEach((date) => expect(date).toBeInTheDocument());
