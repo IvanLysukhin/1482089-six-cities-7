@@ -4,19 +4,21 @@ import offerProp from '../place-card/place-card.prop';
 import useFavorites from '../../hooks/useFavorites';
 import {useDispatch, useSelector} from 'react-redux';
 import {getAuthorizationStatus} from '../../store/check-auth/selectors';
-import browserHistory from '../../browser-history';
 import {AppRoute} from '../../constants';
+import {useHistory} from 'react-router-dom';
+
 
 function FavoriteCard({offer}) {
 
   const dispatch = useDispatch();
   const authorizationStatus = useSelector(getAuthorizationStatus);
+  const history = useHistory();
 
   const clickFavoriteButtonHandler = useFavorites(authorizationStatus, offer, dispatch);
 
   const clickLinkHandler = (evt) => {
     evt.preventDefault();
-    browserHistory.push(`${AppRoute.ROOM}/${offer.id}`);
+    history.push(`${AppRoute.ROOM}/${offer.id}`);
   };
 
   const {price, title, type, previewImage, rating} = offer;

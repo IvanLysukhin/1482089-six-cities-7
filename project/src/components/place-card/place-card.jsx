@@ -6,18 +6,19 @@ import PropTypes from 'prop-types';
 import {showOffer} from '../../store/action';
 import {getAuthorizationStatus} from '../../store/check-auth/selectors';
 import useFavorites from '../../hooks/useFavorites';
-import browserHistory from '../../browser-history';
 import {AppRoute} from '../../constants';
+import {useHistory} from 'react-router-dom';
 
 
 function PlaceCard({offer, isNearOffers}) {
   const dispatch = useDispatch();
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const clickFavoriteButtonHandler = useFavorites(authorizationStatus, offer, dispatch);
+  const history = useHistory();
 
   const clickLinkHandler = (evt) => {
     evt.preventDefault();
-    browserHistory.push(`${AppRoute.ROOM}/${offer.id}`);
+    history.push(`${AppRoute.ROOM}/${offer.id}`);
   };
 
   return (

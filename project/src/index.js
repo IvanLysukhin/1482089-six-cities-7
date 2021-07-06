@@ -7,7 +7,7 @@ import {AuthorizationStatus} from './constants';
 import {Provider} from 'react-redux';
 import App from './components/app/app';
 import {reviews} from './mocks/reviews';
-import {redirect} from './store/redirect';
+import {redirect} from './store/middlewares/redirect';
 import rootReducer from './store/root-reducer';
 import {configureStore} from '@reduxjs/toolkit';
 
