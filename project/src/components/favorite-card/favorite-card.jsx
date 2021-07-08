@@ -14,7 +14,7 @@ function FavoriteCard({offer}) {
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const history = useHistory();
 
-  const clickFavoriteButtonHandler = useFavorites(authorizationStatus, offer, dispatch);
+  const clickFavoriteButtonHandler = useFavorites(authorizationStatus, offer, dispatch, history);
 
   const clickLinkHandler = (evt) => {
     evt.preventDefault();

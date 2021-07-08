@@ -23,6 +23,7 @@ import {
   getReviews
 } from '../../store/load-offers-data/selectors';
 import useFavorites from '../../hooks/useFavorites';
+import {useHistory} from 'react-router-dom';
 
 function Room(props) {
   const {offer} = props;
@@ -32,8 +33,8 @@ function Room(props) {
   const reviews = useSelector(getReviews);
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const nearbyOffers = useSelector(getNearbyOffers);
-
-  const clickFavoriteButtonHandler = useFavorites(authorizationStatus, offer, dispatch);
+  const history = useHistory();
+  const clickFavoriteButtonHandler = useFavorites(authorizationStatus, offer, dispatch, history);
 
   return (
     <div
