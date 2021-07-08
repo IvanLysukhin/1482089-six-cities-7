@@ -17,7 +17,8 @@ describe('Component: SignOut', () => {
     render(
       <Provider store={mockStore({
         AUTH:{accountEmail: 'example@example.com'},
-      })}>
+      })}
+      >
         <Router history={history}>
           <SignOut/>
         </Router>

@@ -16,8 +16,9 @@ describe('Component: EmptyMain', () => {
 
     render(
       <Provider store={mockStore({
-        CHANGE: {city,},
-      })}>
+        CHANGE: {city},
+      })}
+      >
         <Router history={history}>
           <EmptyMain/>
         </Router>
