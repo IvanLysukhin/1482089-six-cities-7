@@ -3,7 +3,7 @@ import {Router, Route} from 'react-router-dom';
 import {render, screen} from '@testing-library/react';
 import LogoLink from './logo-link';
 import userEvent from '@testing-library/user-event';
-import {createMemoryHistory} from "history";
+import {createMemoryHistory} from 'history';
 
 describe('Component: LogoLink', () => {
   const history = createMemoryHistory();
@@ -17,7 +17,7 @@ describe('Component: LogoLink', () => {
         <Route exact path="/">
           <h1>Main screen</h1>
         </Route>
-      </Router>
+      </Router>,
     );
 
     userEvent.click(screen.getByTestId('logo'));
