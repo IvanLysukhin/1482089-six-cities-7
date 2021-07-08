@@ -9,14 +9,15 @@ export const groupCities = (citiesArr, citiesOffers) =>
   }));
 
 export const sortOffers = (offers, sortType) => {
-  switch(sortType) {
+  switch (sortType) {
     case SortType.PRICE_TO_HIGH:
-      return offers.sort((offerA, offerB)=> offerA.price - offerB.price);
+      return offers.sort((offerA, offerB) => offerA.price - offerB.price);
     case SortType.PRICE_TO_LOW:
-      return offers.sort((offerA, offerB)=> offerB.price - offerA.price);
+      return offers.sort((offerA, offerB) => offerB.price - offerA.price);
     case SortType.TOP_RATED:
-      return offers.sort((offerA, offerB)=> offerB.rating - offerA.rating);
-    default: return offers;
+      return offers.sort((offerA, offerB) => offerB.rating - offerA.rating);
+    default:
+      return offers;
   }
 };
 
@@ -50,7 +51,7 @@ export const adaptToClient = (offer) => {
 export const adaptReviewToClient = (review) => {
   const adaptedReview = {
     ...review,
-    user:{
+    user: {
       ...review.user,
       isPro: review.user.is_pro,
       avatarUrl: review.user.avatar_url,
@@ -62,3 +63,8 @@ export const adaptReviewToClient = (review) => {
 
   return adaptedReview;
 };
+
+export const creatMockArray = (template, count) => new Array(count).fill('').map((_, i) => ({
+  ...template,
+  id: i + 1,
+}));
