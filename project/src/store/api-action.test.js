@@ -6,7 +6,10 @@ import {
   fetchOffers,
   fetchOfferReviews,
   logIn,
-  logOut, fetchNearbyOffers
+  logOut,
+  fetchNearbyOffers,
+  postReview,
+  addToFavorites
 } from './api-action';
 import {APIRoute, AuthorizationStatus, AppRoute} from '../constants';
 import {adaptReviewToClient, adaptToClient} from '../utils';
@@ -115,6 +118,8 @@ describe('Async operations', () => {
     const dispatch = jest.fn();
     const logout = logOut();
 
+    Storage.prototype.removeItem = jest.fn();
+
     apiMock
       .onDelete(APIRoute.LOGOUT)
       .reply(200, [{fake: true}]);
@@ -127,6 +132,9 @@ describe('Async operations', () => {
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOGOUT,
         });
+
+        expect(Storage.prototype.removeItem).toBeCalledTimes(1);
+        expect(Storage.prototype.removeItem).nthCalledWith(1, 'token');
       });
   });
 
@@ -208,6 +216,81 @@ describe('Async operations', () => {
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_NEARBY_OFFERS,
           payload: mockData.map(adaptToClient),
+        });
+      });
+  });
+
+
+  it('should make a correct API call to POST /comments/:id', () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const reviewUploader = postReview(5, {comment: 'test comment', rating: 5});
+    const mockReviews = new Array(3)
+      .fill({
+        id: 5,
+        user: {
+          id: 14,
+          'is_pro': true,
+          name: 'Corey',
+          'avatar_url': 'https://7.react.pages.academy/static/avatar/5.jpg',
+        },
+        rating: 4,
+        comment: 'I stayed here for one night and it was an unpleasant experience.',
+        date: '2021-07-01T13:04:25.833Z',
+      });
+
+    mockReviews.push({
+      id: 5,
+      user: {
+        id: 14,
+        'is_pro': true,
+        name: 'Corey',
+        'avatar_url': 'https://7.react.pages.academy/static/avatar/5.jpg',
+      },
+      rating: 5,
+      comment: 'test comment',
+      date: '2021-07-01T13:04:25.833Z',
+    });
+
+    apiMock
+      .onPost(`${APIRoute.REVIEWS}/5`)
+      .reply(200, mockReviews);
+
+    return reviewUploader(dispatch, () => {
+    }, api)
+      .then(() => {
+        const action = {
+          type: ActionType.LOAD_OFFER_REVIEWS,
+          payload: mockReviews.map(adaptReviewToClient),
+        };
+
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, action);
+        expect(action.payload.some((review) => review.comment === 'test comment')).toBeTruthy();
+      });
+  });
+
+  it('should make a correct API call to POST /favorites/:id/ and add to favorites', () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const reviewUploader = addToFavorites(5, 1);
+
+    const fakeFavoriteOffer = {
+      ...fakeResponse,
+      'is_favorite': true,
+    };
+
+    apiMock
+      .onPost(`${APIRoute.FAVORITE}/5/1`)
+      .reply(200, fakeFavoriteOffer);
+
+    return reviewUploader(dispatch, () => {
+    }, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.UPDATE_OFFERS,
+          payload: adaptToClient(fakeFavoriteOffer),
         });
       });
   });
