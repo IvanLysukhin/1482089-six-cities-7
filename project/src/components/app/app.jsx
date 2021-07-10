@@ -2,7 +2,8 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import {
   Switch,
-  Route
+  Route,
+  Redirect
 } from 'react-router-dom';
 import Main from '../main/main';
 import Favorites from '../favorites/favorites';
@@ -40,7 +41,7 @@ function App() {
       >
       </PrivateRoute>
       <Route exact path={AppRoute.LOGIN}>
-        <Login/>
+        {authorizationStatus === AuthorizationStatus.AUTH ? <Redirect to={AppRoute.MAIN}/> : <Login/>}
       </Route>
       {offers.map((offer) =>
         (
