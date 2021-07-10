@@ -11,7 +11,6 @@ function ReviewsList({reviews}) {
     const dateB = new Date(b.date);
     return dateB.valueOf() - dateA.valueOf();
   });
-  
   return (
     <ul className="reviews__list">
       {

@@ -1,22 +1,23 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {useDispatch} from 'react-redux';
 import {postReview} from '../../store/api-action';
 import PropTypes from 'prop-types';
+import {
+  MIN_REVIEW_LENGTH,
+  MAX_REVIEW_LENGTH
+} from '../../constants';
 
 function ReviewForm({offerId}) {
   const dispatch = useDispatch();
+  const submitButton = useRef(null);
+  const radios = useRef(null);
+  const commentArea = useRef(null);
 
-  const onCommentSubmitHandler =(evt) => {
+  const onCommentSubmitHandler = (evt) => {
     evt.preventDefault();
-
     const inputs = Array.from(evt.target);
     const checkedIndex = inputs.findIndex((input) => input.checked);
     const textInputIndex = inputs.findIndex((input) => input.tagName === 'TEXTAREA');
-    const textAreaValue = inputs[textInputIndex].value;
-
-    if (checkedIndex === -1 || textAreaValue.length < 50 || !textAreaValue.length) {
-      return;
-    }
 
     dispatch(postReview(offerId, {
       comment: inputs[textInputIndex].value,
@@ -26,12 +27,33 @@ function ReviewForm({offerId}) {
     evt.target.reset();
   };
 
+  const formChangeHandler = () => {
+    const rateStars = new Array(...radios.current.children);
+    const commentLength = commentArea.current.value.length;
+
+    if (
+      rateStars.some((radio) => radio.checked) &&
+      commentLength >= MIN_REVIEW_LENGTH &&
+      commentLength < MAX_REVIEW_LENGTH
+    ) {
+      submitButton.current.disabled = false;
+    }
+  };
+
   const onInputCommentHandler = ({target}) => {
-    if (!target.value.length || target.value.length < 50) {
-      target.setCustomValidity(`Describe your stay with at least ${50 - target.value.length} characters.`);
+
+    if (!target.value.length || target.value.length < MIN_REVIEW_LENGTH) {
+      target.setCustomValidity(`Describe your stay with at least ${MIN_REVIEW_LENGTH - target.value.length} characters.`);
     } else {
       target.setCustomValidity('');
     }
+
+    if (target.value.length > MAX_REVIEW_LENGTH) {
+      target.setCustomValidity(`Maximum symbols. ${target.value.length - MAX_REVIEW_LENGTH}`);
+    } else {
+      target.setCustomValidity('');
+    }
+
     target.reportValidity();
   };
 
@@ -41,9 +63,13 @@ function ReviewForm({offerId}) {
       action="#"
       method="post"
       onSubmit={onCommentSubmitHandler}
+      onChange={formChangeHandler}
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <div className="reviews__rating-form form__rating">
+      <div
+        className="reviews__rating-form form__rating"
+        ref={radios}
+      >
         <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio"/>
         <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
           <svg className="form__star-image" width="37" height="33">
@@ -91,6 +117,7 @@ function ReviewForm({offerId}) {
         placeholder="Tell how was your stay, what you like and what can be improved"
         onInput={onInputCommentHandler}
         data-testid={'comment'}
+        ref={commentArea}
       >
       </textarea>
       <div className="reviews__button-wrapper">
@@ -98,7 +125,14 @@ function ReviewForm({offerId}) {
           To submit review please make sure to set <span className="reviews__star">rating</span> and
           describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
+        <button
+          className="reviews__submit form__submit button"
+          type="submit"
+          disabled
+          ref={submitButton}
+        >
+          Submit
+        </button>
       </div>
     </form>
   );
