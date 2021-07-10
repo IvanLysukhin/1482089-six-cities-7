@@ -35,7 +35,7 @@ function Room(props) {
   const nearbyOffers = useSelector(getNearbyOffers);
   const history = useHistory();
   const clickFavoriteButtonHandler = useFavorites(authorizationStatus, offer, dispatch, history);
-
+  const maxPhotoNumber = 6;
   return (
     <div
       className="page"
@@ -59,7 +59,7 @@ function Room(props) {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {offer.images.map((image) => <GalleryImage src={image} key={image}/>)}
+              {offer.images.slice(0, maxPhotoNumber).map((image) => <GalleryImage src={image} key={image}/>)}
             </div>
           </div>
           <div className="property__container container">
@@ -134,7 +134,7 @@ function Room(props) {
               </section>
             </div>
           </div>
-          <MapCities offers={nearbyOffers} city={offer.city} isNearbyMap/>
+          <MapCities offers={[...nearbyOffers, offer]} city={offer.city} isNearbyMap/>
         </section>
         <div className="container">
           <section className="near-places places">

@@ -6,9 +6,9 @@ import {
   redirectToRoute,
   requireAuthorization,
   logout,
-  updateOffers
+  updateOffers, sendReview
 } from './action';
-import {AuthorizationStatus} from '../constants';
+import {AuthorizationStatus, RequestStatus} from '../constants';
 import {adaptToClient, adaptReviewToClient} from '../utils';
 
 export const fetchOffers = () => (dispatch, _getState, api) => (
@@ -58,8 +58,9 @@ export const logOut = () => (dispatch, _getState, api) => (
     .then(() => dispatch(logout()))
 );
 
-export const postReview = (offerId, {comment, rating}) => (dispatch, _getState, api) => (
-  api.post(
+export const postReview = (offerId, {comment, rating}) => (dispatch, _getState, api) => {
+  dispatch(sendReview(RequestStatus.WAITING));
+  return api.post(
     `${APIRoute.REVIEWS}/${offerId}`,
     {comment, rating},
     {
@@ -70,7 +71,13 @@ export const postReview = (offerId, {comment, rating}) => (dispatch, _getState, 
     .then(({data}) => {
       dispatch(loadOfferReviews(data.map(adaptReviewToClient)));
     })
-);
+    .then(() => {
+      dispatch(sendReview(RequestStatus.SUCCESS));
+    })
+    .catch(() => {
+      dispatch(sendReview(RequestStatus.ERROR));
+    });
+};
 
 export const addToFavorites = (offerId, status) => (dispatch, _getState, api) => (
   api.post(

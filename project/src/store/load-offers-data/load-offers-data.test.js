@@ -6,14 +6,42 @@ import {
   loadNearbyOffers,
   loadOfferReviews,
   loadOffers,
-  updateOffers
+  updateOffers,
+  sendReview
 } from '../action';
 
 import {mockOffer, mockOffers, mockReviews} from '../../mock/test-mocks';
+import {RequestStatus} from '../../constants';
 
-describe('Reducer: Check auth', () => {
+describe('Reducer: Load offers', () => {
   it('without parameters returns initial state', () => {
     expect(loadOffersData(undefined, {})).toEqual(initialState);
+  });
+
+  it('should change sending status to SUCCESS', () => {
+
+    expect(loadOffersData(initialState, sendReview(RequestStatus.SUCCESS)))
+      .toEqual({
+        ...initialState,
+      });
+  });
+
+  it('should change sending status to WAITING', () => {
+
+    expect(loadOffersData(initialState, sendReview(RequestStatus.WAITING)))
+      .toEqual({
+        ...initialState,
+        isReviewSendSuccessful: RequestStatus.WAITING,
+      });
+  });
+
+  it('should change sending status to ERROR', () => {
+
+    expect(loadOffersData(initialState, sendReview(RequestStatus.ERROR)))
+      .toEqual({
+        ...initialState,
+        isReviewSendSuccessful: RequestStatus.ERROR,
+      });
   });
 
   it('should load all offers', () => {

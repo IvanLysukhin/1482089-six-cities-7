@@ -5,7 +5,7 @@ import {
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-function useMapMarker(map, offers, hoveredCardId) {
+function useMapMarker(map, offers, hoveredCardId, isNearbyMap) {
   const [markers, setMarkers] = useState({});
   const mapMarkers = [];
 
@@ -27,6 +27,9 @@ function useMapMarker(map, offers, hoveredCardId) {
       }
 
       offers.forEach(({location, id}) => {
+        if (isNearbyMap) {
+          hoveredCardId = offers[offers.length - 1].id;
+        }
         const marker = leaflet
           .marker(
             [location.latitude, location.longitude],

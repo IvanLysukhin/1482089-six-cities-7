@@ -19,7 +19,7 @@ function MapCities({offers, city, isNearbyMap = false}) {
   const mapCities = useMap(mapRef, city);
 
   const {location} = city;
-  useMapMarker(mapCities, offers, hoveredCardId);
+  useMapMarker(mapCities, offers, hoveredCardId, isNearbyMap);
 
   useEffect(() => {
     if (mapCities) {

@@ -26,28 +26,28 @@ let history;
 let store;
 let fakeApp;
 
+const initialState = {
+  AUTH: {
+    authorizationStatus: AuthorizationStatus.AUTH,
+  },
+  LOAD: {
+    isDataLoaded: true,
+    offers: mockOffers,
+    offerReviews: mockReviews,
+    nearbyOffers: mockOffers,
+  },
+  CHANGE: {
+    city: 'Paris',
+    sortType: SortType.POPULAR,
+  },
+  dispatch: jest.fn(),
+};
+
 describe('Component: PlaceCard', () => {
 
   beforeEach(() => {
     history = createMemoryHistory();
-    store = mockStore(
-      {
-        AUTH: {
-          authorizationStatus: AuthorizationStatus.AUTH,
-        },
-        LOAD: {
-          isDataLoaded: true,
-          offers: mockOffers,
-          offerReviews: mockReviews,
-          nearbyOffers: mockOffers,
-        },
-        CHANGE: {
-          city: 'Paris',
-          sortType: SortType.POPULAR,
-        },
-        dispatch: jest.fn(),
-      },
-    );
+    store = mockStore(initialState);
 
     fakeApp = (
       <Provider store={store}>
@@ -97,10 +97,49 @@ describe('Component: PlaceCard', () => {
   it('should render "LogIn" when user navigate to "/login"', () => {
     history.push(AppRoute.LOGIN);
 
-    render(fakeApp);
+    store = mockStore({
+      ...initialState,
+      AUTH: {
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
+      },
+    });
+
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <App/>
+        </Router>
+      </Provider>,
+    );
 
     expect(screen.getByText(/E-mail/i)).toBeInTheDocument();
     expect(screen.getByText(/Password/i)).toBeInTheDocument();
+  });
+
+  it('should redirect to "Main" when user navigate to "/login", if user was authorization', () => {
+    history.push(AppRoute.LOGIN);
+
+    store = mockStore({
+      ...initialState,
+      AUTH: {
+        authorizationStatus: AuthorizationStatus.AUTH,
+      },
+    });
+
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <App/>
+        </Router>
+      </Provider>,
+    );
+
+    expect(screen.getByText(/Cologne/i)).toBeInTheDocument();
+    expect(screen.getByText(/Brussels/i)).toBeInTheDocument();
+    expect(screen.getByText(/Amsterdam/i)).toBeInTheDocument();
+    expect(screen.getByText(/Hamburg/i)).toBeInTheDocument();
+    expect(screen.getByText(/Dusseldorf/i)).toBeInTheDocument();
+    expect(screen.getByText(/places to stay/i)).toBeInTheDocument();
   });
 
   it('should render "NoPage" when user navigate to incorrect rout', () => {
