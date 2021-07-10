@@ -11,51 +11,17 @@ import {
   postReview,
   addToFavorites
 } from './api-action';
-import {APIRoute, AuthorizationStatus, AppRoute} from '../constants';
+import {
+  APIRoute,
+  AuthorizationStatus,
+  AppRoute
+} from '../constants';
 import {adaptReviewToClient, adaptToClient} from '../utils';
-
-const fakeResponse = {
-  city: {
-    name: 'Cologne',
-    location: {
-      latitude: 50.938361,
-      longitude: 6.959974,
-      zoom: 13,
-    },
-  },
-  'preview_image': 'https://7.react.pages.academy/static/hotel/3.jpg',
-  images: [
-    'https://7.react.pages.academy/static/hotel/14.jpg',
-    'https://7.react.pages.academy/static/hotel/18.jpg',
-  ],
-  title: 'Perfectly located Castro',
-  'is_favorite': false,
-  'is_premium': true,
-  rating: 4.2,
-  type: 'apartment',
-  bedrooms: 4,
-  'max_adults': 5,
-  price: 215,
-  goods: [
-    'Coffee machine',
-  ],
-  host: {
-    id: 25,
-    name: 'Angelina',
-    'is_pro': true,
-    'avatar_url': 'img/avatar-angelina.jpg',
-  },
-  description: 'Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.',
-  location: {
-    latitude: 50.932361,
-    longitude: 6.960974,
-    zoom: 16,
-  },
-  id: 1,
-};
-const mockDataLength = 10;
-const mockData = new Array(mockDataLength).fill(fakeResponse);
-
+import {
+  fakeData,
+  fakeOfferResponse,
+  fakeReviewsData
+} from '../mock/test-mocks';
 
 let api = null;
 
@@ -146,7 +112,7 @@ describe('Async operations', () => {
 
     apiMock
       .onGet(APIRoute.OFFERS)
-      .reply(200, mockData);
+      .reply(200, fakeData);
 
     return offersLoader(dispatch, () => {
     }, api)
@@ -154,7 +120,7 @@ describe('Async operations', () => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_OFFERS,
-          payload: mockData.map(adaptToClient),
+          payload: fakeData.map(adaptToClient),
         });
       });
   });
@@ -163,27 +129,14 @@ describe('Async operations', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const offersOptionsLoader = fetchOfferReviews(1);
-    const mockReviews = new Array(3)
-      .fill({
-        id: 1,
-        user: {
-          id: 14,
-          'is_pro': true,
-          name: 'Corey',
-          'avatar_url': 'https://7.react.pages.academy/static/avatar/5.jpg',
-        },
-        rating: 4,
-        comment: 'I stayed here for one night and it was an unpleasant experience.',
-        date: '2021-07-01T13:04:25.833Z',
-      });
 
     apiMock
       .onGet(`${APIRoute.REVIEWS}/1`)
-      .reply(200, mockReviews);
+      .reply(200, fakeReviewsData);
 
     apiMock
       .onGet(`${APIRoute.OFFERS}/1/nearby`)
-      .reply(200, mockData);
+      .reply(200, fakeReviewsData);
 
     return offersOptionsLoader(dispatch, () => {
     }, api)
@@ -191,7 +144,7 @@ describe('Async operations', () => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_OFFER_REVIEWS,
-          payload: mockReviews.map(adaptReviewToClient),
+          payload: fakeReviewsData.map(adaptReviewToClient),
         });
       });
   });
@@ -203,11 +156,11 @@ describe('Async operations', () => {
 
     apiMock
       .onGet(`${APIRoute.REVIEWS}/1`)
-      .reply(200, mockData);
+      .reply(200, fakeData);
 
     apiMock
       .onGet(`${APIRoute.OFFERS}/1/nearby`)
-      .reply(200, mockData);
+      .reply(200, fakeData);
 
     return offersOptionsLoader(dispatch, () => {
     }, api)
@@ -215,7 +168,7 @@ describe('Async operations', () => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_NEARBY_OFFERS,
-          payload: mockData.map(adaptToClient),
+          payload: fakeData.map(adaptToClient),
         });
       });
   });
@@ -225,21 +178,9 @@ describe('Async operations', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const reviewUploader = postReview(5, {comment: 'test comment', rating: 5});
-    const mockReviews = new Array(3)
-      .fill({
-        id: 5,
-        user: {
-          id: 14,
-          'is_pro': true,
-          name: 'Corey',
-          'avatar_url': 'https://7.react.pages.academy/static/avatar/5.jpg',
-        },
-        rating: 4,
-        comment: 'I stayed here for one night and it was an unpleasant experience.',
-        date: '2021-07-01T13:04:25.833Z',
-      });
 
-    mockReviews.push({
+
+    fakeReviewsData.push({
       id: 5,
       user: {
         id: 14,
@@ -254,14 +195,14 @@ describe('Async operations', () => {
 
     apiMock
       .onPost(`${APIRoute.REVIEWS}/5`)
-      .reply(200, mockReviews);
+      .reply(200, fakeReviewsData);
 
     return reviewUploader(dispatch, () => {
     }, api)
       .then(() => {
         const action = {
           type: ActionType.LOAD_OFFER_REVIEWS,
-          payload: mockReviews.map(adaptReviewToClient),
+          payload: fakeReviewsData.map(adaptReviewToClient),
         };
 
         expect(dispatch).toHaveBeenCalledTimes(1);
@@ -276,7 +217,7 @@ describe('Async operations', () => {
     const reviewUploader = addToFavorites(5, 1);
 
     const fakeFavoriteOffer = {
-      ...fakeResponse,
+      ...fakeOfferResponse,
       'is_favorite': true,
     };
 
