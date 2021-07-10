@@ -5,7 +5,7 @@ function HostUser({hostUser}) {
   const {avatarUrl, isPro, name} = hostUser;
   return (
     <div className="property__host-user user">
-      <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
+      <div className={`property__avatar-wrapper  user__avatar-wrapper ${isPro ? 'property__avatar-wrapper--pro' : ''}`}>
         <img className="property__avatar user__avatar" src={avatarUrl} width="74" height="74" alt="Host avatar" data-testid={avatarUrl}/>
       </div>
       <span className="property__user-name">{name}</span>

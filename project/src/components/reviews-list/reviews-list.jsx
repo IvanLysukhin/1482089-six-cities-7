@@ -4,9 +4,23 @@ import Review from '../review/review';
 import reviewProp from '../review/review.prop';
 
 function ReviewsList({reviews}) {
+  const maxReviewsNumber = 10;
+  // console.log(reviews.length);
+  // if (reviews.length) {
+  //   reviews = reviews.sort((a, b) => {
+  //     const dateA = new Date(a.date);
+  //     const dateB = new Date(b.date);
+  //     console.log(dateA, dateB)
+  //   })
+  // }
+
   return (
     <ul className="reviews__list">
-      {reviews.map((review) => <Review review={review} key={review.id}/>)}
+      {
+        reviews
+          .slice(0, maxReviewsNumber)
+          .map((review) => <Review review={review} key={review.id}/>)
+      }
     </ul>
   );
 }
