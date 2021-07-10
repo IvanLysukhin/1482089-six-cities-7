@@ -13,8 +13,9 @@ import {useHistory} from 'react-router-dom';
 function PlaceCard({offer, isNearOffers}) {
   const dispatch = useDispatch();
   const authorizationStatus = useSelector(getAuthorizationStatus);
-  const clickFavoriteButtonHandler = useFavorites(authorizationStatus, offer, dispatch);
   const history = useHistory();
+  const clickFavoriteButtonHandler = useFavorites(authorizationStatus, offer, dispatch, history);
+
 
   const clickLinkHandler = (evt) => {
     evt.preventDefault();

@@ -1,5 +1,4 @@
-import React,
-{useEffect} from 'react';
+import React from 'react';
 import {
   useDispatch,
   useSelector
@@ -24,6 +23,7 @@ import {
   getReviews
 } from '../../store/load-offers-data/selectors';
 import useFavorites from '../../hooks/useFavorites';
+import {useHistory} from 'react-router-dom';
 
 function Room(props) {
   const {offer} = props;
@@ -33,17 +33,17 @@ function Room(props) {
   const reviews = useSelector(getReviews);
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const nearbyOffers = useSelector(getNearbyOffers);
-
-  const clickFavoriteButtonHandler = useFavorites(authorizationStatus, offer, dispatch);
-
-  useEffect(() => {
-    dispatch(fetchOfferReviews(offer.id));
-    dispatch(fetchNearbyOffers(offer.id));
-  }, []);
-
+  const history = useHistory();
+  const clickFavoriteButtonHandler = useFavorites(authorizationStatus, offer, dispatch, history);
 
   return (
-    <div className="page">
+    <div
+      className="page"
+      onLoad={() => {
+        dispatch(fetchOfferReviews(offer.id));
+        dispatch(fetchNearbyOffers(offer.id));
+      }}
+    >
       <header className="header">
         <div className="container">
           <div className="header__wrapper">

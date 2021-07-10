@@ -3,31 +3,15 @@ import {render, screen} from '@testing-library/react';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import ReviewList from './reviews-list';
+import {mockReviews} from '../../mock/test-mocks';
 
 describe('Component: ReviewList', () => {
   it('should render "ReviewList" correctly', () => {
     const history = createMemoryHistory();
-    const fakeReview = {
-      id: 1,
-      user: {
-        id: 14,
-        isPro: true,
-        name: 'Corey',
-        avatarUrl: 'https://7.react.pages.academy/static/avatar/5.jpg',
-      },
-      rating: 4,
-      comment: 'I stayed here for one night and it was an unpleasant experience.',
-      date: '2021-07-01T13:04:25.833Z',
-    };
-    const reviewCount = 5;
-    const fakeReviews = new Array(reviewCount).fill('').map((review, i) => ({
-      ...fakeReview,
-      id: i,
-    }));
 
     render(
       <Router history={history}>
-        <ReviewList reviews={fakeReviews}/>
+        <ReviewList reviews={mockReviews}/>
       </Router>,
     );
 

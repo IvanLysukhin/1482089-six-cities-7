@@ -31,6 +31,13 @@ function Sorting() {
     }
   }, []);
 
+  const onSortTypeChangeHandler = ({target}) => {
+    if (target.tagName === 'LI') {
+      dispatch(changeSortType(target.textContent));
+      setView(false);
+    }
+  };
+
 
   useEffect(() => {
     [...activeSort.current.children].forEach((child) => {
@@ -66,12 +73,7 @@ function Sorting() {
       <ul
         className={`places__options places__options--custom ${view ? 'places__options--opened' : 'places__options--closed'}`}
         ref={activeSort}
-        onClick={({target}) => {
-          if (target.tagName === 'LI') {
-            dispatch(changeSortType(target.textContent));
-            setView(false);
-          }
-        }}
+        onClick={onSortTypeChangeHandler}
       >
         <li className="places__option" tabIndex="0">Popular</li>
         <li className="places__option" tabIndex="0">Price: low to high</li>

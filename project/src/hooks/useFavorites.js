@@ -1,9 +1,7 @@
 import {AppRoute, AuthorizationStatus} from '../constants';
 import {addToFavorites} from '../store/api-action';
-import {useHistory} from 'react-router-dom';
 
-function useFavorites(authorizationStatus, offer, dispatch) {
-  const history = useHistory();
+function useFavorites(authorizationStatus, offer, dispatch, history) {
   return () => {
     if (authorizationStatus !== AuthorizationStatus.AUTH) {
       history.push(AppRoute.LOGIN);

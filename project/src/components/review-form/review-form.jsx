@@ -5,30 +5,42 @@ import PropTypes from 'prop-types';
 
 function ReviewForm({offerId}) {
   const dispatch = useDispatch();
+
+  const onCommentSubmitHandler =(evt) => {
+    evt.preventDefault();
+
+    const inputs = Array.from(evt.target);
+    const checkedIndex = inputs.findIndex((input) => input.checked);
+    const textInputIndex = inputs.findIndex((input) => input.tagName === 'TEXTAREA');
+    const textAreaValue = inputs[textInputIndex].value;
+
+    if (checkedIndex === -1 || textAreaValue.length < 50 || !textAreaValue.length) {
+      return;
+    }
+
+    dispatch(postReview(offerId, {
+      comment: inputs[textInputIndex].value,
+      rating: Number(inputs[checkedIndex].value),
+    }));
+
+    evt.target.reset();
+  };
+
+  const onInputCommentHandler = ({target}) => {
+    if (!target.value.length || target.value.length < 50) {
+      target.setCustomValidity(`Describe your stay with at least ${50 - target.value.length} characters.`);
+    } else {
+      target.setCustomValidity('');
+    }
+    target.reportValidity();
+  };
+
   return (
     <form
       className="reviews__form form"
       action="#"
       method="post"
-      onSubmit={(evt) => {
-        evt.preventDefault();
-
-        const inputs = Array.from(evt.target);
-        const checkedIndex = inputs.findIndex((input) => input.checked);
-        const textInputIndex = inputs.findIndex((input) => input.tagName === 'TEXTAREA');
-        const textAreaValue = inputs[textInputIndex].value;
-
-        if (checkedIndex === -1 || textAreaValue.length < 50 || !textAreaValue.length) {
-          return;
-        }
-
-        dispatch(postReview(offerId, {
-          comment: inputs[textInputIndex].value,
-          rating: Number(inputs[checkedIndex].value),
-        }));
-
-        evt.target.reset();
-      }}
+      onSubmit={onCommentSubmitHandler}
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
@@ -77,14 +89,8 @@ function ReviewForm({offerId}) {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        onInput={({target}) => {
-          if (!target.value.length || target.value.length < 50) {
-            target.setCustomValidity(`Describe your stay with at least ${50 - target.value.length} characters.`);
-          } else {
-            target.setCustomValidity('');
-          }
-          target.reportValidity();
-        }}
+        onInput={onInputCommentHandler}
+        data-testid={'comment'}
       >
       </textarea>
       <div className="reviews__button-wrapper">
