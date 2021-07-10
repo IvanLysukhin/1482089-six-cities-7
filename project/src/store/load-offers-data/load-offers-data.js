@@ -1,5 +1,6 @@
-import {loadNearbyOffers, loadOfferReviews, loadOffers, updateOffers} from '../action';
+import {loadNearbyOffers, loadOfferReviews, loadOffers, sendReview, updateOffers} from '../action';
 import {createReducer} from '@reduxjs/toolkit';
+import {RequestStatus} from '../../constants';
 
 const initialState = {
   offers: [],
@@ -7,6 +8,7 @@ const initialState = {
   offerReviews: [],
   nearbyOffers: [],
   favoritesOffers: [],
+  isReviewSendSuccessful: RequestStatus.SUCCESS,
 };
 
 const loadOffersData = createReducer(initialState, (builder) => {
@@ -28,6 +30,9 @@ const loadOffersData = createReducer(initialState, (builder) => {
         }
         return offer;
       });
+    })
+    .addCase(sendReview, (state, action) => {
+      state.isReviewSendSuccessful = action.payload;
     });
 });
 

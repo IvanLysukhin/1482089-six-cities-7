@@ -14,7 +14,7 @@ import {
 import {
   APIRoute,
   AuthorizationStatus,
-  AppRoute
+  AppRoute, RequestStatus
 } from '../constants';
 import {adaptReviewToClient, adaptToClient} from '../utils';
 import {
@@ -200,14 +200,26 @@ describe('Async operations', () => {
     return reviewUploader(dispatch, () => {
     }, api)
       .then(() => {
-        const action = {
+        const actionSendWaiting = {
+          type: ActionType.SEND_REVIEW,
+          payload: RequestStatus.WAITING,
+        };
+
+        const actionSendDone = {
+          type: ActionType.SEND_REVIEW,
+          payload: RequestStatus.SUCCESS,
+        };
+
+        const actionServer = {
           type: ActionType.LOAD_OFFER_REVIEWS,
           payload: fakeReviewsData.map(adaptReviewToClient),
         };
 
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, action);
-        expect(action.payload.some((review) => review.comment === 'test comment')).toBeTruthy();
+        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenNthCalledWith(1, actionSendWaiting);
+        expect(dispatch).toHaveBeenNthCalledWith(2, actionServer);
+        expect(dispatch).toHaveBeenNthCalledWith(3, actionSendDone);
+        expect(actionServer.payload.some((review) => review.comment === 'test comment')).toBeTruthy();
       });
   });
 

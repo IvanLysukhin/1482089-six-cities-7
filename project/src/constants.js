@@ -41,3 +41,9 @@ export const AuthorizationStatus = {
 
 export const MIN_REVIEW_LENGTH = 50;
 export const MAX_REVIEW_LENGTH = 300;
+
+export const RequestStatus = {
+  SUCCESS: 'SUCCESS',
+  ERROR: 'ERROR',
+  WAITING: 'WAITING',
+};

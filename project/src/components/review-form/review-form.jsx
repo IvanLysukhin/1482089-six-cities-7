@@ -1,17 +1,22 @@
-import React, {useRef} from 'react';
-import {useDispatch} from 'react-redux';
+import React, {useRef, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {postReview} from '../../store/api-action';
 import PropTypes from 'prop-types';
 import {
   MIN_REVIEW_LENGTH,
-  MAX_REVIEW_LENGTH
+  MAX_REVIEW_LENGTH,
+  RequestStatus
 } from '../../constants';
+import {getReviewSendingStatus} from '../../store/load-offers-data/selectors';
 
 function ReviewForm({offerId}) {
   const dispatch = useDispatch();
   const submitButton = useRef(null);
   const radios = useRef(null);
   const commentArea = useRef(null);
+  const form = useRef(null);
+
+  const isReviewSendSuccessful = useSelector(getReviewSendingStatus);
 
   const onCommentSubmitHandler = (evt) => {
     evt.preventDefault();
@@ -23,8 +28,6 @@ function ReviewForm({offerId}) {
       comment: inputs[textInputIndex].value,
       rating: Number(inputs[checkedIndex].value),
     }));
-
-    evt.target.reset();
   };
 
   const formChangeHandler = () => {
@@ -57,6 +60,47 @@ function ReviewForm({offerId}) {
     target.reportValidity();
   };
 
+  const sendingHandler = (status) => {
+    switch (status) {
+      case RequestStatus.SUCCESS:
+        return 'Submit';
+      case RequestStatus.ERROR:
+        return 'Try again';
+      case RequestStatus.WAITING:
+        return 'Sending...';
+      default:
+        return 'Submit';
+    }
+  };
+
+  const showErrorMessage = (status) => {
+    if (status === RequestStatus.ERROR) {
+      return (
+        <div
+          style={{
+            background: 'red',
+            color: 'white',
+            height: '20px',
+            textAlign: 'center',
+          }}
+        >
+          Something go wrong. Please try later
+        </div>);
+    }
+    return '';
+  };
+
+  useEffect(() => {
+    if (isReviewSendSuccessful === RequestStatus.SUCCESS) {
+      form.current.reset();
+      submitButton.current.disabled = true;
+    }
+
+    if (isReviewSendSuccessful === RequestStatus.WAITING) {
+      submitButton.current.disabled = true;
+    }
+  });
+
   return (
     <form
       className="reviews__form form"
@@ -64,6 +108,7 @@ function ReviewForm({offerId}) {
       method="post"
       onSubmit={onCommentSubmitHandler}
       onChange={formChangeHandler}
+      ref={form}
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div
@@ -110,6 +155,7 @@ function ReviewForm({offerId}) {
           </svg>
         </label>
       </div>
+      {showErrorMessage(isReviewSendSuccessful)}
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
@@ -128,10 +174,9 @@ function ReviewForm({offerId}) {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled
           ref={submitButton}
         >
-          Submit
+          {sendingHandler(isReviewSendSuccessful)}
         </button>
       </div>
     </form>
