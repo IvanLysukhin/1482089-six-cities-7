@@ -1,5 +1,5 @@
 import React from 'react';
-import {getCurrentCity} from '../../store/change-offers/selectors';
+import {getCurrentCity} from '../../store/offers-data/selectors';
 import {useSelector} from 'react-redux';
 
 function EmptyMain() {

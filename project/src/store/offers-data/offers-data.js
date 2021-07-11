@@ -12,7 +12,7 @@ const initialState = {
   sortType: SortType.POPULAR,
 };
 
-const changeOffers = createReducer(initialState, (builder) => {
+const offersData = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCity, (state, action) => {
       state.city = action.payload;
@@ -26,4 +26,4 @@ const changeOffers = createReducer(initialState, (builder) => {
     });
 });
 
-export {changeOffers, initialState};
+export {offersData, initialState};

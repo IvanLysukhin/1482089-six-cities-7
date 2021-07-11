@@ -1,25 +1,25 @@
 import {
-  changeOffers,
+  offersData,
   initialState
-} from './change-offers';
+} from './offers-data';
 import {changeCity, changeSortType, showOffer} from '../action';
 import {SortType} from '../../constants';
 
 describe('Reducer: Change offers', () => {
   it('without parameters returns initial state', () => {
-    expect(changeOffers(undefined, {})).toEqual(initialState);
+    expect(offersData(undefined, {})).toEqual(initialState);
   });
 
   it('should change city by a given city and refresh sort type for initial state', () => {
     const chosenCity = 'Cologne';
 
-    expect(changeOffers(initialState, changeCity(chosenCity)))
+    expect(offersData(initialState, changeCity(chosenCity)))
       .toEqual({
         ...initialState,
         city: chosenCity,
       });
 
-    expect(changeOffers({
+    expect(offersData({
       ...initialState,
       sortType: SortType.TOP_RATED,
     },
@@ -35,9 +35,9 @@ describe('Reducer: Change offers', () => {
   it('should change offer ID by hovered card ID', () => {
     const hoveredCardId = 1;
 
-    expect(changeOffers(initialState, showOffer(0))).toEqual(initialState);
+    expect(offersData(initialState, showOffer(0))).toEqual(initialState);
 
-    expect(changeOffers(initialState, showOffer(hoveredCardId)))
+    expect(offersData(initialState, showOffer(hoveredCardId)))
       .toEqual({
         ...initialState,
         hoveredCardId,
@@ -45,7 +45,7 @@ describe('Reducer: Change offers', () => {
   });
 
   it('should change sort typ by given sort type', () => {
-    expect(changeOffers(initialState, changeSortType(SortType.TOP_RATED)))
+    expect(offersData(initialState, changeSortType(SortType.TOP_RATED)))
       .toEqual({
         ...initialState,
         sortType: SortType.TOP_RATED,

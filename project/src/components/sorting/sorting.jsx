@@ -12,7 +12,7 @@ import {changeSortType} from '../../store/action';
 import {
   getCurrentCity,
   getCurrentSortType
-} from '../../store/change-offers/selectors';
+} from '../../store/offers-data/selectors';
 
 function Sorting() {
 
