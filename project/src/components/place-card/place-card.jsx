@@ -5,7 +5,7 @@ import {calcRatingInPercent} from '../../utils';
 import PropTypes from 'prop-types';
 import {showOffer} from '../../store/action';
 import {getAuthorizationStatus} from '../../store/check-auth/selectors';
-import useFavorites from '../../hooks/useFavorites';
+import useFavorites from '../../hooks/use-favorites';
 import {AppRoute} from '../../constants';
 import {useHistory} from 'react-router-dom';
 

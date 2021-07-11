@@ -1,5 +1,5 @@
 import {renderHook, act} from '@testing-library/react-hooks';
-import useFavorites from './useFavorites';
+import useFavorites from './use-favorites';
 import {AppRoute, AuthorizationStatus} from '../constants';
 import {createMemoryHistory} from 'history';
 import {render, screen} from '@testing-library/react';

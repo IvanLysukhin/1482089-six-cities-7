@@ -22,7 +22,7 @@ import {
   getNearbyOffers,
   getReviews
 } from '../../store/load-offers-data/selectors';
-import useFavorites from '../../hooks/useFavorites';
+import useFavorites from '../../hooks/use-favorites';
 import {useHistory} from 'react-router-dom';
 
 function Room(props) {
