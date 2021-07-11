@@ -7,7 +7,7 @@ import {
   MAX_REVIEW_LENGTH,
   RequestStatus
 } from '../../constants';
-import {getReviewSendingStatus} from '../../store/load-offers-data/selectors';
+import {getReviewSendingStatus} from '../../store/load-process/selectors';
 
 function ReviewForm({offerId}) {
   const dispatch = useDispatch();

@@ -16,7 +16,7 @@ import {
 } from '../../constants';
 import PrivateRoute from '../private-route/private-route';
 import Loading from '../loading/loading';
-import {getDataLoadStatus, getOffers} from '../../store/load-offers-data/selectors';
+import {getDataLoadStatus, getOffers} from '../../store/load-process/selectors';
 import {getAuthorizationStatus} from '../../store/check-auth/selectors';
 
 function App() {

@@ -21,7 +21,7 @@ import {getAuthorizationStatus} from '../../store/check-auth/selectors';
 import {
   getNearbyOffers,
   getReviews
-} from '../../store/load-offers-data/selectors';
+} from '../../store/load-process/selectors';
 import useFavorites from '../../hooks/use-favorites';
 import {useHistory} from 'react-router-dom';
 

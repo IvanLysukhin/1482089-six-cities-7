@@ -15,7 +15,7 @@ import {AuthorizationStatus} from '../../constants';
 import SignOut from '../sign-out/sign-out';
 import SignIn from '../sign-in/sign-in';
 import {getCurrentCity, getCurrentSortType} from '../../store/offers-data/selectors';
-import {getOffers} from '../../store/load-offers-data/selectors';
+import {getOffers} from '../../store/load-process/selectors';
 import {getAuthorizationStatus} from '../../store/check-auth/selectors';
 
 
