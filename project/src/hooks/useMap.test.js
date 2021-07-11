@@ -12,7 +12,7 @@ const city = {
   },
 };
 
-describe('Hook, useFavorites', () => {
+describe('Hook, useMap', () => {
   it('should return render map', () => {
 
     const fakeMap = <section data-testid="map"/>;
