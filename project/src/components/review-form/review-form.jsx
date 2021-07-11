@@ -91,13 +91,17 @@ function ReviewForm({offerId}) {
   };
 
   useEffect(() => {
-    if (isReviewSendSuccessful === RequestStatus.SUCCESS) {
-      form.current.reset();
-      submitButton.current.disabled = true;
-    }
-
-    if (isReviewSendSuccessful === RequestStatus.WAITING) {
-      submitButton.current.disabled = true;
+    switch (isReviewSendSuccessful) {
+      case RequestStatus.SUCCESS:
+        form.current.reset();
+        submitButton.current.disabled = true;
+        break;
+      case RequestStatus.WAITING:
+        submitButton.current.disabled = true;
+        break;
+      case RequestStatus.ERROR:
+        submitButton.current.disabled = false;
+        break;
     }
   });
 
