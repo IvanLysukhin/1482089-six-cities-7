@@ -6,7 +6,7 @@ React,
 } from 'react';
 import {PropTypes} from 'prop-types';
 import offerProp from '../place-card/place-card.prop';
-import useMap from '../../hooks/useMap';
+import useMap from '../../hooks/use-map';
 import useMapMarker from '../../hooks/useMapMarker';
 import {useSelector} from 'react-redux';
 import {getHoveredCardId} from '../../store/change-offers/selectors';
