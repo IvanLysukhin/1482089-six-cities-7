@@ -9,7 +9,8 @@ import {
   redirectToRoute,
   loadOfferReviews,
   loadNearbyOffers,
-  updateOffers
+  updateOffers,
+  updateReviews
 } from './action';
 import {AuthorizationStatus} from '../constants';
 import {mockOffer, mockOffers, mockReviews} from '../mock/test-mocks';
@@ -96,6 +97,16 @@ describe('Actions', () => {
     };
 
     expect(loadOfferReviews(mockReviews)).toEqual(expectedAction);
+  });
+
+  it('Action creator for update reviews return correct action', () => {
+
+    const expectedAction = {
+      type: ActionType.UPDATE_REVIEWS,
+      payload: mockReviews,
+    };
+
+    expect(updateReviews(mockReviews)).toEqual(expectedAction);
   });
 
 

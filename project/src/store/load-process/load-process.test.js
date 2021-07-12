@@ -7,7 +7,8 @@ import {
   loadOfferReviews,
   loadOffers,
   updateOffers,
-  sendReview
+  sendReview,
+  updateReviews
 } from '../action';
 
 import {mockOffer, mockOffers, mockReviews} from '../../mock/test-mocks';
@@ -61,6 +62,16 @@ describe('Reducer: Load offers', () => {
       .toEqual({
         ...initialState,
         offerReviews,
+      });
+  });
+
+  it('should return updated reviews', () => {
+    const offerReviews = mockReviews;
+
+    expect(loadProcess(initialState, updateReviews(mockReviews)))
+      .toEqual({
+        ...initialState,
+        updatedReviews: offerReviews,
       });
   });
 

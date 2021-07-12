@@ -6,7 +6,7 @@ import {
   redirectToRoute,
   requireAuthorization,
   logout,
-  updateOffers, sendReview
+  updateOffers, sendReview, updateReviews
 } from './action';
 import {AuthorizationStatus, RequestStatus} from '../constants';
 import {adaptToClient, adaptReviewToClient} from '../utils';
@@ -69,7 +69,7 @@ export const postReview = (offerId, {comment, rating}) => (dispatch, _getState, 
       },
     })
     .then(({data}) => {
-      dispatch(loadOfferReviews(data.map(adaptReviewToClient)));
+      dispatch(updateReviews(data.map(adaptReviewToClient)));
     })
     .then(() => {
       dispatch(sendReview(RequestStatus.SUCCESS));

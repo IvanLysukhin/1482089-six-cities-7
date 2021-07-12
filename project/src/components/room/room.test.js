@@ -22,6 +22,7 @@ const defaultStore = {
     isDataLoaded: true,
     nearbyOffers: [],
     offerReviews: [],
+    updatedReviews: [],
   },
   CHANGE: {
     city: 'Paris',

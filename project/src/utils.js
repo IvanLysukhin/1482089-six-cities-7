@@ -68,3 +68,9 @@ export const creatMockArray = (template, count) => new Array(count).fill('').map
   ...template,
   id: i + 1,
 }));
+
+export const sortByDate = (a, b) => {
+  const dateA = new Date(a.date);
+  const dateB = new Date(b.date);
+  return dateB.valueOf() - dateA.valueOf();
+};

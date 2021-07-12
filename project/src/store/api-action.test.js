@@ -211,7 +211,7 @@ describe('Async operations', () => {
         };
 
         const actionServer = {
-          type: ActionType.LOAD_OFFER_REVIEWS,
+          type: ActionType.UPDATE_REVIEWS,
           payload: fakeReviewsData.map(adaptReviewToClient),
         };
 

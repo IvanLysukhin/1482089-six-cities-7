@@ -2,12 +2,14 @@ import {NameSpace} from '../root-reducer';
 import {createSelector} from 'reselect';
 import {SortType} from '../../constants';
 import {getCurrentCity, getCurrentSortType} from '../offers-data/selectors';
+import {sortByDate} from '../../utils';
 
 export const getOffers = (state) => state[NameSpace.LOAD].offers;
 export const getDataLoadStatus = (state) => state[NameSpace.LOAD].isDataLoaded;
 export const getReviews = (state) => state[NameSpace.LOAD].offerReviews;
 export const getNearbyOffers = (state) => state[NameSpace.LOAD].nearbyOffers;
 export const getReviewSendingStatus = (state) => state[NameSpace.LOAD].isReviewSendSuccessful;
+export const getUpdatedReviews = (state) => state[NameSpace.LOAD].updatedReviews;
 
 export const getFilterOffers = createSelector(getOffers, getCurrentCity, (offers, city) =>
   offers.filter((offer) => offer.city.name === city),
@@ -27,9 +29,9 @@ export const getSortedOffers = createSelector(getFilterOffers, getOffers, getCur
 });
 
 export const getSortedReviews = createSelector(getReviews, (reviews) =>
-  [...reviews].sort((a, b) => {
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
-    return dateB.valueOf() - dateA.valueOf();
-  }),
+  [...reviews].sort(sortByDate),
+);
+
+export const getSortedUpdatedReviews = createSelector(getUpdatedReviews, (reviews) =>
+  [...reviews].sort(sortByDate),
 );

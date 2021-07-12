@@ -1,4 +1,4 @@
-import {loadNearbyOffers, loadOfferReviews, loadOffers, sendReview, updateOffers} from '../action';
+import {loadNearbyOffers, loadOfferReviews, loadOffers, sendReview, updateOffers, updateReviews} from '../action';
 import {createReducer} from '@reduxjs/toolkit';
 import {RequestStatus} from '../../constants';
 
@@ -6,6 +6,7 @@ const initialState = {
   offers: [],
   isDataLoaded: false,
   offerReviews: [],
+  updatedReviews: [],
   nearbyOffers: [],
   favoritesOffers: [],
   isReviewSendSuccessful: RequestStatus.SUCCESS,
@@ -19,6 +20,9 @@ const loadProcess = createReducer(initialState, (builder) => {
     })
     .addCase(loadOfferReviews, (state, action) => {
       state.offerReviews = action.payload;
+    })
+    .addCase(updateReviews, (state, action) => {
+      state.updatedReviews = action.payload;
     })
     .addCase(loadNearbyOffers, (state, action) => {
       state.nearbyOffers = action.payload;

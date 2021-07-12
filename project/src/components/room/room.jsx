@@ -20,7 +20,7 @@ import {fetchNearbyOffers, fetchOfferReviews} from '../../store/api-action';
 import {getAuthorizationStatus} from '../../store/check-auth/selectors';
 import {
   getNearbyOffers,
-  getSortedReviews
+  getSortedReviews, getSortedUpdatedReviews
 } from '../../store/load-process/selectors';
 import useFavorites from '../../hooks/use-favorites';
 import {useHistory} from 'react-router-dom';
@@ -30,9 +30,14 @@ function Room(props) {
 
   const dispatch = useDispatch();
 
-  const reviews = useSelector(getSortedReviews);
+  let reviews = useSelector(getSortedReviews);
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const nearbyOffers = useSelector(getNearbyOffers);
+  const updatedReviews = useSelector(getSortedUpdatedReviews);
+
+  if (updatedReviews.length) {
+    reviews = updatedReviews;
+  }
 
   const history = useHistory();
 
