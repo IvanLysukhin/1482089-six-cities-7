@@ -7,7 +7,7 @@ import {
   MAX_REVIEW_LENGTH,
   RequestStatus
 } from '../../constants';
-import {getReviewSendingStatus} from '../../store/load-offers-data/selectors';
+import {getReviewSendingStatus} from '../../store/load-process/selectors';
 
 function ReviewForm({offerId}) {
   const dispatch = useDispatch();
@@ -91,13 +91,17 @@ function ReviewForm({offerId}) {
   };
 
   useEffect(() => {
-    if (isReviewSendSuccessful === RequestStatus.SUCCESS) {
-      form.current.reset();
-      submitButton.current.disabled = true;
-    }
-
-    if (isReviewSendSuccessful === RequestStatus.WAITING) {
-      submitButton.current.disabled = true;
+    switch (isReviewSendSuccessful) {
+      case RequestStatus.SUCCESS:
+        form.current.reset();
+        submitButton.current.disabled = true;
+        break;
+      case RequestStatus.WAITING:
+        submitButton.current.disabled = true;
+        break;
+      case RequestStatus.ERROR:
+        submitButton.current.disabled = false;
+        break;
     }
   });
 

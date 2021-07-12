@@ -11,7 +11,7 @@ const initialState = {
   isReviewSendSuccessful: RequestStatus.SUCCESS,
 };
 
-const loadOffersData = createReducer(initialState, (builder) => {
+const loadProcess = createReducer(initialState, (builder) => {
   builder
     .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;
@@ -36,4 +36,4 @@ const loadOffersData = createReducer(initialState, (builder) => {
     });
 });
 
-export {loadOffersData, initialState};
+export {loadProcess, initialState};

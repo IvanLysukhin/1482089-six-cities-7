@@ -9,26 +9,24 @@ import CardsList from '../cards-list/cards-list';
 import Locations from '../locations/locations';
 import {changeCity} from '../../store/action';
 import Sorting from '../sorting/sorting';
-import {sortOffers} from '../../utils';
 import EmptyMain from '../empty-main/empty-main';
 import {AuthorizationStatus} from '../../constants';
 import SignOut from '../sign-out/sign-out';
 import SignIn from '../sign-in/sign-in';
-import {getCurrentCity, getCurrentSortType} from '../../store/change-offers/selectors';
-import {getOffers} from '../../store/load-offers-data/selectors';
+import {getCurrentCity} from '../../store/offers-data/selectors';
+import {getFilterOffers, getSortedOffers} from '../../store/load-process/selectors';
 import {getAuthorizationStatus} from '../../store/check-auth/selectors';
 
 
 function Main() {
 
-  const offers = useSelector(getOffers);
   const city = useSelector(getCurrentCity);
-  const sortType = useSelector(getCurrentSortType);
+
   const authorizationStatus = useSelector(getAuthorizationStatus);
+  const filteredOffers = useSelector(getFilterOffers);
+  const sortedOffers = useSelector(getSortedOffers);
 
   const dispatch = useDispatch();
-
-  const filteredOffers = offers.filter((offer) => offer.city.name === city);
 
   const onCityChangeHandler = useCallback((newCity) => dispatch(changeCity(newCity)), []);
   return (
@@ -57,7 +55,7 @@ function Main() {
                 <b className="places__found">{filteredOffers.length} places to stay in {city}</b>
                 <Sorting/>
                 <CardsList
-                  offers={sortOffers(filteredOffers, sortType)}
+                  offers={sortedOffers}
                 />
               </section>
               <div className="cities__right-section">

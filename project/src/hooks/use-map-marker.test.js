@@ -1,8 +1,8 @@
 import React from 'react';
 import {renderHook} from '@testing-library/react-hooks';
 import {render} from '@testing-library/react';
-import useMap from './useMap';
-import useMapMarker from './useMapMarker';
+import useMap from './use-map';
+import useMapMarker from './use-map-marker';
 import {creatMockArray} from '../utils';
 
 const offer = {

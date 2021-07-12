@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
-import {changeOffers} from './change-offers/change-offers';
-import {loadOffersData} from './load-offers-data/load-offers-data';
+import {offersData} from './offers-data/offers-data';
+import {loadProcess} from './load-process/load-process';
 import {checkAuth} from './check-auth/check-auth';
 
 export const NameSpace = {
@@ -10,8 +10,8 @@ export const NameSpace = {
 };
 
 export default combineReducers({
-  [NameSpace.CHANGE]: changeOffers,
-  [NameSpace.LOAD]: loadOffersData,
+  [NameSpace.CHANGE]: offersData,
+  [NameSpace.LOAD]: loadProcess,
   [NameSpace.AUTH]: checkAuth,
 });
 

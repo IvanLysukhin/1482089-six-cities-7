@@ -1,7 +1,7 @@
 import React from 'react';
 import {calcRatingInPercent} from '../../utils';
 import offerProp from '../place-card/place-card.prop';
-import useFavorites from '../../hooks/useFavorites';
+import useFavorites from '../../hooks/use-favorites';
 import {useDispatch, useSelector} from 'react-redux';
 import {getAuthorizationStatus} from '../../store/check-auth/selectors';
 import {AppRoute} from '../../constants';

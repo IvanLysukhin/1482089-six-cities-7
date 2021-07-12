@@ -1,7 +1,7 @@
 import {
   initialState,
-  loadOffersData
-} from './load-offers-data';
+  loadProcess
+} from './load-process';
 import {
   loadNearbyOffers,
   loadOfferReviews,
@@ -15,12 +15,12 @@ import {RequestStatus} from '../../constants';
 
 describe('Reducer: Load offers', () => {
   it('without parameters returns initial state', () => {
-    expect(loadOffersData(undefined, {})).toEqual(initialState);
+    expect(loadProcess(undefined, {})).toEqual(initialState);
   });
 
   it('should change sending status to SUCCESS', () => {
 
-    expect(loadOffersData(initialState, sendReview(RequestStatus.SUCCESS)))
+    expect(loadProcess(initialState, sendReview(RequestStatus.SUCCESS)))
       .toEqual({
         ...initialState,
       });
@@ -28,7 +28,7 @@ describe('Reducer: Load offers', () => {
 
   it('should change sending status to WAITING', () => {
 
-    expect(loadOffersData(initialState, sendReview(RequestStatus.WAITING)))
+    expect(loadProcess(initialState, sendReview(RequestStatus.WAITING)))
       .toEqual({
         ...initialState,
         isReviewSendSuccessful: RequestStatus.WAITING,
@@ -37,7 +37,7 @@ describe('Reducer: Load offers', () => {
 
   it('should change sending status to ERROR', () => {
 
-    expect(loadOffersData(initialState, sendReview(RequestStatus.ERROR)))
+    expect(loadProcess(initialState, sendReview(RequestStatus.ERROR)))
       .toEqual({
         ...initialState,
         isReviewSendSuccessful: RequestStatus.ERROR,
@@ -46,7 +46,7 @@ describe('Reducer: Load offers', () => {
 
   it('should load all offers', () => {
 
-    expect(loadOffersData(initialState, loadOffers(mockOffers)))
+    expect(loadProcess(initialState, loadOffers(mockOffers)))
       .toEqual({
         ...initialState,
         isDataLoaded: true,
@@ -57,7 +57,7 @@ describe('Reducer: Load offers', () => {
   it('should load reviews for chosen card', () => {
     const offerReviews = mockReviews;
 
-    expect(loadOffersData(initialState, loadOfferReviews(mockReviews)))
+    expect(loadProcess(initialState, loadOfferReviews(mockReviews)))
       .toEqual({
         ...initialState,
         offerReviews,
@@ -67,7 +67,7 @@ describe('Reducer: Load offers', () => {
   it('should load neraby offers for chosen card', () => {
     const nearbyOffers = mockOffers;
 
-    expect(loadOffersData(initialState, loadNearbyOffers(mockOffers)))
+    expect(loadProcess(initialState, loadNearbyOffers(mockOffers)))
       .toEqual({
         ...initialState,
         nearbyOffers,
@@ -81,7 +81,7 @@ describe('Reducer: Load offers', () => {
       isFavorite: true,
     };
 
-    expect(loadOffersData({
+    expect(loadProcess({
       ...initialState,
       offers: mockOffers,
     }, updateOffers(favoriteMockOffer)))
