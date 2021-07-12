@@ -11,7 +11,7 @@ import GoodsItem from '../goods-item/goods-item';
 import HostUser from '../host-user/host-user';
 import offerProp from '../place-card/place-card.prop';
 import ReviewForm from '../review-form/review-form';
-import {AuthorizationStatus} from '../../constants';
+import {AuthorizationStatus, MAX_PHOTOS_NUMBER} from '../../constants';
 import CardsList from '../cards-list/cards-list';
 import SignIn from '../sign-in/sign-in';
 import SignOut from '../sign-out/sign-out';
@@ -20,7 +20,7 @@ import {fetchNearbyOffers, fetchOfferReviews} from '../../store/api-action';
 import {getAuthorizationStatus} from '../../store/check-auth/selectors';
 import {
   getNearbyOffers,
-  getReviews
+  getSortedReviews
 } from '../../store/load-process/selectors';
 import useFavorites from '../../hooks/use-favorites';
 import {useHistory} from 'react-router-dom';
@@ -30,12 +30,14 @@ function Room(props) {
 
   const dispatch = useDispatch();
 
-  const reviews = useSelector(getReviews);
+  const reviews = useSelector(getSortedReviews);
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const nearbyOffers = useSelector(getNearbyOffers);
+
   const history = useHistory();
+
   const clickFavoriteButtonHandler = useFavorites(authorizationStatus, offer, dispatch, history);
-  const maxPhotoNumber = 6;
+
   return (
     <div
       className="page"
@@ -59,7 +61,7 @@ function Room(props) {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {offer.images.slice(0, maxPhotoNumber).map((image) => <GalleryImage src={image} key={image}/>)}
+              {offer.images.slice(0, MAX_PHOTOS_NUMBER).map((image) => <GalleryImage src={image} key={image}/>)}
             </div>
           </div>
           <div className="property__container container">

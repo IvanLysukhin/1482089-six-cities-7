@@ -11,7 +11,7 @@ export const City = {
   COLOGNE: 'Cologne',
   BRUSSELS: 'Brussels',
   AMSTERDAM: 'Amsterdam',
-  HAMBURG:'Hamburg',
+  HAMBURG: 'Hamburg',
   DUSSELDORF: 'Dusseldorf',
 };
 
@@ -38,6 +38,8 @@ export const AuthorizationStatus = {
 
 export const MIN_REVIEW_LENGTH = 50;
 export const MAX_REVIEW_LENGTH = 300;
+export const MAX_REVIEWS_NUMBER = 10;
+export const MAX_PHOTOS_NUMBER = 6;
 
 export const RequestStatus = {
   SUCCESS: 'SUCCESS',
