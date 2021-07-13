@@ -71,7 +71,7 @@ describe('Reducer: Load offers', () => {
     expect(loadProcess(initialState, updateReviews(mockReviews)))
       .toEqual({
         ...initialState,
-        updatedReviews: offerReviews,
+        offerReviews,
       });
   });
 

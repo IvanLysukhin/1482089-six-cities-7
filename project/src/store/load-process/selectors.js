@@ -9,7 +9,6 @@ export const getDataLoadStatus = (state) => state[NameSpace.LOAD].isDataLoaded;
 export const getReviews = (state) => state[NameSpace.LOAD].offerReviews;
 export const getNearbyOffers = (state) => state[NameSpace.LOAD].nearbyOffers;
 export const getReviewSendingStatus = (state) => state[NameSpace.LOAD].isReviewSendSuccessful;
-export const getUpdatedReviews = (state) => state[NameSpace.LOAD].updatedReviews;
 
 export const getFilterOffers = createSelector(getOffers, getCurrentCity, (offers, city) =>
   offers.filter((offer) => offer.city.name === city),
@@ -29,9 +28,5 @@ export const getSortedOffers = createSelector(getFilterOffers, getOffers, getCur
 });
 
 export const getSortedReviews = createSelector(getReviews, (reviews) =>
-  [...reviews].sort(sortByDate),
-);
-
-export const getSortedUpdatedReviews = createSelector(getUpdatedReviews, (reviews) =>
   [...reviews].sort(sortByDate),
 );

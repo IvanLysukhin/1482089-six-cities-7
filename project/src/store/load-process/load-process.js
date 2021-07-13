@@ -6,7 +6,6 @@ const initialState = {
   offers: [],
   isDataLoaded: false,
   offerReviews: [],
-  updatedReviews: [],
   nearbyOffers: [],
   favoritesOffers: [],
   isReviewSendSuccessful: RequestStatus.SUCCESS,
@@ -22,7 +21,7 @@ const loadProcess = createReducer(initialState, (builder) => {
       state.offerReviews = action.payload;
     })
     .addCase(updateReviews, (state, action) => {
-      state.updatedReviews = action.payload;
+      state.offerReviews = action.payload;
     })
     .addCase(loadNearbyOffers, (state, action) => {
       state.nearbyOffers = action.payload;
