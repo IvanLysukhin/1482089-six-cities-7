@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   useDispatch,
   useSelector
@@ -36,14 +36,13 @@ function Room(props) {
 
   const clickFavoriteButtonHandler = useFavorites(authorizationStatus, offer, dispatch, history);
 
+  useEffect(() => {
+    dispatch(fetchOfferReviews(offer.id));
+    dispatch(fetchNearbyOffers(offer.id));
+  }, []);
+
   return (
-    <div
-      className="page"
-      onLoad={() => {
-        dispatch(fetchOfferReviews(offer.id));
-        dispatch(fetchNearbyOffers(offer.id));
-      }}
-    >
+    <div className="page">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">

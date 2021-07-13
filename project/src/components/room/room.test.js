@@ -7,8 +7,19 @@ import configureStore from 'redux-mock-store';
 import {AuthorizationStatus} from '../../constants';
 import Room from './room';
 import {mockOffer} from '../../mock/test-mocks';
+import {createAPI} from '../../services/api';
 
-const mockStore = configureStore();
+const api = createAPI(() => {
+});
+
+const thunk = ({dispatch, getState}) => (next) => (action) => {
+  if (typeof action === 'function') {
+    return action(dispatch, getState, api);
+  }
+  return next(action);
+};
+
+const mockStore = configureStore([thunk]);
 
 let history;
 let store;
@@ -22,7 +33,6 @@ const defaultStore = {
     isDataLoaded: true,
     nearbyOffers: [],
     offerReviews: [],
-    updatedReviews: [],
   },
   CHANGE: {
     city: 'Paris',
